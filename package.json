@@ -1,0 +1,30 @@
+{
+  "name": "api-gateway",
+  "version": "0.1.0",
+  "description": "simple api gateway",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jarontai/api-gateway.git"
+  },
+  "keywords": [
+    "gateway",
+    "api-gateway"
+  ],
+  "author": "jarontai",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jarontai/api-gateway/issues"
+  },
+  "homepage": "https://github.com/jarontai/api-gateway#readme",
+  "dependencies": {
+    "express": "^4.15.3"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-plugin-import": "^2.7.0"
+  }
+}
