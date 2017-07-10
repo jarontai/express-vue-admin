@@ -2,7 +2,7 @@
   "name": "api-gateway",
   "version": "0.1.0",
   "description": "simple api gateway",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,7 +21,14 @@
   },
   "homepage": "https://github.com/jarontai/api-gateway#readme",
   "dependencies": {
-    "express": "^4.15.3"
+    "body-parser": "^1.17.2",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.3",
+    "express-jwt": "^5.3.0",
+    "express-jwt-permissions": "^1.0.0",
+    "lodash": "^4.17.4",
+    "sequelize": "^4.3.0",
+    "sequelize-cli": "^2.7.0"
   },
   "devDependencies": {
     "eslint": "^3.19.0",
