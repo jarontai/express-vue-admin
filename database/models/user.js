@@ -1,6 +1,6 @@
 'use strict';
 
-const util = require('../../lib/util');
+const util = require('../../util');
 
 module.exports = (sequelize, DataTypes) => {
   return sequelize.define('User', {
