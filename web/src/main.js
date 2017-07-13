@@ -6,7 +6,6 @@ import Vue from 'vue';
 import VueResource from 'vue-resource';
 import App from './App';
 import router from './router';
-import EventBus from './event_bus';
 
 Vue.use(VueResource);
 Vue.use(iView);
@@ -18,7 +17,10 @@ Vue.http.interceptors.push(function (request, next) {
     // 通过event bus发送错误消息
     const body = response.body;
     if (body && body.code !== undefined && body.code !== 0) {
-      EventBus.$emit('error', { 'code': body.code, 'message': body.message });
+      this.$Message.warning({
+        content: body.message || '后台未知错误',
+        duration: 5
+      });
     } else if (response && response.status !== 200) {
       let message = response.statusText;
       switch (response.status) {
@@ -31,7 +33,10 @@ Vue.http.interceptors.push(function (request, next) {
         default:
           break;
       }
-      EventBus.$emit('error', { 'code': response.status, 'message': message });
+      this.$Message.warning({
+        content: message,
+        duration: 5
+      });
     }
 
     if (body && body.data) {

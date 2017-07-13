@@ -3,23 +3,23 @@
 
     <Row justify="center" align="middle" class="login-row">
       <div class="login-title">express-vue-admin</div>
-      <Col span="8" offset="8" class="login-col">
-      <Card class="login-card">
-        <p slot="title">
-          请登录
-        </p>
-        <Form ref="formLogin" :model="formLogin" :rules="ruleCustom" :label-width="40">
-          <Form-item label="邮箱" prop="email">
-            <Input type="text" v-model="formLogin.email"></Input>
-          </Form-item>
-          <Form-item label="密码" prop="password">
-            <Input type="password" v-model="formLogin.password"></Input>
-          </Form-item>
-          <Form-item>
-            <Button long type="success" @click="handleSubmit('formLogin')">登录</Button>
-          </Form-item>
-        </Form>
-      </Card>
+      <Col :xs="{ span: 10, offset: 7 }" :sm="{ span: 8, offset: 8 }" :md="{ span: 8, offset: 8 }" :lg="{ span: 4, offset: 10 }" class="login-col">
+        <Card class="login-card">
+          <p slot="title">
+            请登录
+          </p>
+          <Form ref="formLogin" :model="formLogin" :rules="ruleCustom" :label-width="40">
+            <Form-item label="邮箱" prop="email">
+              <Input type="text" v-model="formLogin.email"></Input>
+            </Form-item>
+            <Form-item label="密码" prop="password">
+              <Input type="password" v-model="formLogin.password"></Input>
+            </Form-item>
+            <Form-item>
+              <Button long type="success" @click="handleSubmit('formLogin')">登录</Button>
+            </Form-item>
+          </Form>
+        </Card>
       </Col>
     </Row>
   </div>

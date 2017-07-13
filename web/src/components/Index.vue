@@ -30,9 +30,6 @@
 import SideMenu from '@/components/layout/SideMenu';
 import Navigator from '@/components/layout/Navigator';
 import MainContent from '@/components/layout/MainContent';
-import EventBus from '@/event_bus';
-
-const errorTime = 6000; // 错误信息展示时间
 
 export default {
   props: ['user'],
@@ -49,22 +46,8 @@ export default {
   computed: {
   },
   methods: {
-    showError: function (msg) {
-      // 声明错误显示函数
-      const that = this;
-      that.errorMessage = msg;
-      setTimeout(function () {
-        that.errorMessage = '';
-      }, errorTime);
-    }
   },
   created: function () {
-    // 监听其他组件的错误消息
-    const that = this;
-    EventBus.$on('error', function (data) {
-      that.showError(data.message ? data.message : data);
-    });
-
     // TODO 执行初始化工作
     // this.$http.get('gets').then(function () {
     // }, function (err) {
