@@ -1,0 +1,103 @@
+<template>
+  <div>
+
+    <Row justify="center" align="middle" class="login-row">
+      <div class="login-title">express-vue-admin</div>
+      <Col span="8" offset="8" class="login-col">
+      <Card class="login-card">
+        <p slot="title">
+          请登录
+        </p>
+        <Form ref="formLogin" :model="formLogin" :rules="ruleCustom" :label-width="40">
+          <Form-item label="邮箱" prop="email">
+            <Input type="text" v-model="formLogin.email"></Input>
+          </Form-item>
+          <Form-item label="密码" prop="password">
+            <Input type="password" v-model="formLogin.password"></Input>
+          </Form-item>
+          <Form-item>
+            <Button long type="success" @click="handleSubmit('formLogin')">登录</Button>
+          </Form-item>
+        </Form>
+      </Card>
+      </Col>
+    </Row>
+  </div>
+</template>
+
+<script>
+export default {
+  props: ['user'],
+  watch: {
+    user() {
+      console.log('user chagne');
+    }
+  },
+  data() {
+    function validateEmail(rule, value, callback) {
+      if (value === '') {
+        callback(new Error('请输入邮箱'));
+      } else {
+        callback();
+      }
+    }
+
+    function validatePassword(rule, value, callback) {
+      if (value === '') {
+        callback(new Error('请输入密码'));
+      } else {
+        callback();
+      }
+    }
+
+    return {
+      formLogin: {
+        email: '',
+        password: ''
+      },
+      ruleCustom: {
+        email: [
+          { validator: validateEmail, trigger: 'blur' }
+        ],
+        password: [
+          { validator: validatePassword, trigger: 'blur' }
+        ]
+      }
+    };
+  },
+  methods: {
+    handleSubmit(name) {
+      this.$refs[name].validate((valid) => {
+        if (valid) {
+          this.$Message.success('提交成功!');
+          this.$router.replace('/');
+        } else {
+          this.$Message.error('表单验证失败!');
+        }
+      });
+    },
+    handleReset(name) {
+      this.$refs[name].resetFields();
+    }
+  }
+};
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+.title-row {
+  height: 100px;
+}
+.login-card {
+  width: 100%;
+  margin-top: 10%;
+}
+.login-row {
+  height: 100%;
+}
+.login-title {
+  margin-top: 10%;
+  text-align: center;
+  font-size: 24px;
+}
+</style>
