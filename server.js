@@ -7,6 +7,7 @@ const Sequelize = require('sequelize');
 
 const app = express();
 const port = process.env.SERVER_PORT || 3000;
+const router = require('./router');
 
 // db
 const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PASSWORD, {
@@ -29,15 +30,6 @@ sequelize.authenticate()
     console.error('Unable to connect to the database:', err);
   });
 
-// routes
-app.get('/', (req, res) => {
-  res.end('Hola!');
-});
-
-app.get('/ping/:name', (req, res) => {
-  res.end(`pong ${req.params.name}`);
-});
-
-app.listen(port, () => {
+router(app).listen(port, () => {
   console.log(`Server listening at ${port}`);
 });
