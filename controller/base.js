@@ -17,7 +17,6 @@ class BaseController {
    * @memberOf BaseController
    */
   constructor(modelName) {
-    this.Promise = Promise;
     if (modelName) {
       this.modelName = modelName;
       this.model = models[modelName];

@@ -1,14 +1,29 @@
 'use strict';
 
-module.exports = app => {
-  // routes
-  app.get('/', (req, res) => {
-    res.end('Hola!');
-  });
+const util = require('./util');
+const adminUserCtrl = require('./controller/admin/user');
+const express = require('express');
+const expressListRoutes = require('express-list-routes');
 
-  app.get('/ping/:name', (req, res) => {
-    res.end(`pong ${req.params.name}`);
-  });
+// root
+const rootRouter = express.Router();
+rootRouter.route('/').get((req, res) => {
+  res.end('Hola!');
+});
+
+// admin
+const adminRouter = express.Router();
+util.restRoute('/users', adminRouter, adminUserCtrl);
+
+// 打印所有路由，便于开发调试
+if (!util.isProdEnv()) {
+  expressListRoutes({}, 'ROOT:', rootRouter );
+  expressListRoutes({ prefix: '/admin' }, 'ADMIN:', adminRouter );
+}
+
+module.exports = app => {
+  app.use('/', rootRouter);
+  app.use('/admin', adminRouter);
 
   return app;
 };

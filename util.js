@@ -2,24 +2,25 @@
 
 module.exports = {
   // rest路由
-  restRoute: (router, controller) => {
-    router.get('/', (req, res) => {
+  restRoute: (path, router, controller) => {
+    path = path || '';
+    router.get(path+'/', (req, res) => {
       controller.index(req.query).then((result) => {
         res.reply(result);
       });
-    }).get('/:id', (req, res) => {
+    }).get(path+'/:id', (req, res) => {
       controller.show(req.params.id).then((result) => {
         res.reply(result);
       });
-    }).post('/', (req, res) => {
+    }).post(path+'/', (req, res) => {
       controller.create(req.body).then((result) => {
         res.reply(result);
       });
-    }).put('/:id', (req, res) => {
+    }).put(path+'/:id', (req, res) => {
       controller.update(req.params.id, req.body).then((result) => {
         res.reply(result);
       });
-    }).delete('/:id', (req, res) => {
+    }).delete(path+'/:id', (req, res) => {
       controller.destroy(req.params.id).then((result) => {
         res.reply(result);
       });

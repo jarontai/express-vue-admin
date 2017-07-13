@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     salt: DataTypes.STRING,
     disabled: DataTypes.BOOLEAN
   }, util.addModelCommonOptions({
-    tableName: 'user',
+    tableName: 'users',
     classMethods: {
       associate: (models) => {
         // models.User.hasOne(models.UserStatistic, {foreignKey: 'user_id', onUpdate: 'CASCADE', onDelete: 'CASCADE'});
