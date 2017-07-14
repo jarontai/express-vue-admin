@@ -27,10 +27,10 @@ const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, pr
 
 sequelize.authenticate()
   .then(() => {
-    console.log('Database connection has been established successfully.');
+    console.log('Database ok.');
   })
   .catch(err => {
-    console.error('Unable to connect to the database:', err);
+    console.error('Database fail.', err);
   });
 
 // 中间件
@@ -39,7 +39,7 @@ if (!util.isProdEnv()) {
 }
 app.use(baseMiddleware.reply);
 
-// 加载路由启动
+// 路由
 router.process(app);
 
 // 错误处理
