@@ -1,11 +1,11 @@
 'use strict';
 
-const BaseCtrl = require('../base');
+const RestController = require('../rest');
 
-class UserCtrl extends BaseCtrl {
+class UserController extends RestController {
   constructor() {
     super('User');
   }
 }
 
-module.exports = new UserCtrl();
+module.exports = new UserController();
