@@ -39,11 +39,15 @@ if (!util.isProdEnv()) {
 }
 app.use(baseMiddleware.reply);
 
+// 加载路由启动
+router.process(app);
+
 // 错误处理
+app.use(baseMiddleware.notFound);
 app.use(baseMiddleware.error);
 
-// 加载路由启动
-router(app).listen(port, () => {
+// 启动
+app.listen(port, () => {
   console.log(`Server listening at ${port}`);
 });
 

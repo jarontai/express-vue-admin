@@ -21,9 +21,11 @@ if (!util.isProdEnv()) {
   expressListRoutes({ prefix: '/admin' }, 'ADMIN:', adminRouter );
 }
 
-module.exports = app => {
-  app.use('/', rootRouter);
-  app.use('/admin', adminRouter);
+module.exports = {
+  process: app => {
+    app.use('/', rootRouter);
+    app.use('/admin', adminRouter);
 
-  return app;
+    return app;
+  }
 };

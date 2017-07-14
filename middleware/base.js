@@ -38,6 +38,11 @@ function reply(req, res, next) {
   next();
 }
 
+// 404
+function notFound(req, res) {
+  res.status(404).end('Not found!');
+}
+
 // 通用错误处理
 function error(err, req, res, next) {
   console.error(err);
@@ -54,5 +59,6 @@ function error(err, req, res, next) {
 
 module.exports = {
   reply: reply,
+  notFound: notFound,
   error: error
 };
