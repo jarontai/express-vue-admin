@@ -34,7 +34,7 @@ sequelize.authenticate()
   });
 
 // 中间件
-if (!util.isProdEnv()) {
+if (util.isNotProdEnv()) {
   app.use(morgan('dev'));
 }
 app.use(baseMiddleware.reply);

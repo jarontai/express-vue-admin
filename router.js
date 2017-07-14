@@ -15,8 +15,8 @@ rootRouter.route('/').get((req, res) => {
 const adminRouter = express.Router();
 util.restRoute('/users', adminRouter, adminUserCtrl);
 
-// 打印所有路由，便于开发调试
-if (!util.isProdEnv()) {
+// 打印所有路由，便于调试
+if (util.isNotProdEnv()) {
   expressListRoutes({}, 'ROOT:', rootRouter );
   expressListRoutes({ prefix: '/admin' }, 'ADMIN:', adminRouter );
 }

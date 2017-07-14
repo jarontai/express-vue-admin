@@ -26,10 +26,17 @@ module.exports = {
       });
     });
   },
+
   // 是生产环境
   isProdEnv() {
     return process.env.NODE_ENV === 'production';
   },
+
+  // 非生产环境
+  isNotProdEnv() {
+    return process.env.NODE_ENV !== 'production';
+  },
+
   // 设置模型通用option
   addModelCommonOptions: (options) => {
     if (options) {
