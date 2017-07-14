@@ -4,7 +4,9 @@ require('dotenv').config();
 
 const express = require('express');
 const Sequelize = require('sequelize');
+const morgan = require('morgan');
 
+const util = require('./util');
 const app = express();
 const port = process.env.SERVER_PORT || 3000;
 const router = require('./router');
@@ -32,6 +34,9 @@ sequelize.authenticate()
   });
 
 // 中间件
+if (!util.isProdEnv()) {
+  app.use(morgan('dev'));
+}
 app.use(baseMiddleware.reply);
 
 // 错误处理
