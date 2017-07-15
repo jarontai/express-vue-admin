@@ -41,6 +41,7 @@ sequelize.authenticate()
 if (util.isNotProdEnv()) {
   app.use(morgan('dev'));
 }
+app.use(session({ secret: 'bilibili' }));
 app.use(bodyParser.json());
 app.use(baseMiddleware.reply);
 

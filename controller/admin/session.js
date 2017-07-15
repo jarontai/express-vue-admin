@@ -28,10 +28,21 @@ class SessionController extends BaseController {
     }
 
     const userModel = this.models['User'];
-    userModel.findOne({where: {username: value.username}}).then((user) => {
-      // TODO - login user
+    const result = userModel.findOne({where: {username: value.username}}).then((user) => {
+      if (user) {
+        return pw.verify(user.password, value.password).then((result) => {
+          if (result) {
+            req.session.user = value.username;
+          } else {
+            req.session.destroy();
+            return Promise.reject('invalid password');
+          }
+        });
+      } else {
+        return Promise.reject('user not found');
+      }
     });
-    return res.reply(value);
+    return res.reply(result);
   }
 
   /**

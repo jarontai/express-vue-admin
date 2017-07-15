@@ -4,6 +4,6 @@ POST http://localhost:3000/admin/sessions HTTP/1.1
 content-type: application/json
 
 {
-    "username": "sample",
-    "password": "Wee"
+    "username": "admin",
+    "password": "adminpwd"
 }
