@@ -9,11 +9,9 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true
     },
     username: DataTypes.STRING,
-    password: DataTypes.STRING,
-    salt: DataTypes.STRING,
-    disabled: DataTypes.BOOLEAN
+    password: DataTypes.STRING
   }, util.addModelCommonOptions({
-    tableName: 'users',
+    tableName: 'user',
     classMethods: {
       associate: (models) => {
         // models.User.hasOne(models.UserStatistic, {foreignKey: 'user_id', onUpdate: 'CASCADE', onDelete: 'CASCADE'});

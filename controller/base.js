@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
+const models = require('../database/models');
 
 /**
  * 控制器基类，提供默认的控制器方法，请勿修改
@@ -14,6 +15,7 @@ class BaseController {
    * @memberOf BaseController
    */
   constructor() {
+    this.models = models;
   }
 
   /**

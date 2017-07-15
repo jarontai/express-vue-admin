@@ -7,7 +7,9 @@
       .
       ├── web/          web app
       ├── server.js     服务器
-      ├── router.js     路由
+      ├── route/        路由
+      | ├── admin.js    admin模块路由
+      | └── ...         其他路由
       ├── util.js       工具
       ├── middleware/   中间件
       | ├── base.js     基础中间件

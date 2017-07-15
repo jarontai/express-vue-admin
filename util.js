@@ -1,29 +1,32 @@
 'use strict';
 
+const _ = require('lodash');
+
 module.exports = {
+  // map路由 - [{path, method, target }]
+  mapRoute: (router, routeMap, controller) => {
+    if (router && routeMap &&  routeMap.length && controller) {
+      _.each(routeMap, (route) => {
+        router[route.method](route.path, (req, res) => {
+          return controller[route.target](req, res);
+        });
+      });
+    }
+  },
+
   // rest路由
   restRoute: (path, router, controller) => {
     path = path || '';
     router.get(path+'/', (req, res) => {
-      controller.index(req.query).then((result) => {
-        res.reply(result);
-      });
+      controller.index(req, res);
     }).get(path+'/:id', (req, res) => {
-      controller.show(req.params.id).then((result) => {
-        res.reply(result);
-      });
+      controller.show(req, res);
     }).post(path+'/', (req, res) => {
-      controller.create(req.body).then((result) => {
-        res.reply(result);
-      });
+      controller.create(req, res);
     }).put(path+'/:id', (req, res) => {
-      controller.update(req.params.id, req.body).then((result) => {
-        res.reply(result);
-      });
+      controller.update(req, res);
     }).delete(path+'/:id', (req, res) => {
-      controller.destroy(req.params.id).then((result) => {
-        res.reply(result);
-      });
+      controller.destroy(req, res);
     });
   },
 
@@ -42,6 +45,7 @@ module.exports = {
     if (options) {
       options.freezeTableName = true;
       options.timestamps = true;
+      options.paranoid = true;
 
       options.getterMethods = options.getterMethods || {};
       options.getterMethods.createdAt = options.getterMethods.createdAt || function() { return this.getDataValue('created_at'); };

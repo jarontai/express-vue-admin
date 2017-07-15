@@ -2,7 +2,6 @@
 
 const _ = require('lodash');
 const BaseController = require('./base');
-const models = require('../database/models');
 
 /**
  * 控制器基类，提供默认的控制器方法，请勿修改
@@ -22,9 +21,8 @@ class RestController extends BaseController {
 
     if (modelName) {
       this.modelName = modelName;
-      this.model = models[modelName];
+      this.model = this.models[modelName];
     }
-    this.models = models;
   }
 
   /**
@@ -34,16 +32,16 @@ class RestController extends BaseController {
    *
    * @memberOf RestController
    */
-  index(params) {
-    params = params || {};
-    let data = {
+  index(req, res) {
+    const params = req.query || {};
+    const data = {
       offset: +params.offset || 0,
       limit: +params.limit || 100
     };
     if (params.where && _.isObject(params.where)) {
       data.where = params.where;
     }
-    return this.model.findAll(data);
+    res.reply(this.model.findAll(data));
   }
 
   /**
@@ -54,8 +52,9 @@ class RestController extends BaseController {
    *
    * @memberOf RestController
    */
-  create(data) {
-    return this.model.create(data);
+  create(req, res) {
+    const data = req.body || {};
+    res.reply(this.model.create(data));
   }
 
   /**
@@ -67,8 +66,10 @@ class RestController extends BaseController {
    *
    * @memberOf RestController
    */
-  update(id, data) {
-    return this.model.update(data, {where: {id: id}});
+  update(req, res) {
+    const data = req.body || {};
+    const params = req.params || {};
+    res.reply(this.model.update(data, {where: {id: params.id}}));
   }
 
   /**
@@ -79,8 +80,9 @@ class RestController extends BaseController {
    *
    * @memberOf RestController
    */
-  show(id) {
-    return this.model.findById(id);
+  show(req, res) {
+    const data = req.query || {};
+    res.reply(this.model.findById(data.id));
   }
 
   /**
@@ -91,10 +93,11 @@ class RestController extends BaseController {
    *
    * @memberOf RestController
    */
-  destroy(id) {
-    return this.model.findById(id).then((obj) => {
+  destroy(req, res) {
+    const params = req.params || {};
+    this.model.findById(params.id).then((obj) => {
       if (obj) {
-        return obj.destroy();
+        res.reply(obj.destroy());
       }
     });
   }

@@ -5,11 +5,15 @@ require('dotenv').config();
 const express = require('express');
 const Sequelize = require('sequelize');
 const morgan = require('morgan');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const expressListRoutes = require('express-list-routes');
 
-const util = require('./util');
 const app = express();
 const port = process.env.SERVER_PORT || 3000;
-const router = require('./router');
+const util = require('./util');
+const indexRouter = require('./route/index');
+const adminRouter = require('./route/admin');
 const baseMiddleware = require('./middleware/base');
 
 // 数据库
@@ -37,10 +41,18 @@ sequelize.authenticate()
 if (util.isNotProdEnv()) {
   app.use(morgan('dev'));
 }
+app.use(bodyParser.json());
 app.use(baseMiddleware.reply);
 
 // 路由
-router.process(app);
+app.use('/', indexRouter);
+app.use('/admin', adminRouter);
+
+// 打印路由
+if (util.isNotProdEnv()) {
+  expressListRoutes({}, 'ROOT:', indexRouter );
+  expressListRoutes({ prefix: '/admin' }, 'ADMIN:', adminRouter );
+}
 
 // 错误处理
 app.use(baseMiddleware.notFound);

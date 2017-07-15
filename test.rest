@@ -1,0 +1,9 @@
+GET http://localhost:3000/admin/users HTTP/1.1
+
+POST http://localhost:3000/admin/sessions HTTP/1.1
+content-type: application/json
+
+{
+    "username": "sample",
+    "password": "Wee"
+}
