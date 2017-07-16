@@ -6,7 +6,7 @@ const _ = require('lodash');
 const BaseController = require('./base');
 
 /**
- * 控制器基类，提供默认的控制器方法，请勿修改
+ * REST控制器基类，提供默认的控制器方法，请勿修改
  *
  * @class RestController
  */

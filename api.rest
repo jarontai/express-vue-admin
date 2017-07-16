@@ -1,3 +1,5 @@
+# api测试文件，适用于VSCODE的REST Client
+
 GET http://localhost:3000/admin/users HTTP/1.1
 
 POST http://localhost:3000/admin/users HTTP/1.1

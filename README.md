@@ -1,12 +1,24 @@
 # express-vue-admin
 
-## Under construction ...
+### 使用Express, Vue2开发的管理后台脚手架项目
 
-项目结构：
+### 项目构成:
+
+* express - 后端框架
+* vue2 - 前端框架
+* sequelize - ORM
+* joi - 参数校验
+* mysql - 数据库
+* redis - 缓存
+* ...
+
+
+### 项目结构：
 
       .
       ├── .env.example  环境配置示例
-      ├── web/          web app
+      ├── .sequelizerc  sequelize配置
+      ├── web/          vue web应用
       ├── server.js     服务器
       ├── middleware/   中间件
       | ├── base.js     基础中间件
@@ -25,3 +37,7 @@
       ├── util.js       工具
       └── config/       配置
         └── database.js sequelize-cli数据库配置
+
+### 运行步骤:
+
+#### TODO ...
