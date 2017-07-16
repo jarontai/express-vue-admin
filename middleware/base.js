@@ -18,7 +18,7 @@ const _ = require('lodash');
 // }
 function reply(req, res, next) {
   function _reply(data) {
-    if (typeof data.then === 'function') {
+    if (data && typeof data.then === 'function') {
       _replyPromise(data);
     } else {
       _replyObj(data);
@@ -34,6 +34,7 @@ function reply(req, res, next) {
   }
 
   function _replyObj(data) {
+    data = data || {};
     res.json({
       code: 0,
       message: 'success',
@@ -44,16 +45,22 @@ function reply(req, res, next) {
   function _replyError(err) {
     err = err || {};
 
+    console.error('Error', err);
+
+    let message;
+
     // process joi error
     if (err.details && err.details.length) {
-      err.message = _.reduce(err.details, (result, detail) => {
+      message = _.reduce(err.details, (result, detail) => {
         return result + '; ' + detail.message;
       }, '');
+    } else if (err.errors && err.errors.length) {
+      message = err.errors[0].message;
     }
 
     res.json({
       code: err.code || 1,
-      message: err.message || err || 'Unknown error'
+      message: message || err || 'Unknown error'
     });
   }
 

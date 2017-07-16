@@ -7,6 +7,7 @@ const Sequelize = require('sequelize');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const RedisStore = require('connect-redis')(session);
 const expressListRoutes = require('express-list-routes');
 
 const app = express();
@@ -41,7 +42,13 @@ sequelize.authenticate()
 if (util.isNotProdEnv()) {
   app.use(morgan('dev'));
 }
-app.use(session({ secret: 'bilibili' }));
+app.use(session({
+  store: new RedisStore({
+    host: process.env.REDIS_HOST,
+    port: process.env.REDIS_PORT
+  }),
+  secret: 'bilibili'
+}));
 app.use(bodyParser.json());
 app.use(baseMiddleware.reply);
 

@@ -1,5 +1,26 @@
 GET http://localhost:3000/admin/users HTTP/1.1
 
+POST http://localhost:3000/admin/users HTTP/1.1
+content-type: application/json
+
+{
+    "username": "admin",
+    "password": "adminpwd"
+}
+
+PUT http://localhost:3000/admin/users/1 HTTP/1.1
+content-type: application/json
+
+{
+    "username": "admin"
+}
+
+GET http://localhost:3000/admin/users/1 HTTP/1.1
+
+DELETE http://localhost:3000/admin/users/1 HTTP/1.1
+
+GET http://localhost:3000/admin/sessions HTTP/1.1
+
 POST http://localhost:3000/admin/sessions HTTP/1.1
 content-type: application/json
 
@@ -7,3 +28,5 @@ content-type: application/json
     "username": "admin",
     "password": "adminpwd"
 }
+
+DELETE http://localhost:3000/admin/sessions HTTP/1.1

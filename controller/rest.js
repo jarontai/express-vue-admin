@@ -1,6 +1,8 @@
 'use strict';
 
+const joi = require('joi');
 const _ = require('lodash');
+
 const BaseController = require('./base');
 
 /**
@@ -53,7 +55,14 @@ class RestController extends BaseController {
    * @memberOf RestController
    */
   create(req, res) {
-    const data = req.body || {};
+    let data = req.body;
+    if (this.createRules) {
+      const validate = joi.validate(req.body, this.createRules);
+      if (validate.error) {
+        return res.replyError(validate.error);
+      }
+      data = validate.value;
+    }
     res.reply(this.model.create(data));
   }
 
@@ -67,9 +76,20 @@ class RestController extends BaseController {
    * @memberOf RestController
    */
   update(req, res) {
-    const data = req.body || {};
-    const params = req.params || {};
-    res.reply(this.model.update(data, {where: {id: params.id}}));
+    let data = req.body;
+    if (this.updateRules) {
+      const validate = joi.validate(req.body, this.updateRules);
+      if (validate.error) {
+        return res.replyError(validate.error);
+      }
+      data = validate.value;
+    }
+
+    if (!req.params || !req.params.id) {
+      return res.replyError('missing id parameter');
+    }
+
+    res.reply(this.model.update(data, {where: {id: req.params.id}}));
   }
 
   /**
@@ -81,8 +101,10 @@ class RestController extends BaseController {
    * @memberOf RestController
    */
   show(req, res) {
-    const data = req.query || {};
-    res.reply(this.model.findById(data.id));
+    if (!req.params || !req.params.id) {
+      return res.replyError('missing id parameter');
+    }
+    res.reply(this.model.findById(req.params.id));
   }
 
   /**
@@ -94,10 +116,15 @@ class RestController extends BaseController {
    * @memberOf RestController
    */
   destroy(req, res) {
-    const params = req.params || {};
-    this.model.findById(params.id).then((obj) => {
+    if (!req.params || !req.params.id) {
+      return res.replyError('missing id parameter');
+    }
+
+    this.model.findById(req.params.id).then((obj) => {
       if (obj) {
         res.reply(obj.destroy());
+      } else {
+        res.replyError(this.modelName + ' not found');
       }
     });
   }

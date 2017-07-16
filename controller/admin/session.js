@@ -10,8 +10,8 @@ class SessionController extends BaseController {
   /**
    * check session
    */
-  index() {
-
+  index(req, res) {
+    res.reply(req.session.user ? [req.session.user] : []);
   }
 
   /**
@@ -28,11 +28,13 @@ class SessionController extends BaseController {
     }
 
     const userModel = this.models['User'];
-    const result = userModel.findOne({where: {username: value.username}}).then((user) => {
+    const result = userModel.findOne({where: {username: value.username}, attributes: {include: ['password']}}).then((user) => {
       if (user) {
         return pw.verify(user.password, value.password).then((result) => {
           if (result) {
-            req.session.user = value.username;
+            req.session.user = {
+              username: value.username
+            };
           } else {
             req.session.destroy();
             return Promise.reject('invalid password');
@@ -48,8 +50,9 @@ class SessionController extends BaseController {
   /**
    * delete session(logout)
    */
-  destroy() {
-
+  destroy(req, res) {
+    req.session.destroy();
+    return res.reply();
   }
 }
 
