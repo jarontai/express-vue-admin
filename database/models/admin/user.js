@@ -12,22 +12,10 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING
   }, util.addModelCommonOptions({
     tableName: 'admin_user',
-    classMethods: {
-      associate: (models) => {
-        // models.User.hasOne(models.UserStatistic, {foreignKey: 'user_id', onUpdate: 'CASCADE', onDelete: 'CASCADE'});
-        // models.User.hasMany(models.Video, {as: 'Videos', constraints: false});
-      }
-    },
     defaultScope: {
       attributes: {
         exclude: ['password', 'deletedAt']
       }
-    },
-    scopes: {
-    },
-    indexes: [
-    ],
-    charset: 'utf8',
-    collate: 'utf8_general_ci',
+    }
   }));
 };

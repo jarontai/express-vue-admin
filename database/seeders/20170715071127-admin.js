@@ -11,11 +11,19 @@ module.exports = {
         password: hash,
         createdAt: new Date(),
         updatedAt: new Date()
-      }], {});
+      }], {}).then(() => {
+        return queryInterface.bulkInsert('admin_role', [{
+          name: 'admin',
+          createdAt: new Date(),
+          updatedAt: new Date()
+        }], {});
+      });
     });
   },
 
   down: function (queryInterface, Sequelize) {
-    return queryInterface.bulkDelete('admin_user', null, {});
+    return queryInterface.bulkDelete('admin_user', null, {}).then(() => {
+      return queryInterface.bulkDelete('admin_role', null, {});
+    });
   }
 };
