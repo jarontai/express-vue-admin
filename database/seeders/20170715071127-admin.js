@@ -17,6 +17,34 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date()
         }], {});
+      }).then(() => {
+        return queryInterface.bulkInsert('admin_permission', [
+          {
+            name: 'dashboard',
+            createdAt: new Date(),
+            updatedAt: new Date()
+          },
+          {
+            name: 'admin',
+            createdAt: new Date(),
+            updatedAt: new Date()
+          },
+          {
+            name: 'admin:user',
+            createdAt: new Date(),
+            updatedAt: new Date()
+          },
+          {
+            name: 'admin:role',
+            createdAt: new Date(),
+            updatedAt: new Date()
+          },
+          {
+            name: 'admin:permission',
+            createdAt: new Date(),
+            updatedAt: new Date()
+          }
+        ], {});
       });
     });
   },
