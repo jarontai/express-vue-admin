@@ -3,11 +3,11 @@
 const _ = require('lodash');
 
 module.exports = {
-  // map路由 - [{path, method, target }]
-  mapRoute: (router, routeMap, controller) => {
+  // 根据配置构建路由 - [{path, method, target, middlewares }]
+  buildRoute: (router, routeMap, controller) => {
     if (router && routeMap &&  routeMap.length && controller) {
       _.each(routeMap, (route) => {
-        router[route.method](route.path, (req, res) => {
+        router[route.method](route.path,  route.middlewares || [], (req, res) => {
           return controller[route.target](req, res);
         });
       });

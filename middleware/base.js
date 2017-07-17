@@ -79,12 +79,12 @@ function notFound(req, res) {
 function error(err, req, res, next) {
   console.error(err);
   if (process.env.NODE_ENV === 'production') {
-    res.status(err.status || 500).json({error: 'Inernal error!'});
+    res.status(err.status || 500).json({ code: 1, message: 'Internal error!'});
   } else {
     res.status(err.status || 500);
     res.json({
-      message: err.message,
-      error: err.stack || ''
+      code: 1,
+      message: err.message
     });
   }
 }

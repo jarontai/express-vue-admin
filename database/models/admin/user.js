@@ -1,9 +1,10 @@
 'use strict';
 
+const _ = require('lodash');
 const util = require('../../../util');
 
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define('AdminUser', {
+  const user = sequelize.define('AdminUser', {
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
       primaryKey: true
@@ -18,4 +19,21 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   }));
+
+  user.prototype.hasRole = function(roleName) {
+    return this.getAdminRoles().then(roles => {
+      let result = false;
+      if (roleName && roles && roles.length) {
+        _.forEach(roles, role => {
+          if (role.get('name') === roleName) {
+            result = true;
+            return false;
+          }
+        });
+      }
+      return result;
+    });
+  };
+
+  return user;
 };

@@ -7,16 +7,13 @@ const util = require('../util');
 const userController = require('../controller/admin/user');
 const roleController = require('../controller/admin/role');
 const permissionController = require('../controller/admin/permission');
-const sessionController = require('../controller/admin/session');
+const authMiddleware = require('../middleware/auth');
+
+// admin角色才能访问本模块接口
+router.use(authMiddleware.role('admin'));
 
 util.restRoute('/users', router, userController);
 util.restRoute('/roles', router, roleController);
 util.restRoute('/permissions', router, permissionController);
-
-util.mapRoute(router, [
-  {path: '/sessions', method: 'get', 'target': 'index'},
-  {path: '/sessions', method: 'post', 'target': 'create'},
-  {path: '/sessions', method: 'delete', 'target': 'destroy'},
-], sessionController);
 
 module.exports = router;

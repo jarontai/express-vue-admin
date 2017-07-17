@@ -12,6 +12,7 @@ const expressListRoutes = require('express-list-routes');
 
 const app = express();
 const port = process.env.SERVER_PORT || 3000;
+const apiPath = process.env.API_PATH + '/' + process.env.API_VERSION;
 const util = require('./util');
 const indexRouter = require('./route/index');
 const adminRouter = require('./route/admin');
@@ -55,8 +56,8 @@ app.use(bodyParser.json());
 app.use(baseMiddleware.reply);
 
 // 路由
-app.use('/', indexRouter);
-app.use('/admin', adminRouter);
+app.use(apiPath + '/', indexRouter);
+app.use(apiPath + '/admin', adminRouter);
 
 // 打印路由
 if (util.isNotProdEnv()) {
@@ -70,6 +71,6 @@ app.use(baseMiddleware.error);
 
 // 启动
 app.listen(port, () => {
-  console.log(`Server listening at ${port}`);
+  console.log(`Server listening at - ${apiPath} : ${port}`);
 });
 

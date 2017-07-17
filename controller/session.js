@@ -4,7 +4,7 @@ const joi = require('joi');
 const credential = require('credential');
 const pw = credential();
 
-const BaseController = require('../base');
+const BaseController = require('./base');
 
 class SessionController extends BaseController {
   /**
@@ -28,12 +28,13 @@ class SessionController extends BaseController {
     }
 
     const userModel = this.models['AdminUser'];
-    const result = userModel.findOne({where: {username: value.username}, attributes: {include: ['password']}}).then((user) => {
+    const result = userModel.findOne({where: {username: value.username}, attributes: {include: ['id', 'password']}}).then((user) => {
       if (user) {
         return pw.verify(user.password, value.password).then((result) => {
           if (result) {
             req.session.user = {
-              username: value.username
+              id: user.get('id'),
+              username: user.get('username')
             };
           } else {
             req.session.destroy();
