@@ -14,7 +14,7 @@ const app = express();
 const port = process.env.SERVER_PORT || 3000;
 const apiPath = process.env.API_PATH + '/' + process.env.API_VERSION;
 const util = require('./util');
-const indexRouter = require('./route/index');
+const baseRouter = require('./route/base');
 const adminRouter = require('./route/admin');
 const baseMiddleware = require('./middleware/base');
 
@@ -56,12 +56,12 @@ app.use(bodyParser.json());
 app.use(baseMiddleware.reply);
 
 // 路由
-app.use(apiPath + '/', indexRouter);
+app.use(apiPath + '/', baseRouter);
 app.use(apiPath + '/admin', adminRouter);
 
 // 打印路由
 if (util.isNotProdEnv()) {
-  expressListRoutes({}, 'ROOT:', indexRouter );
+  expressListRoutes({}, 'ROOT:', baseRouter );
   expressListRoutes({ prefix: '/admin' }, 'ADMIN:', adminRouter );
 }
 
