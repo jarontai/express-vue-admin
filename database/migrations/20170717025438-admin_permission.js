@@ -2,7 +2,7 @@
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
-    return queryInterface.createTable('permission',
+    return queryInterface.createTable('admin_permission',
     {
       id: {
         type: Sequelize.INTEGER,
@@ -24,7 +24,7 @@ module.exports = {
         type: Sequelize.DATE
       }
     }).then(() => {
-      return queryInterface.createTable('role_permission',
+      return queryInterface.createTable('admin_role_permission',
       {
         id: {
           type: Sequelize.INTEGER,
@@ -53,8 +53,8 @@ module.exports = {
   },
 
   down: function (queryInterface, Sequelize) {
-    return queryInterface.dropTable('permission').then(() => {
-      return queryInterface.dropTable('role_permission');
+    return queryInterface.dropTable('admin_permission').then(() => {
+      return queryInterface.dropTable('admin_role_permission');
     });
   }
 };

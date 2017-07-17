@@ -27,7 +27,7 @@ class SessionController extends BaseController {
       return res.replyError(error);
     }
 
-    const userModel = this.models['User'];
+    const userModel = this.models['AdminUser'];
     const result = userModel.findOne({where: {username: value.username}, attributes: {include: ['password']}}).then((user) => {
       if (user) {
         return pw.verify(user.password, value.password).then((result) => {

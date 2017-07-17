@@ -2,7 +2,7 @@
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
-    return queryInterface.createTable('role',
+    return queryInterface.createTable('admin_role',
     {
       id: {
         type: Sequelize.INTEGER,
@@ -24,7 +24,7 @@ module.exports = {
         type: Sequelize.DATE
       }
     }).then(() => {
-      return queryInterface.createTable('user_role',
+      return queryInterface.createTable('admin_user_role',
       {
         id: {
           type: Sequelize.INTEGER,
@@ -53,8 +53,8 @@ module.exports = {
   },
 
   down: function (queryInterface, Sequelize) {
-    return queryInterface.dropTable('role').then(() => {
-      return queryInterface.dropTable('user_role');
+    return queryInterface.dropTable('admin_role').then(() => {
+      return queryInterface.dropTable('admin_user_role');
     });
   }
 };

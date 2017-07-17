@@ -77,13 +77,14 @@ function notFound(req, res) {
 
 // 通用错误处理
 function error(err, req, res, next) {
+  console.error(err);
   if (process.env.NODE_ENV === 'production') {
     res.status(err.status || 500).json({error: 'Inernal error!'});
   } else {
     res.status(err.status || 500);
     res.json({
       message: err.message,
-      error: err
+      error: err.stack || ''
     });
   }
 }

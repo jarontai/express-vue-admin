@@ -1,9 +1,9 @@
 'use strict';
 
-const util = require('../../util');
+const util = require('../../../util');
 
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define('User', {
+  return sequelize.define('AdminUser', {
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
       primaryKey: true
@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     username: DataTypes.STRING,
     password: DataTypes.STRING
   }, util.addModelCommonOptions({
-    tableName: 'user',
+    tableName: 'admin_user',
     classMethods: {
       associate: (models) => {
         // models.User.hasOne(models.UserStatistic, {foreignKey: 'user_id', onUpdate: 'CASCADE', onDelete: 'CASCADE'});

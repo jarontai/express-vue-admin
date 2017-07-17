@@ -6,7 +6,7 @@ const RestController = require('../rest');
 
 class UserController extends RestController {
   constructor() {
-    super('User');
+    super('AdminUser');
 
     this.createRules = {
       username: joi.string().min(3).required(),

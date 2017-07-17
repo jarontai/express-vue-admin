@@ -31,6 +31,7 @@
     "express": "^4.15.3",
     "express-list-routes": "^0.1.4",
     "express-session": "^1.15.3",
+    "fs-readdir-recursive": "^1.0.0",
     "joi": "^10.6.0",
     "lodash": "^4.17.4",
     "morgan": "^1.8.2",

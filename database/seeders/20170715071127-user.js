@@ -6,7 +6,7 @@ const pw = credential();
 module.exports = {
   up: function (queryInterface, Sequelize) {
     return pw.hash('adminpwd').then((hash) => {
-      return queryInterface.bulkInsert('User', [{
+      return queryInterface.bulkInsert('admin_user', [{
         username: 'admin',
         password: hash,
         createdAt: new Date(),
@@ -16,6 +16,6 @@ module.exports = {
   },
 
   down: function (queryInterface, Sequelize) {
-    return queryInterface.bulkDelete('User', null, {});
+    return queryInterface.bulkDelete('admin_user', null, {});
   }
 };
