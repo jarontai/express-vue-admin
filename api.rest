@@ -1,5 +1,6 @@
 # api测试文件，适用于VSCODE的REST Client
 
+# admin/user
 GET http://localhost:3000/admin/users HTTP/1.1
 
 POST http://localhost:3000/admin/users HTTP/1.1
@@ -20,6 +21,50 @@ content-type: application/json
 GET http://localhost:3000/admin/users/1 HTTP/1.1
 
 DELETE http://localhost:3000/admin/users/1 HTTP/1.1
+
+# admin/role
+GET http://localhost:3000/admin/roles HTTP/1.1
+
+POST http://localhost:3000/admin/roles HTTP/1.1
+content-type: application/json
+
+{
+    "name": "admin"
+}
+
+PUT http://localhost:3000/admin/roles/1 HTTP/1.1
+content-type: application/json
+
+{
+    "name": "admin"
+}
+
+GET http://localhost:3000/admin/roles/1 HTTP/1.1
+
+DELETE http://localhost:3000/admin/roles/1 HTTP/1.1
+
+# admin/permission
+GET http://localhost:3000/admin/permissions HTTP/1.1
+
+POST http://localhost:3000/admin/permissions HTTP/1.1
+content-type: application/json
+
+{
+    "name": "admin"
+}
+
+PUT http://localhost:3000/admin/permissions/1 HTTP/1.1
+content-type: application/json
+
+{
+    "name": "admin"
+}
+
+GET http://localhost:3000/admin/permissions/1 HTTP/1.1
+
+DELETE http://localhost:3000/admin/permissions/1 HTTP/1.1
+
+# admin/session
 
 GET http://localhost:3000/admin/sessions HTTP/1.1
 
