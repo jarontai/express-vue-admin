@@ -47,7 +47,9 @@ app.use(session({
     host: process.env.REDIS_HOST,
     port: process.env.REDIS_PORT
   }),
-  secret: 'bilibili'
+  secret: 'bilibili',
+  resave: false,
+  saveUninitialized: false
 }));
 app.use(bodyParser.json());
 app.use(baseMiddleware.reply);
