@@ -16,7 +16,6 @@ class RestController extends BaseController {
    *
    * @param {any} modelName
    *
-   * @memberOf RestController
    */
   constructor(modelName) {
     super();
@@ -32,7 +31,6 @@ class RestController extends BaseController {
    *
    * @returns {Promise}
    *
-   * @memberOf RestController
    */
   index(req, res) {
     const params = req.query || {};
@@ -52,7 +50,6 @@ class RestController extends BaseController {
    * @param {any} data
    * @returns {Promise}
    *
-   * @memberOf RestController
    */
   create(req, res) {
     let data = req.body;
@@ -73,7 +70,6 @@ class RestController extends BaseController {
    * @param {any} data
    * @returns {Promise}
    *
-   * @memberOf RestController
    */
   update(req, res) {
     let data = req.body;
@@ -98,7 +94,6 @@ class RestController extends BaseController {
    * @param {any} id
    * @returns {Promise}
    *
-   * @memberOf RestController
    */
   show(req, res) {
     if (!req.params || !req.params.id) {
@@ -113,7 +108,6 @@ class RestController extends BaseController {
    * @param {any} id
    * @returns {Promise}
    *
-   * @memberOf RestController
    */
   destroy(req, res) {
     if (!req.params || !req.params.id) {

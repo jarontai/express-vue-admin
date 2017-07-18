@@ -15,6 +15,7 @@ function login(req, res, next) {
   }
 
   if (req.session.user && req.session.user.id) {
+    req.user = req.session.user; // 将用户信息添加到request对象
     next();
   } else {
     next(new Error('Please login first'));

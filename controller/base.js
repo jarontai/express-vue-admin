@@ -11,8 +11,6 @@ const models = require('../database/models');
 class BaseController {
   /**
    * Creates an instance of BaseController.
-   *
-   * @memberOf BaseController
    */
   constructor() {
     this.models = models;
@@ -22,8 +20,6 @@ class BaseController {
    * 模型对象对象转换为JSON
    *
    * @param {any} arr
-   *
-   * @memberOf BaseController
    */
   arrayToJSON(modelArr) {
     return _.map(modelArr, (o) => {
@@ -36,7 +32,6 @@ class BaseController {
    *
    * @returns {Promise}
    *
-   * @memberOf BaseController
    */
   empty() {
     return this.Promise.resolve({});
