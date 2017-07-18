@@ -7,8 +7,6 @@ const BaseController = require('./base');
 
 /**
  * REST控制器基类，提供默认的控制器方法，请勿修改
- *
- * @class RestController
  */
 class RestController extends BaseController {
   /**
@@ -30,9 +28,6 @@ class RestController extends BaseController {
 
   /**
    * 分页返回所有对象
-   *
-   * @returns {Promise}
-   *
    */
   index(req, res) {
     const params = req.query || {};
@@ -48,10 +43,6 @@ class RestController extends BaseController {
 
   /**
    * 创建对象
-   *
-   * @param {any} data
-   * @returns {Promise}
-   *
    */
   create(req, res) {
     let data = req.body;
@@ -67,11 +58,6 @@ class RestController extends BaseController {
 
   /**
    * 更新对象
-   *
-   * @param {any} id
-   * @param {any} data
-   * @returns {Promise}
-   *
    */
   update(req, res) {
     if (!req.params || !req.params.id) {
@@ -91,10 +77,6 @@ class RestController extends BaseController {
 
   /**
    * 查找单个对象
-   *
-   * @param {any} id
-   * @returns {Promise}
-   *
    */
   show(req, res) {
     if (!req.params || !req.params.id) {
@@ -105,10 +87,6 @@ class RestController extends BaseController {
 
   /**
    * 删除单个对象
-   *
-   * @param {any} id
-   * @returns {Promise}
-   *
    */
   destroy(req, res) {
     if (!req.params || !req.params.id) {
