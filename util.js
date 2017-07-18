@@ -4,7 +4,7 @@ const _ = require('lodash');
 
 module.exports = {
   // 根据配置构建路由 - [{path, method, target, middlewares }]
-  buildRoute: (router, controller, routeArr) => {
+  buildRoute: (routeArr, router, controller) => {
     if (router && routeArr &&  routeArr.length && controller) {
       _.each(routeArr, (route) => {
         router[route.method](route.path,  route.middlewares || [], (req, res) => {

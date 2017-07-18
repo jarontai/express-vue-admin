@@ -12,10 +12,10 @@ router.get('/', (req, res) => {
 });
 
 // 查看/创建session无需登录，登出需要
-util.buildRoute(router, sessionController, [
+util.buildRoute([
   {path: '/sessions', method: 'get', target: 'index'},
   {path: '/sessions', method: 'post', target: 'create'},
   {path: '/sessions', method: 'delete', target: 'destroy', middlewares: [authMiddleware.login]},
-]);
+], router, sessionController);
 
 module.exports = router;
