@@ -16,4 +16,14 @@ util.restRoute('/users', router, userController);
 util.restRoute('/roles', router, roleController);
 util.restRoute('/permissions', router, permissionController);
 
+util.buildRoute(router, userController, [
+  {path: '/users/:id/roles', method: 'get', target: 'fetchRoles'},
+  {path: '/users/:id/roles', method: 'put', target: 'updateRoles'}
+]);
+
+util.buildRoute(router, roleController, [
+  {path: '/roles/:id/permissions', method: 'get', target: 'fetchPermissions'},
+  {path: '/roles/:id/permissions', method: 'put', target: 'updatePermissions'}
+]);
+
 module.exports = router;

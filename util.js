@@ -56,6 +56,11 @@ module.exports = {
 
       options.charset = options.charset || 'utf8';
       options.collate = options.collate || 'utf8_general_ci';
+
+      options.defaultScope = options.defaultScope || {};
+      options.defaultScope.attributes = options.defaultScope.attributes || {};
+      options.defaultScope.attributes.exclude = options.defaultScope.attributes.exclude || [];
+      options.defaultScope.attributes.exclude.push('deletedAt');
     }
     return options;
   }

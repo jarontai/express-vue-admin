@@ -20,6 +20,8 @@ class RestController extends BaseController {
   constructor(modelName) {
     super();
 
+    this.restRules = {}; // rest操作参数校验规则
+
     if (modelName) {
       this.modelName = modelName;
       this.model = this.models[modelName];
@@ -53,8 +55,8 @@ class RestController extends BaseController {
    */
   create(req, res) {
     let data = req.body;
-    if (this.createRules) {
-      const validate = joi.validate(req.body, this.createRules);
+    if (this.restRules.create) {
+      const validate = joi.validate(req.body, this.restRules.create);
       if (validate.error) {
         return res.replyError(validate.error);
       }
@@ -72,19 +74,18 @@ class RestController extends BaseController {
    *
    */
   update(req, res) {
+    if (!req.params || !req.params.id) {
+      return res.replyError('missing id parameter');
+    }
+
     let data = req.body;
-    if (this.updateRules) {
-      const validate = joi.validate(req.body, this.updateRules);
+    if (this.restRules.update) {
+      const validate = joi.validate(req.body, this.restRules.update);
       if (validate.error) {
         return res.replyError(validate.error);
       }
       data = validate.value;
     }
-
-    if (!req.params || !req.params.id) {
-      return res.replyError('missing id parameter');
-    }
-
     res.reply(this.model.update(data, {where: {id: req.params.id}}));
   }
 

@@ -22,6 +22,15 @@ GET http://localhost:3000/api/v1/admin/users/1 HTTP/1.1
 
 DELETE http://localhost:3000/api/v1/admin/users/1 HTTP/1.1
 
+GET http://localhost:3000/api/v1/admin/users/1/roles HTTP/1.1
+
+PUT http://localhost:3000/api/v1/admin/users/1/roles HTTP/1.1
+content-type: application/json
+
+{
+    "roles": [ {"id": 1, "name": "admin"} ]
+}
+
 # admin/role
 GET http://localhost:3000/api/v1/admin/roles HTTP/1.1
 
@@ -42,6 +51,15 @@ content-type: application/json
 GET http://localhost:3000/api/v1/admin/roles/1 HTTP/1.1
 
 DELETE http://localhost:3000/api/v1/admin/roles/1 HTTP/1.1
+
+GET http://localhost:3000/api/v1/admin/roles/1/permissions HTTP/1.1
+
+PUT http://localhost:3000/api/v1/admin/roles/1/permissions HTTP/1.1
+content-type: application/json
+
+{
+    "permissions": [ {"id": 1, "name": "dashboard"}, {"id": 2, "name": "admin"} ]
+}
 
 # admin/permission
 GET http://localhost:3000/api/v1/admin/permissions HTTP/1.1

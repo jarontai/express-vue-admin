@@ -8,12 +8,13 @@ class PermissionController extends RestController {
   constructor() {
     super('AdminPermission');
 
-    this.createRules = {
-      name: joi.string().min(3).required()
-    };
-
-    this.updateRules = {
-      name: joi.string().min(3)
+    this.restRules = {
+      create: {
+        name: joi.string().min(3).required()
+      },
+      update: {
+        name: joi.string().min(3)
+      }
     };
   }
 

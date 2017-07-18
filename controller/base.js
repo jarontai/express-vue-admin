@@ -17,24 +17,25 @@ class BaseController {
   }
 
   /**
-   * 模型对象对象转换为JSON
+   * 模型数组转换为JSON并过滤字段
    *
-   * @param {any} arr
+   * @param {*} modelArr
+   * @param {*} fields
    */
-  arrayToJSON(modelArr) {
+  filterModels(modelArr, fields) {
     return _.map(modelArr, (o) => {
-      return o.toJSON();
+      let result;
+      const temp = o.toJSON();
+      if (!fields || !fields.length) {
+        result = temp;
+      } else {
+        result = {};
+        _.forEach(fields, field => {
+          result[field] = temp[field];
+        });
+      }
+      return result;
     });
-  }
-
-  /**
-   * 返回空对象
-   *
-   * @returns {Promise}
-   *
-   */
-  empty() {
-    return this.Promise.resolve({});
   }
 }
 

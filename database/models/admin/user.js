@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
   }));
 
   user.prototype.hasRole = function(roleName) {
-    return this.getAdminRoles().then(roles => {
+    return this.getAdminRole().then(roles => {
       let result = false;
       if (roleName && roles && roles.length) {
         _.forEach(roles, role => {
