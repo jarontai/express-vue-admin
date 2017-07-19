@@ -47,7 +47,8 @@ function reply(req, res, next) {
 
     console.error('Error', err);
 
-    let message;
+    let message = err.message || err;
+    let status = err.status || 200;
 
     // process joi error
     if (err.details && err.details.length) {
@@ -58,7 +59,7 @@ function reply(req, res, next) {
       message = err.errors[0].message;
     }
 
-    res.json({
+    res.status(status).json({
       code: err.code || 1,
       message: message || err || 'Unknown error'
     });
