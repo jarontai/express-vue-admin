@@ -4,8 +4,8 @@
 
 ### 项目构成:
 
-* vue2 - 前端JS框架
-* iview - 前端UI框架
+* vue2 - 前端JS框架
+* iview - 前端UI框架
 * express - 后端web框架
 * sequelize - ORM
 * joi - 参数校验
