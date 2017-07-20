@@ -10,11 +10,10 @@ import router from './router';
 Vue.use(VueResource);
 Vue.use(iView);
 Vue.config.productionTip = false;
-// Vue.http.options.root = 'http://localhost:8080/api';
-Vue.http.options.root = 'http://localhost:6060';
+Vue.http.options.root = 'http://localhost:3000/api/v1';
 Vue.http.interceptors.push(function (request, next) {
   next(function (response) {
-    // 通过event bus发送错误消息
+    // 处理http请求异常
     const body = response.body;
     if (body && body.code !== undefined && body.code !== 0) {
       this.$Message.warning({
@@ -39,10 +38,9 @@ Vue.http.interceptors.push(function (request, next) {
       });
     }
 
+    // 提取数据
     if (body && body.data) {
       response.data = body.data;
-    } else {
-      response.data = body;
     }
   });
 });
