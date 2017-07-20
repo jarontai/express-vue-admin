@@ -1,25 +1,43 @@
 <template>
   <div>
-
     <Row justify="center" align="middle" class="login-row">
       <div class="login-title">express-vue-admin</div>
-      <Col :xs="{ span: 10, offset: 7 }" :sm="{ span: 8, offset: 8 }" :md="{ span: 8, offset: 8 }" :lg="{ span: 4, offset: 10 }" class="login-col">
-        <Card class="login-card">
-          <p slot="title">
-            请登录
-          </p>
-          <Form ref="formLogin" :model="formLogin" :rules="ruleCustom" :label-width="40">
-            <Form-item label="邮箱" prop="email">
-              <Input type="text" v-model="formLogin.email"></Input>
-            </Form-item>
-            <Form-item label="密码" prop="password">
-              <Input type="password" v-model="formLogin.password"></Input>
-            </Form-item>
-            <Form-item>
-              <Button long type="success" @click="handleSubmit('formLogin')">登录</Button>
-            </Form-item>
-          </Form>
-        </Card>
+      <Col :xs="{ span: 14, offset: 5 }" :sm="{ span: 8, offset: 8 }" :md="{ span: 8, offset: 8 }" :lg="{ span: 4, offset: 10 }" class="login-col">
+      <Card class="login-card">
+        <p slot="title">
+          请登录
+        </p>
+        <Form ref="formLogin" :model="formLogin" :rules="ruleCustom" :label-width="40">
+          <Form-item label="邮箱" prop="email">
+            <Input type="text" v-model="formLogin.email"></Input>
+          </Form-item>
+          <Form-item label="密码" prop="password">
+            <Input type="password" v-model="formLogin.password"></Input>
+          </Form-item>
+          <Form-item>
+            <Button long type="success" @click="handleSubmit('formLogin')">登录</Button>
+          </Form-item>
+        </Form>
+      </Card>
+      </Col>
+
+      <Col offset="1" span="1">
+      <Poptip trigger="hover" placement="right">
+        <Button type="ghost" shape="circle">登录信息</Button>
+        <div class="tip-table" slot="content">
+          <table>
+            </thead>
+            <tbody>
+              <tr>
+                <td>admin / adminpwd</td>
+              </tr>
+              <tr>
+                <td>user / userpwd</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </Poptip>
       </Col>
     </Row>
   </div>
@@ -51,6 +69,7 @@ export default {
     }
 
     return {
+      tip: true,
       formLogin: {
         email: '',
         password: ''
@@ -78,6 +97,15 @@ export default {
     },
     handleReset(name) {
       this.$refs[name].resetFields();
+    },
+    mouseover() {
+      console.log('over');
+      if (!this.tip) {
+        this.tip = true;
+      }
+    },
+    mouseout() {
+      this.tip = false;
     }
   }
 };
@@ -88,16 +116,23 @@ export default {
 .title-row {
   height: 100px;
 }
+
 .login-card {
   width: 100%;
   margin-top: 10%;
 }
+
 .login-row {
   height: 100%;
 }
+
 .login-title {
   margin-top: 10%;
   text-align: center;
   font-size: 24px;
+}
+
+.login-tip {
+  background: #5cb85c;
 }
 </style>

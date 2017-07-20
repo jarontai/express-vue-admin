@@ -22,8 +22,8 @@ export default {
   },
   created() {
     // 查询登录用户
-    this.$http.get('sessions/1').then(function (res) {
-      const data = res.data;
+    this.$http.get('sessions').then(function (res) {
+      const data = res.data ? res.data[0] : null;
       if (data && data.id) {
         this.user = data;
         this.$router.replace('/');
