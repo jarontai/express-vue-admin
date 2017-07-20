@@ -5,6 +5,7 @@ require('dotenv').config();
 const express = require('express');
 const Sequelize = require('sequelize');
 const morgan = require('morgan');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const RedisStore = require('connect-redis')(session);
@@ -43,6 +44,7 @@ sequelize.authenticate()
 if (util.isNotProdEnv()) {
   app.use(morgan('dev'));
 }
+app.use(cors());
 app.use(session({
   store: new RedisStore({
     host: process.env.REDIS_HOST,
