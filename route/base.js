@@ -8,7 +8,7 @@ const sessionController = require('../controller/session');
 const authMiddleware = require('../middleware/auth');
 
 router.get('/', (req, res) => {
-  res.end('Hola!');
+  res.reply('Hola!');
 });
 
 // 查看/创建session无需登录，登出需要

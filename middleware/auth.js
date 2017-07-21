@@ -50,7 +50,7 @@ function buildRoleAuth(roleName) {
     });
   };
 
-  return [login, role];
+  return [login, role]; // 先检测登录，再检查角色
 }
 
 module.exports = {
