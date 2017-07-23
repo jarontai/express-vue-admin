@@ -76,3 +76,4 @@ app.listen(port, () => {
   console.log(`Server listening at - ${apiPath} : ${port}`);
 });
 
+module.exports = app;

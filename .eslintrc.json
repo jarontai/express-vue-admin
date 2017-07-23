@@ -16,5 +16,8 @@
       "error",
       "always"
     ]
+  },
+  "env": {
+    "mocha":true
   }
 }
