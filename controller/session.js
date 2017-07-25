@@ -3,6 +3,8 @@
 const joi = require('joi');
 const credential = require('credential');
 const pw = credential();
+const Promise = require('bluebird');
+const _ = require('lodash');
 
 const BaseController = require('./base');
 
@@ -33,18 +35,23 @@ class SessionController extends BaseController {
         return pw.verify(user.password, value.password).then((result) => {
           if (result) {
             const userData = {
-              id: user.get('id'),
-              username: user.get('username')
+              id: user.id,
+              username: user.username
             };
             req.session.user = userData;
-            return userData;
+
+            return user.getRolePermissions().then((result) => {
+              userData.roles = result.roles || [];
+              userData.permissions = result.permissions || [];
+              return userData;
+            });
           } else {
             req.session.destroy();
-            return Promise.reject('invalid password');
+            return Promise.reject('Login failed! Invalid password!');
           }
         });
       } else {
-        return Promise.reject('user not found');
+        return Promise.reject('User not found!');
       }
     });
     return res.reply(result);

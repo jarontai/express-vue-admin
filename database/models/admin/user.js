@@ -2,6 +2,7 @@
 
 const _ = require('lodash');
 const util = require('../../../util');
+const Promise = require('bluebird');
 
 module.exports = (sequelize, DataTypes) => {
   const user = sequelize.define('AdminUser', {
@@ -32,6 +33,27 @@ module.exports = (sequelize, DataTypes) => {
         });
       }
       return result;
+    });
+  };
+
+  user.prototype.getRolePermissions = function() {
+    const result = {
+      roles: [],
+      permissions: []
+    };
+    return this.getAdminRole().then((roles) => {
+      roles = roles || [];
+      const promises = _.map(roles, (role) => {
+        result.roles.push(role.name);
+        return role.getAdminPermission();
+      });
+      return Promise.all(promises).then((permissions) => {
+        permissions = _.flatten(permissions || []);
+        _.each(permissions, (permission) => {
+          result.permissions.push(permission.name);
+        });
+        return result;
+      });
     });
   };
 
