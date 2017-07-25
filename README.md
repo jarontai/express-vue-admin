@@ -45,6 +45,13 @@
       └── config/       配置
         └── database.js sequelize-cli数据库配置
 
+### 运行截图:
+
+#### login
+![login](https://raw.github.com/jarontai/express-vue-admin/master/screenshots/login.png)
+
+#### TODO ...
+
 ### 运行步骤:
 
 #### TODO ...
