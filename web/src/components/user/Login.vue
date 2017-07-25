@@ -54,7 +54,7 @@ export default {
   data() {
     function validateEmail(rule, value, callback) {
       if (value === '') {
-        callback(new Error('请输入邮箱'));
+        callback(new Error('请输入邮箱或用户名'));
       } else {
         callback();
       }
@@ -88,8 +88,20 @@ export default {
     handleSubmit(name) {
       this.$refs[name].validate((valid) => {
         if (valid) {
-          this.$Message.success('提交成功!');
-          this.$router.replace('/');
+          this.$Message.success('表单验证成功!');
+          this.$http.post('sessions', {
+            username: this.formLogin.email,
+            password: this.formLogin.password
+          }).then((res) => {
+            const data = res.data.data;
+            if (data.id && data.username) {
+              this.$store.commit('updateUserInfo', {
+                id: data.id,
+                username: data.username
+              });
+              this.$router.replace('/');
+            }
+          });
         } else {
           this.$Message.error('表单验证失败!');
         }

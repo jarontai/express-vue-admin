@@ -32,10 +32,12 @@ class SessionController extends BaseController {
       if (user) {
         return pw.verify(user.password, value.password).then((result) => {
           if (result) {
-            req.session.user = {
+            const userData = {
               id: user.get('id'),
               username: user.get('username')
             };
+            req.session.user = userData;
+            return userData;
           } else {
             req.session.destroy();
             return Promise.reject('invalid password');
