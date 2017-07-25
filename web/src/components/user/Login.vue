@@ -99,7 +99,6 @@ export default {
                 id: data.id,
                 username: data.username
               });
-              this.$router.replace('/');
             }
           });
         } else {
@@ -111,7 +110,6 @@ export default {
       this.$refs[name].resetFields();
     },
     mouseover() {
-      console.log('over');
       if (!this.tip) {
         this.tip = true;
       }

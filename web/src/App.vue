@@ -1,39 +1,52 @@
 <template>
-  <router-view :user="user"></router-view>
+  <div class="app-section" style="height: 100%; min-height: 100%;">
+    <login-view v-if="notLogin" v-show="loginSettle" v-cloak></login-view>
+    <router-view v-else></router-view>
+  </div>
 </template>
 
 <script>
+import Login from '@/components/user/Login';
+
 export default {
   data() {
     return {
-      user: this.$store.user || {}
+      loginSettle: false
     };
+  },
+  computed: {
+    notLogin: function () {
+      let result = true;
+      if (this.$store.state.user && this.$store.state.user.userInfo) {
+        result = false;
+      }
+      return result;
+    }
   },
   created() {
     // 查询登录用户
     this.$http.get('sessions').then((res) => {
+      this.loginSettle = true;
+
       const data = res.data ? res.data.data[0] : null;
       if (data && data.id && data.username) {
         this.$store.commit('updateUserInfo', {
           id: data.id,
           username: data.username
         });
-        this.$router.replace('/');
       } else {
         this.$store.commit('clearUser');
-        if (this.$route.path !== '/login') {
-          this.$router.replace('/login');
-        }
       }
     }, (err) => {
       this.$store.commit('clearUser');
-      this.$router.replace('/login');
       console.error('App - session request error', err);
     });
+  },
+  components: {
+    'login-view': Login
   }
 };
 </script>
 
 <style scoped>
-
 </style>
