@@ -5,7 +5,6 @@ require('dotenv').config();
 const express = require('express');
 const Sequelize = require('sequelize');
 const morgan = require('morgan');
-const cors = require('cors');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const RedisStore = require('connect-redis')(session);
@@ -42,9 +41,10 @@ sequelize.authenticate()
 
 // 中间件
 app.all('*', function (req, res, next) {
+  // 设置cors
   res.header('Access-Control-Allow-Origin', req.headers.origin);
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.header('Access-Control-Allow-Credentials', 'true');  // 允许服务器端发送Cookie数据
+  res.header('Access-Control-Allow-Credentials', 'true');  // 允许发送Cookie数据
   next();
 });
 if (util.isNotProdEnv()) {

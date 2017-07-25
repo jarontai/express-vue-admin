@@ -6,6 +6,7 @@
 
 * vue2 - 前端JS框架
 * iview - 前端UI框架
+* vue-resource/vue-router/vuex - 前端主要组件
 * express - 后端web框架
 * sequelize - ORM
 * joi - 参数校验
