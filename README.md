@@ -48,7 +48,12 @@
 ### 运行截图:
 
 #### login
-![login](https://raw.github.com/jarontai/express-vue-admin/master/screenshots/login.png)
+
+<p align="center">
+<kbd>
+  <img src="https://raw.github.com/jarontai/express-vue-admin/master/screenshots/login.png">
+</kbd>
+</p>
 
 #### TODO ...
 
