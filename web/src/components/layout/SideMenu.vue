@@ -4,17 +4,17 @@
       <Col span="22" offset="1" class="layout-logo-left">express-vue-admin</Col>
     </Row>
 
-    <Menu-item name="dashboard" v-if="permissionMap['dashboard']">
-      Dashboard
+    <Menu-item name="dashboard" v-if="permissions['dashboard']">
+      {{permissions['dashboard'].menuName}}
     </Menu-item>
 
-    <Submenu name="admin" v-if="permissionMap['admin']">
+    <Submenu name="admin" v-if="permissions['admin']">
       <template slot="title">
-        后台管理
+        {{permissions['admin'].menuName}}
       </template>
-      <Menu-item name="admin:user" v-if="permissionMap['admin:user']">后台用户列表</Menu-item>
-      <Menu-item name="admin:role" v-if="permissionMap['admin:role']">角色权限设置</Menu-item>
-      <Menu-item name="admin:permission" v-if="permissionMap['admin:permission']">后台权限列表</Menu-item>
+      <Menu-item name="admin:user" v-if="permissions['admin:user']">{{permissions['admin:user'].menuName}}</Menu-item>
+      <Menu-item name="admin:role" v-if="permissions['admin:role']">{{permissions['admin:role'].menuName}}</Menu-item>
+      <Menu-item name="admin:permission" v-if="permissions['admin:permission']">{{permissions['admin:permission'].menuName}}</Menu-item>
     </Submenu>
   </Menu>
 </template>
@@ -32,13 +32,6 @@ export default {
     };
   },
   computed: {
-    permissionMap() {
-      const result = {};
-      (this.permissions || []).forEach((permission) => {
-        result[permission] = true;
-      });
-      return result;
-    }
   },
   methods: {
     routeTo(route) {
@@ -54,6 +47,7 @@ export default {
     this.menuItemArr = [path.split('/')[0]];
     this.activeMenu = path.split('/').join(':');
 
+    // 路由改变更新menu
     EventBus.$on('route-change', (data) => {
       const toRoute = data.to;
       const toPath = toRoute.path.substr(1);

@@ -19,7 +19,7 @@
 
           <navigator></navigator>
 
-          <router-view ></router-view>
+          <router-view></router-view>
 
           <div class="layout-copy">
             2011-2016 &copy; TalkingData
@@ -35,6 +35,7 @@ import SideMenu from '@/components/layout/SideMenu';
 import Navigator from '@/components/layout/Navigator';
 import MainContent from '@/components/layout/MainContent';
 import Login from '@/components/Login';
+import constant from '@/constant';
 
 export default {
   data() {
@@ -45,7 +46,15 @@ export default {
   },
   computed: {
     permissions() {
-      return this.$store.state.user.permissions || [];
+      const permissionArr = this.$store.state.user.permissions || [];
+      const result = {};
+      permissionArr.forEach((permission) => {
+        result[permission] = {
+          name: permission,
+          menuName: constant.permissionMenuMap[permission] || 'unknown menu'
+        };
+      });
+      return result;
     },
     notLogin() {
       let result = true;
@@ -63,6 +72,7 @@ export default {
       const data = res.data ? res.data.data[0] : null;
       if (data && data.id && data.username) {
         this.$store.commit('updateUser', data);
+        this.$router.replace('dashboard'); // 默认所有用户都有dashboard权限
       } else {
         this.$store.commit('clearUser');
       }

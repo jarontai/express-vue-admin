@@ -15,7 +15,7 @@ Vue.use(iView);
 Vue.config.productionTip = false;
 Vue.http.options.root = 'http://localhost:3000/api/v1';
 Vue.http.interceptors.push(function (request, next) {
-  request.credentials = true;
+  request.credentials = true; // 允许发送cookie
   next(function (response) {
     // 处理http请求异常
     const data = response.data;
@@ -69,13 +69,16 @@ const store = new Vuex.Store({
         state.user.permissions = data.permissions || [];
       }
     }
-    /*eslint-enable */
   }
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.path !== '/login' && !store.state.user) {
-    next('/login');
+  const path = to.path.substr(1);
+  const pathPermission = path.split('/').join(':');
+  const permissions = store.state.user.permissions || [];
+  if (permissions.indexOf(pathPermission) < 0) {
+    // 禁止访问无权限页面
+    next(false);
   } else {
     next();
   }
@@ -88,7 +91,6 @@ router.afterEach((to, from) => {
   });
 });
 
-/* eslint-disable no-new */
 new Vue({
   el: '#app',
   store,
@@ -96,3 +98,4 @@ new Vue({
   template: '<App/>',
   components: { App },
 });
+/*eslint-enable */
