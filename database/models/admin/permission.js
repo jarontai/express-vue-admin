@@ -5,6 +5,7 @@ const util = require('../../../util');
 module.exports = (sequelize, DataTypes) => {
   const permission = sequelize.define('AdminPermission', {
     id: {
+      autoIncrement: true,
       type: DataTypes.INTEGER.UNSIGNED,
       primaryKey: true
     },

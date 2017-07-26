@@ -5,6 +5,7 @@ const util = require('../../../util');
 module.exports = (sequelize, DataTypes) => {
   const role = sequelize.define('AdminRole', {
     id: {
+      autoIncrement: true,
       type: DataTypes.INTEGER.UNSIGNED,
       primaryKey: true
     },

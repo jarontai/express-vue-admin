@@ -7,6 +7,7 @@ const Promise = require('bluebird');
 module.exports = (sequelize, DataTypes) => {
   const user = sequelize.define('AdminUser', {
     id: {
+      autoIncrement: true,
       type: DataTypes.INTEGER.UNSIGNED,
       primaryKey: true
     },
