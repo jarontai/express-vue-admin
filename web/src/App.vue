@@ -5,7 +5,7 @@
     <div class="layout" v-else>
       <Row type="flex" style="height: 100%; min-height: 100%;">
         <i-col span="3" class="layout-menu-left">
-          <side-menu></side-menu>
+          <side-menu :permissions="permissions"></side-menu>
         </i-col>
 
         <i-col span="21">
@@ -34,7 +34,7 @@
 import SideMenu from '@/components/layout/SideMenu';
 import Navigator from '@/components/layout/Navigator';
 import MainContent from '@/components/layout/MainContent';
-import Login from '@/components/user/Login';
+import Login from '@/components/Login';
 
 export default {
   data() {
@@ -44,7 +44,10 @@ export default {
     };
   },
   computed: {
-    notLogin: function () {
+    permissions() {
+      return this.$store.state.user.permissions || [];
+    },
+    notLogin() {
       let result = true;
       if (this.$store.state.user && this.$store.state.user.userInfo) {
         result = false;

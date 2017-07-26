@@ -6,6 +6,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import VueResource from 'vue-resource';
 import App from './App';
+import EventBus from './event_bus';
 import router from './router';
 
 Vue.use(Vuex);
@@ -78,6 +79,13 @@ router.beforeEach((to, from, next) => {
   } else {
     next();
   }
+});
+
+router.afterEach((to, from) => {
+  EventBus.$emit('route-change', {
+    to: to,
+    from: from
+  });
 });
 
 /* eslint-disable no-new */
