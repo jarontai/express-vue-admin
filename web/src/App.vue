@@ -39,6 +39,7 @@ import Login from '@/components/user/Login';
 export default {
   data() {
     return {
+      errorMessage: '',
       loginSettle: false
     };
   },
@@ -58,10 +59,7 @@ export default {
 
       const data = res.data ? res.data.data[0] : null;
       if (data && data.id && data.username) {
-        this.$store.commit('updateUserInfo', {
-          id: data.id,
-          username: data.username
-        });
+        this.$store.commit('updateUser', data);
       } else {
         this.$store.commit('clearUser');
       }

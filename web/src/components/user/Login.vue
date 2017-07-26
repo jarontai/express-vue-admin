@@ -95,10 +95,7 @@ export default {
           }).then((res) => {
             const data = res.data.data;
             if (data.id && data.username) {
-              this.$store.commit('updateUserInfo', {
-                id: data.id,
-                username: data.username
-              });
+              this.$store.commit('updateUser', data);
             }
           });
         } else {

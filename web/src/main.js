@@ -58,14 +58,15 @@ const store = new Vuex.Store({
       state.user.roles = [];
       state.user.permissions = [];
     },
-    updateUserInfo(state, data) {
-      state.user.userInfo = data;
-    },
-    updateRoles(state, data) {
-      state.user.roles = data;
-    },
-    updatePermissions(state, data) {
-      state.user.permissions = data;
+    updateUser(state, data) {
+      if (data.id && data.username) {
+        state.user.userInfo = {
+          id: data.id,
+          username: data.username
+        };
+        state.user.roles = data.roles || [];
+        state.user.permissions = data.permissions || [];
+      }
     }
     /*eslint-enable */
   }
