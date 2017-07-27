@@ -64,6 +64,14 @@ export default {
           }
         },
         {
+          title: '更新时间',
+          key: 'updatedAt',
+          align: 'center',
+          render(h, params) {
+            return moment(params.row.updatedAt).format('YYYY-MM-DD HH:mm:ss');
+          }
+        },
+        {
           title: '操作',
           key: 'actions',
           align: 'center',

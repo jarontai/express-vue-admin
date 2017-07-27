@@ -22,7 +22,7 @@
           <router-view></router-view>
 
           <div class="layout-copy">
-            2011-2016 &copy; TalkingData
+            made by <a src="https://github.com/jarontai">jarontai</a>
           </div>
         </i-col>
     </Row>
