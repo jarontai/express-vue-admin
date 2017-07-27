@@ -18,7 +18,7 @@ function login(req, res, next) {
     req.user = req.session.user; // 将用户信息添加到request对象
     next();
   } else {
-    next({message: 'Please login first', status: 401});
+    next({message: '请先登录！', status: 401});
   }
 }
 
@@ -41,11 +41,11 @@ function buildRoleAuth(roleName) {
           if (result) {
             next();
           } else {
-            next({message: 'Permission denied', status: 403});
+            next({message: '权限非法！', status: 403});
           }
         });
       } else {
-        next({message: 'User not found', status: 400});
+        next({message: '用户未找到！', status: 400});
       }
     });
   };

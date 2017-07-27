@@ -91,9 +91,13 @@ export default {
             password: this.formLogin.password
           }).then((res) => {
             const data = res.data.data;
-            if (data.id && data.username) {
+            if (data && data.id && data.username) {
               this.$store.commit('updateUser', data);
+              this.$router.replace('/dashboard'); // 默认所有后台用户都拥有dashboard权限
             }
+            setTimeout(() => {
+              this.loading = false;
+            }, 2000);
           });
         } else {
           this.$Message.error('信息验证失败，请检查!');

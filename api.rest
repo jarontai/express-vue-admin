@@ -31,6 +31,15 @@ content-type: application/json
     "roles": [ {"id": 1, "name": "admin"} ]
 }
 
+POST http://localhost:3000/api/v1/admin/users/update-password HTTP/1.1
+content-type: application/json
+
+{
+    "oldPassword": "adminpwd2",
+    "newPassword": "adminpwd",
+    "newPasswordRepeat": "adminpwd"
+}
+
 # admin/role
 GET http://localhost:3000/api/v1/admin/roles HTTP/1.1
 

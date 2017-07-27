@@ -4,7 +4,6 @@ const joi = require('joi');
 const credential = require('credential');
 const pw = credential();
 const Promise = require('bluebird');
-const _ = require('lodash');
 
 const BaseController = require('./base');
 
@@ -47,11 +46,11 @@ class SessionController extends BaseController {
             });
           } else {
             req.session.destroy();
-            return Promise.reject('Login failed! Invalid password!');
+            return Promise.reject('用户名或密码非法，登录失败！');
           }
         });
       } else {
-        return Promise.reject('User not found!');
+        return Promise.reject('用户不存在！');
       }
     });
     return res.reply(result);

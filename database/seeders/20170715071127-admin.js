@@ -23,7 +23,7 @@ module.exports = {
         return AdminRole.create({
           name: 'admin'
         }).then((role) => {
-          return user.setAdminRole([role]).then(() => {
+          return user.setRoles([role]).then(() => {
             return role;
           });
         });
@@ -47,7 +47,7 @@ module.exports = {
         ], (data) => {
           return AdminPermission.create(data);
         }).then((permissions) => {
-          return role.setAdminPermission(permissions);
+          return role.setPermissions(permissions);
         });
       });
     });

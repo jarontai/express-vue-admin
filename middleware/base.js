@@ -53,7 +53,10 @@ function reply(req, res, next) {
     // process joi error
     if (err.details && err.details.length) {
       message = _.reduce(err.details, (result, detail) => {
-        return result + '; ' + detail.message;
+        if (result) {
+          result += '; ';
+        }
+        return result + detail.message;
       }, '');
     } else if (err.errors && err.errors.length) {
       message = err.errors[0].message;
