@@ -5,11 +5,13 @@
     </Row>
 
     <Menu-item name="dashboard" v-if="permissions['dashboard']">
+      <Icon type="monitor"></Icon>
       {{permissions['dashboard'].menuName}}
     </Menu-item>
 
     <Submenu name="admin" v-if="permissions['admin']">
       <template slot="title">
+        <Icon type="settings"></Icon>
         {{permissions['admin'].menuName}}
       </template>
       <Menu-item name="admin:user" v-if="permissions['admin:user']">{{permissions['admin:user'].menuName}}</Menu-item>

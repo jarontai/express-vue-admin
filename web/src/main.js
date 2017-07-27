@@ -25,6 +25,7 @@ Vue.http.interceptors.push(function (request, next) {
         duration: 5
       });
     } else if (response && response.status !== 200) {
+      console.error('vue http error response', response);
       let message = response.statusText;
       switch (response.status) {
         case 404:

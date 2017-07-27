@@ -15,17 +15,25 @@
             </Alert>
           </div>
 
-          <div class="layout-header"></div>
+          <div class="layout-header">
+            <Row>
+              <Col span="23">&nbsp;</Col>
+              <Col span="1" class="top-menu-section">
+                <top-menu></top-menu>
+              </Col>
+            </Row>
+          </div>
 
           <navigator></navigator>
 
           <router-view></router-view>
 
           <div class="layout-copy">
-            made by <a src="https://github.com/jarontai">jarontai</a>
+            made by
+            <a src="https://github.com/jarontai">jarontai</a>
           </div>
         </i-col>
-    </Row>
+      </Row>
     </div>
   </div>
 </template>
@@ -33,7 +41,7 @@
 <script>
 import SideMenu from '@/components/layout/SideMenu';
 import Navigator from '@/components/layout/Navigator';
-import MainContent from '@/components/layout/MainContent';
+import TopMenu from '@/components/layout/TopMenu';
 import Login from '@/components/Login';
 import constant from '@/constant';
 
@@ -85,7 +93,7 @@ export default {
     'login-view': Login,
     'side-menu': SideMenu,
     'navigator': Navigator,
-    'main-content': MainContent
+    'top-menu': TopMenu
   }
 };
 </script>
@@ -139,5 +147,9 @@ export default {
   height: 50px;
   background: #fff;
   box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+}
+
+.top-menu-section {
+  padding-top: 15px;
 }
 </style>
