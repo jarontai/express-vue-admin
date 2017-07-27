@@ -1,8 +1,10 @@
 <template>
   <div>
     <Row justify="center" align="middle" class="login-row">
-      <div class="login-title">express-vue-admin</div>
       <Col :xs="{ span: 14, offset: 5 }" :sm="{ span: 8, offset: 8 }" :md="{ span: 8, offset: 8 }" :lg="{ span: 4, offset: 10 }" class="login-col">
+      <div class="login-title">
+        <Spin size="large" class="login-spin" v-show="loading"></Spin>&nbsp;&nbsp;express-vue-admin
+      </div>
       <Card class="login-card">
         <p slot="title">
           请登录
@@ -21,7 +23,7 @@
       </Card>
       </Col>
 
-      <Col offset="1" span="1">
+      <Col offset="1" span="1" class="tip-col">
       <Poptip trigger="hover" placement="right">
         <Button type="ghost" shape="circle">登录信息</Button>
         <div class="tip-table" slot="content">
@@ -45,12 +47,6 @@
 
 <script>
 export default {
-  props: ['user'],
-  watch: {
-    user() {
-      console.log('user chagne');
-    }
-  },
   data() {
     function validateEmail(rule, value, callback) {
       if (value === '') {
@@ -69,6 +65,7 @@ export default {
     }
 
     return {
+      loading: false,
       tip: true,
       formLogin: {
         email: '',
@@ -86,9 +83,9 @@ export default {
   },
   methods: {
     handleSubmit(name) {
+      this.loading = true;
       this.$refs[name].validate((valid) => {
         if (valid) {
-          this.$Message.success('表单验证成功!');
           this.$http.post('sessions', {
             username: this.formLogin.email,
             password: this.formLogin.password
@@ -99,7 +96,7 @@ export default {
             }
           });
         } else {
-          this.$Message.error('表单验证失败!');
+          this.$Message.error('信息验证失败，请检查!');
         }
       });
     },
@@ -134,12 +131,20 @@ export default {
 }
 
 .login-title {
-  margin-top: 10%;
+  margin-top: 145px;
   text-align: center;
   font-size: 24px;
 }
 
 .login-tip {
   background: #5cb85c;
+}
+
+.login-spin {
+  width: 35px;
+}
+
+.tip-col {
+  padding-top: 210px;
 }
 </style>
