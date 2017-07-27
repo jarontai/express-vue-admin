@@ -33,7 +33,7 @@ class RestController extends BaseController {
     const params = req.query || {};
     const data = {
       offset: +params.offset || 0,
-      limit: +params.limit || 100
+      limit: +params.limit || 10
     };
     if (params.where && _.isObject(params.where)) {
       data.where = params.where;

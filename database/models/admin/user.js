@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
   }));
 
   user.prototype.hasRole = function (roleName) {
-    return this.getAdminRole().then(roles => {
+    return this.getRoles().then(roles => {
       let result = false;
       if (roleName && roles && roles.length) {
         _.forEach(roles, role => {
@@ -43,11 +43,11 @@ module.exports = (sequelize, DataTypes) => {
       roles: [],
       permissions: []
     };
-    return this.getAdminRole().then((roles) => {
+    return this.getRoles().then((roles) => {
       roles = roles || [];
       const promises = _.map(roles, (role) => {
         result.roles.push(role.name);
-        return role.getAdminPermission();
+        return role.getPermissions();
       });
       return Promise.all(promises).then((permissions) => {
         permissions = _.flatten(permissions || []);

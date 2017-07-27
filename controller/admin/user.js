@@ -21,6 +21,20 @@ class UserController extends RestController {
     };
   }
 
+  index(req, res) {
+    const params = req.query || {};
+    const data = {
+      offset: +params.offset || 0,
+      limit: +params.limit || 10
+    };
+    if (params.where && _.isObject(params.where)) {
+      data.where = params.where;
+    }
+    const AdminRole = this.models['AdminRole'];
+    data.include = [{ model: AdminRole, as: 'roles' }];
+    res.reply(this.model.findAll(data));
+  }
+
   // 获取用户角色列表
   fetchRoles(req, res) {
     const AdminRole = this.models['AdminRole'];
