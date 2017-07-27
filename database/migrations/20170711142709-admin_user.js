@@ -15,6 +15,11 @@ module.exports = {
           unique: true
         },
         password: Sequelize.STRING,
+        disabled: {
+          type: Sequelize.BOOLEAN,
+          allowNull: false,
+          defaultValue: false
+        },
         createdAt: {
           type: Sequelize.DATE
         },

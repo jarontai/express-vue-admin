@@ -12,17 +12,18 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true
     },
     username: DataTypes.STRING,
+    disabled: DataTypes.BOOLEAN,
     password: DataTypes.STRING
   }, util.addModelCommonOptions({
     tableName: 'admin_user',
     defaultScope: {
       attributes: {
-        exclude: ['password', 'deletedAt']
+        exclude: ['password']
       }
     }
   }));
 
-  user.prototype.hasRole = function(roleName) {
+  user.prototype.hasRole = function (roleName) {
     return this.getAdminRole().then(roles => {
       let result = false;
       if (roleName && roles && roles.length) {
@@ -37,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
-  user.prototype.getRolePermissions = function() {
+  user.prototype.getRolePermissions = function () {
     const result = {
       roles: [],
       permissions: []
