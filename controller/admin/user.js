@@ -32,7 +32,7 @@ class UserController extends RestController {
     }
     const AdminRole = this.models['AdminRole'];
     data.include = [{ model: AdminRole, as: 'roles' }];
-    res.reply(this.model.findAll(data));
+    res.reply(this.model.findAndCount(data));
   }
 
   // 获取用户角色列表

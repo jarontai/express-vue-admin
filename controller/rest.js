@@ -38,7 +38,7 @@ class RestController extends BaseController {
     if (params.where && _.isObject(params.where)) {
       data.where = params.where;
     }
-    res.reply(this.model.findAll(data));
+    res.reply(this.model.findAndCount(data));
   }
 
   /**

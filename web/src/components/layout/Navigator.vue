@@ -19,6 +19,6 @@ export default {
 
 <style scoped>
 .layout-breadcrumb {
-  padding: 10px 15px 0;
+  padding: 10px 15px 10px 15px;
 }
 </style>

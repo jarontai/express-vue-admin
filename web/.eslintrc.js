@@ -9,6 +9,11 @@ module.exports = {
   env: {
     browser: true,
   },
+  globals: {
+    moment: true,
+    lodah: true,
+    _: true
+  },
   extends: 'airbnb-base',
   // required to lint *.vue files
   plugins: [
@@ -24,6 +29,7 @@ module.exports = {
   },
   // add your custom rules here
   'rules': {
+    'no-param-reassign': ['off'],
     'no-lonely-if': ['off'],
     'consistent-return': ['off'],
     'no-console': ['off'],
