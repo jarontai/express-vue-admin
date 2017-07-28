@@ -46,7 +46,7 @@ class SessionController extends BaseController {
             });
           } else {
             req.session.destroy();
-            return Promise.reject('用户名或密码非法，登录失败！');
+            return Promise.reject('用户名或密码错误，登录失败！');
           }
         });
       } else {

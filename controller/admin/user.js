@@ -37,6 +37,44 @@ class UserController extends RestController {
     res.reply(this.model.findAndCount(data));
   }
 
+  /**
+   * 更新对象
+   */
+  update(req, res) {
+    if (!req.params || !req.params.id) {
+      return res.replyError('missing id parameter');
+    }
+    const rules = {
+      username: joi.string().min(3),
+      password: joi.string().min(6),
+      disabled: joi.boolean().default(false)
+    };
+    const { error, value } = joi.validate(req.body, rules);
+    if (error) {
+      return res.replyError(error);
+    }
+
+    if (value.username || value.password) {
+      const updateData = {
+        disabled: value.disabled
+      };
+      if (value.username) {
+        updateData.username = value.username;
+      }
+      Promise.resolve().then(() => {
+        if (value.password) {
+          return pw.hash(value.password).then((hash) => {
+            updateData.password = hash;
+          });
+        }
+      }).then(() => {
+        res.reply(this.model.update(updateData, { where: { id: req.params.id } }));
+      });
+    } else {
+      res.reply();
+    }
+  }
+
   // 获取用户角色列表
   fetchRoles(req, res) {
     const AdminRole = this.models['AdminRole'];

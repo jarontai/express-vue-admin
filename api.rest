@@ -15,7 +15,8 @@ PUT http://localhost:3000/api/v1/admin/users/1 HTTP/1.1
 content-type: application/json
 
 {
-    "username": "admin"
+    "username": "admin",
+    "password": "adminpwd"
 }
 
 GET http://localhost:3000/api/v1/admin/users/1 HTTP/1.1

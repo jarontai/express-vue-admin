@@ -29,6 +29,8 @@ module.exports = {
   },
   // add your custom rules here
   'rules': {
+    'dot-notation': ['off'],
+    'arrow-body-style': ['off'],
     'no-param-reassign': ['off'],
     'no-lonely-if': ['off'],
     'consistent-return': ['off'],
