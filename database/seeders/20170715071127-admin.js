@@ -15,39 +15,53 @@ const adminPwd = process.env.ADMIN_SEED_PASSWORD || 'adminpwd';
 
 module.exports = {
   up: function () {
+    let adminRole, userRole;
     return pw.hash(adminPwd).then((hash) => {
       return AdminUser.create({
         username: 'admin',
         password: hash,
-      }).then((user) => {
+      }).then((admin) => {
         return AdminRole.create({
-          name: 'admin'
+          name: 'admin',
+          comment: '管理员'
         }).then((role) => {
-          return user.setRoles([role]).then(() => {
-            return role;
+          adminRole = role;
+          return AdminRole.create({
+            name: 'user',
+            comment: '普通用户'
           });
+        }).then((role) => {
+          userRole = role;
+          return admin.setRoles([userRole, adminRole]);
         });
-      }).then((role) => {
+      }).then(() => {
         return Promise.mapSeries([
           {
-            name: 'dashboard'
+            name: 'dashboard',
+            comment: 'Dashboard'
           },
           {
-            name: 'admin'
+            name: 'admin',
+            comment: '后台管理'
           },
           {
-            name: 'admin:user'
+            name: 'admin:user',
+            comment: '后台管理:用户'
           },
           {
-            name: 'admin:role'
+            name: 'admin:role',
+            comment: '后台管理:角色'
           },
           {
-            name: 'admin:permission'
+            name: 'admin:permission',
+            comment: '后台管理:权限'
           }
         ], (data) => {
           return AdminPermission.create(data);
         }).then((permissions) => {
-          return role.setPermissions(permissions);
+          return userRole.setPermissions([permissions[0]]).then(() => {
+            return adminRole.setPermissions(permissions);
+          });
         });
       });
     });

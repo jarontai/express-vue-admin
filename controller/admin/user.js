@@ -21,8 +21,20 @@ class UserController extends RestController {
         password: joi.string().min(6)
       }
     };
+
+    const AdminRole = this.models['AdminRole'];
+    AdminRole.findOne({where: {name: 'user'}}).then((result) => {
+      if (result) {
+        this.defaultRole = result;
+      } else {
+        console.error('Failed to load the default role');
+      }
+    });
   }
 
+  /**
+   * 分页返回所有对象
+   */
   index(req, res) {
     const params = req.query || {};
     const data = {
@@ -35,6 +47,29 @@ class UserController extends RestController {
     const AdminRole = this.models['AdminRole'];
     data.include = [{ model: AdminRole, as: 'roles' }];
     res.reply(this.model.findAndCount(data));
+  }
+
+  /**
+   * 创建对象
+   */
+  create(req, res) {
+    const rules = {
+      username: joi.string().min(3).required(),
+      password: joi.string().min(6).required(),
+      disabled: joi.boolean().default(false)
+    };
+    const { error, value } = joi.validate(req.body, rules);
+    if (error) {
+      return res.replyError(error);
+    }
+
+    const result = pw.hash(value.password).then((hash) => {
+      value.password = hash;
+      return this.model.create(value).then((user) => {
+        return user.setRoles([this.defaultRole]);
+      });
+    });
+    res.reply(result);
   }
 
   /**

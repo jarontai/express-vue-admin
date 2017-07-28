@@ -1,12 +1,19 @@
 <template>
   <div class="admin-user-view">
-    <Card>
-      <p slot="title">用户列表</p>
+    <Card dis-hover>
+
+      <Row type="flex" justify="center" class="table-action-section">
+        <Col span="22"><b>用户列表</b></col>
+        <Col offset="1" span="1">
+        <Button type="text" size="small" icon="plus" @click="showCreate">新增</Button>
+        </col>
+      </Row>
+
       <Table border :data="tableData" :columns="tableColumns" stripe>
       </Table>
       <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
-          <Page :total="totalCount" :current="1" @on-change="changePage"></Page>
+          <Page show-total :total="totalCount" :page-size="pageSize" @on-change="changePage"></Page>
         </div>
       </div>
     </Card>
@@ -44,7 +51,8 @@ export default {
       },
       editModal: false,
       totalCount: 1,
-      pageCount: 10,
+      pageSize: 10,
+      currentPage: 1,
       tableData: [],
       tableColumns: [
         {
@@ -64,7 +72,7 @@ export default {
           render: (h, params) => {
             const roles = params.row.roles || [];
             const roleNames = roles.map(role => role.name);
-            return roleNames.join(', ');
+            return roleNames.join(', ') || '-';
           }
         },
         {
@@ -137,12 +145,21 @@ export default {
   },
   methods: {
     changePage(page) {
-      page = page || 1;
-      this.$http.get(`admin/users?limit=10&offset=${(page - 1) * 10}`).then((res) => {
+      this.currentPage = page;
+      this.$http.get(`admin/users?limit=10&offset=${((page || 1) - 1) * this.pageSize}`).then((res) => {
         const data = res.data.data;
         this.tableData = data.rows;
         this.totalCount = data.count;
       });
+    },
+    showCreate() {
+      this.dataModel = {};
+      this.editModal = true;
+    },
+    refresh() {
+      if (this.currentPage) {
+        this.changePage(this.currentPage);
+      }
     },
     showEdit(index) {
       const data = this.tableData[index];
@@ -156,13 +173,26 @@ export default {
       if (result) {
         this.$refs['dataModel'].validate((valid) => {
           if (valid) {
-            this.$http.put(`admin/users/${this.dataModel.id}`, {
-              password: this.dataModel.password || undefined,
-              username: this.dataModel.username || undefined,
-              disabled: !this.dataModel.enabled
-            }).then(() => {
-              this.$Message.success('编辑成功!');
-            });
+            const dataId = this.dataModel.id;
+            if (dataId) { // 编辑
+              this.$http.put(`admin/users/${dataId}`, {
+                password: this.dataModel.password || undefined,
+                username: this.dataModel.username || undefined,
+                disabled: !this.dataModel.enabled
+              }).then(() => {
+                this.$Message.success('编辑成功!');
+                this.refresh();
+              });
+            } else { // 新增
+              this.$http.post('admin/users', {
+                password: this.dataModel.password || undefined,
+                username: this.dataModel.username || undefined,
+                disabled: !this.dataModel.enabled
+              }).then(() => {
+                this.$Message.success('新增成功!');
+                this.refresh();
+              });
+            }
           } else {
             this.$Message.error('表单验证失败!');
           }
@@ -178,5 +208,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.table-action-section {
+  border-bottom: 1px solid #e9eaec;
+  height: 25px;
+  margin-bottom: 12px;
+}
 </style>

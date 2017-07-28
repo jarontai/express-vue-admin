@@ -52,7 +52,9 @@ module.exports = (sequelize, DataTypes) => {
       return Promise.all(promises).then((permissions) => {
         permissions = _.flatten(permissions || []);
         _.each(permissions, (permission) => {
-          result.permissions.push(permission.name);
+          if (!_.includes(result.permissions, permission.name)) {
+            result.permissions.push(permission.name);
+          }
         });
         return result;
       });

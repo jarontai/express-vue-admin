@@ -14,6 +14,7 @@ module.exports = {
         allowNull: false,
         unique: true
       },
+      comment: Sequelize.STRING,
       createdAt: {
         type: Sequelize.DATE
       },

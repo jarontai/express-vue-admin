@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER.UNSIGNED,
       primaryKey: true
     },
-    name: DataTypes.STRING
+    name: DataTypes.STRING,
+    comment: DataTypes.STRING
   }, util.addModelCommonOptions({
     tableName: 'admin_permission'
   }));
