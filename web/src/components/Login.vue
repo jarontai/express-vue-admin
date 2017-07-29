@@ -1,7 +1,7 @@
 <template>
   <div>
     <Row justify="center" align="middle" class="login-row">
-      <Col :xs="{ span: 14, offset: 5 }" :sm="{ span: 8, offset: 8 }" :md="{ span: 8, offset: 8 }" :lg="{ span: 4, offset: 10 }" class="login-col">
+      <Col :xs="{ span: 6, offset: 9 }" :sm="{ span: 12, offset: 4 }" :md="{ span: 10, offset: 6 }" :lg="{ span: 6, offset: 9 }" class="login-col">
       <div class="login-title">
         <Spin size="large" class="login-spin" v-show="loading"></Spin>&nbsp;&nbsp;express-vue-admin
       </div>
@@ -34,7 +34,7 @@
                 <td>admin / adminpwd</td>
               </tr>
               <tr>
-                <td>user / userpwd</td>
+                <td>test / testpwd</td>
               </tr>
             </tbody>
           </table>

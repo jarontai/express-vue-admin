@@ -12,27 +12,39 @@ const AdminRole = models['AdminRole'];
 const AdminPermission = models['AdminPermission'];
 
 const adminPwd = process.env.ADMIN_SEED_PASSWORD || 'adminpwd';
+const testPwd = process.env.TEST_SEED_PASSWORD || 'testpwd';
 
 module.exports = {
   up: function () {
-    let adminRole, userRole;
+    let adminUser, testUser, adminRole, memberRole;
     return pw.hash(adminPwd).then((hash) => {
       return AdminUser.create({
         username: 'admin',
         password: hash,
       }).then((admin) => {
+        adminUser = admin;
+        return pw.hash(testPwd).then((hash) => {
+          return AdminUser.create({
+            username: 'test',
+            password: hash,
+          });
+        });
+      }).then((user) => {
+        testUser = user;
         return AdminRole.create({
           name: 'admin',
           comment: '管理员'
         }).then((role) => {
           adminRole = role;
           return AdminRole.create({
-            name: 'user',
+            name: 'member',
             comment: '普通用户'
           });
         }).then((role) => {
-          userRole = role;
-          return admin.setRoles([userRole, adminRole]);
+          memberRole = role;
+          return adminUser.setRoles([memberRole, adminRole]).then(() => {
+            return testUser.setRoles([memberRole]);
+          });
         });
       }).then(() => {
         return Promise.mapSeries([
@@ -59,7 +71,7 @@ module.exports = {
         ], (data) => {
           return AdminPermission.create(data);
         }).then((permissions) => {
-          return userRole.setPermissions([permissions[0]]).then(() => {
+          return memberRole.setPermissions([permissions[0]]).then(() => {
             return adminRole.setPermissions(permissions);
           });
         });

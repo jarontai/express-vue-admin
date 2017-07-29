@@ -46,6 +46,7 @@ class UserController extends RestController {
     }
     const AdminRole = this.models['AdminRole'];
     data.include = [{ model: AdminRole, as: 'roles' }];
+    data.distinct = true;
     res.reply(this.model.findAndCount(data));
   }
 

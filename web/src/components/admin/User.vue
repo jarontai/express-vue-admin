@@ -18,10 +18,10 @@
       </div>
     </Card>
 
-    <Modal v-model="editModal" title="编辑用户信息" @on-ok="edit(true)" @on-cancel="edit(false)">
+    <Modal width="400" v-model="editModal" title="编辑用户信息" @on-ok="edit(true)" @on-cancel="edit(false)">
       <Form ref="dataModel" :model="dataModel" :rules="rules" :label-width="80">
         <Form-item label="姓名" prop="username">
-          <Input v-model="dataModel.username" placeholder="请输入姓名"></Input>
+          <Input v-model="dataModel.username" placeholder="请输入姓名" :disabled="dataModel.username === 'admin'"></Input>
         </Form-item>
         <Form-item label="密码" prop="password">
           <Input v-model="dataModel.password" placeholder="********"></Input>
@@ -50,7 +50,7 @@ export default {
         ]
       },
       editModal: false,
-      totalCount: 1,
+      totalCount: 0,
       pageSize: 10,
       currentPage: 1,
       tableData: [],
@@ -126,7 +126,8 @@ export default {
               h('Button', {
                 props: {
                   type: 'error',
-                  size: 'small'
+                  size: 'small',
+                  disabled: (params.row.username && params.row.username === 'admin')
                 },
                 on: {
                   click: () => {
