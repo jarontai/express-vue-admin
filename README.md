@@ -21,7 +21,9 @@
       .
       ├── .env.example  环境配置示例
       ├── .sequelizerc  sequelize配置
+      ├── screenshots/  应用运行截图
       ├── web/          vue web应用
+      ├── test/         接口测试文件
       ├── server.js     服务器
       ├── middleware/   中间件
       | ├── base.js     基础中间件
