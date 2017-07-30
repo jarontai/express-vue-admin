@@ -11,7 +11,7 @@ const RedisStore = require('connect-redis')(session);
 const expressListRoutes = require('express-list-routes');
 
 const app = express();
-const port = process.env.SERVER_PORT || 3000;
+const port = process.env.NODE_ENV === 'test' ? process.env.SERVER_PORT_TEST || 3001 : process.env.SERVER_PORT || 3000;
 const apiPath = process.env.API_PATH + '/' + process.env.API_VERSION;
 const util = require('./util');
 const baseRouter = require('./route/base');
