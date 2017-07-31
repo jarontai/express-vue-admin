@@ -48,7 +48,7 @@ function reply(req, res, next) {
     console.error('Error', err);
 
     let message = err.message || err;
-    let status = err.status || 200;
+    let status = err.status || 400;
 
     // process joi error
     if (err.details && err.details.length) {
@@ -58,10 +58,8 @@ function reply(req, res, next) {
         }
         return result + detail.message;
       }, '');
-      status = 400;
     } else if (err.errors && err.errors.length) {
       message = err.errors[0].message;
-      status = 500;
     }
 
     res.status(status).json({

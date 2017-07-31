@@ -106,6 +106,11 @@ class UserController extends RestController {
     }).then(() => {
       delete value.roles;
       return this.model.findById(req.params.id).then((user) => {
+        if (user && user.name === 'admin' && value.username) {
+          console.error('Found updates to admin username');
+          delete value.username;
+          console.error('Stopped updates to admin username');
+        }
         return user.update(value);
       });
     }).then((user) => {
@@ -201,6 +206,27 @@ class UserController extends RestController {
       }
     });
     res.reply(result);
+  }
+
+  /**
+  * 删除单个对象
+  */
+  destroy(req, res) {
+    if (!req.params || !req.params.id) {
+      return res.replyError('missing id parameter');
+    }
+
+    this.model.findById(req.params.id).then((obj) => {
+      if (obj) {
+        if (obj.name === 'admin') {
+          res.replyError('Admin can\'t be deleted!');
+        } else {
+          res.reply(obj.destroy());
+        }
+      } else {
+        res.replyError(this.modelName + ' not found');
+      }
+    });
   }
 }
 
