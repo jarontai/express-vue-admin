@@ -8,7 +8,8 @@ content-type: application/json
 
 {
     "username": "test",
-    "password": "testpwd"
+    "password": "testpwd",
+    "roles": ["admin", "member"]
 }
 
 PUT http://localhost:3000/api/v1/admin/users/1 HTTP/1.1
@@ -16,7 +17,8 @@ content-type: application/json
 
 {
     "username": "admin",
-    "password": "adminpwd"
+    "password": "adminpwd",
+    "roles": ["admin"]
 }
 
 GET http://localhost:3000/api/v1/admin/users/1 HTTP/1.1

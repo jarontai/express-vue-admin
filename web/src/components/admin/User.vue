@@ -27,7 +27,12 @@
           <Input v-model="dataModel.password" placeholder="********"></Input>
         </Form-item>
         <Form-item label="启用" prop="enabled">
-          <i-switch v-model="dataModel.enabled"></i-switch>
+          <i-switch v-model="dataModel.enabled" :disabled="dataModel.username === 'admin'"></i-switch>
+        </Form-item>
+        <Form-item label="角色">
+          <Checkbox-group>
+            <Checkbox v-for="role in allRoles" :label="role.name" :key="role.name" v-model="role.selected" :disabled="dataModel.username === role.name"></Checkbox>
+          </Checkbox-group>
         </Form-item>
       </Form>
     </Modal>
@@ -39,6 +44,7 @@
 export default {
   data() {
     return {
+      allRoles: [],
       dataModel: {},
       rules: {
         username: [
@@ -143,6 +149,10 @@ export default {
   },
   created() {
     this.changePage(1);
+    this.$http.get('admin/roles?limit=100').then((res) => {
+      const data = res.data.data;
+      this.allRoles = data.rows;
+    });
   },
   methods: {
     changePage(page) {
@@ -155,6 +165,11 @@ export default {
     },
     showCreate() {
       this.dataModel = {};
+      const allRoles = this.allRoles;
+      _.forEach(allRoles, (role) => {
+        role.selected = false;
+      });
+      this.dataModel.roles = allRoles;
       this.editModal = true;
     },
     refresh() {
@@ -168,6 +183,18 @@ export default {
       this.dataModel.username = data.username;
       this.dataModel.enabled = !data.disabled;
       this.dataModel.password = '';
+      const allRoles = this.allRoles;
+      const userRoles = data.roles;
+      _.forEach(allRoles, (role) => {
+        role.selected = false;
+        _.forEach(userRoles, (userRole) => {
+          if (role.name === userRole.name) {
+            role.selected = true;
+            return false;
+          }
+        });
+      });
+      this.dataModel.roles = allRoles;
       this.editModal = true;
     },
     edit(result) {
@@ -175,11 +202,18 @@ export default {
         this.$refs['dataModel'].validate((valid) => {
           if (valid) {
             const dataId = this.dataModel.id;
+            const roles = [];
+            _.forEach(this.dataModel.roles, (role) => {
+              if (role.selected) {
+                roles.push(role.name);
+              }
+            });
             if (dataId) { // 编辑
               this.$http.put(`admin/users/${dataId}`, {
                 password: this.dataModel.password || undefined,
                 username: this.dataModel.username || undefined,
-                disabled: !this.dataModel.enabled
+                disabled: !this.dataModel.enabled,
+                roles: roles
               }).then(() => {
                 this.$Message.success('编辑成功!');
                 this.refresh();
@@ -188,7 +222,8 @@ export default {
               this.$http.post('admin/users', {
                 password: this.dataModel.password || undefined,
                 username: this.dataModel.username || undefined,
-                disabled: !this.dataModel.enabled
+                disabled: !this.dataModel.enabled,
+                roles: roles
               }).then(() => {
                 this.$Message.success('新增成功!');
                 this.refresh();
