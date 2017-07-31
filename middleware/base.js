@@ -58,8 +58,10 @@ function reply(req, res, next) {
         }
         return result + detail.message;
       }, '');
+      status = 400;
     } else if (err.errors && err.errors.length) {
       message = err.errors[0].message;
+      status = 500;
     }
 
     res.status(status).json({

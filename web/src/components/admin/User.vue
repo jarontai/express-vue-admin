@@ -37,6 +37,20 @@
       </Form>
     </Modal>
 
+    <Modal width="300" v-model="destroyModal">
+      <p slot="header" style="color:#f60;text-align:center">
+        <Icon type="information-circled"></Icon>
+        <span>用户删除确认</span>
+      </p>
+      <div style="text-align:center; font-size:14px" >
+        <p>用户：{{ destroyData ? destroyData.username : '-'}}</p>
+        <p>将被删除且无法恢复，是否继续？</p>
+      </div>
+      <div slot="footer">
+        <Button type="error" size="large" long @click="destroy(true)">删除</Button>
+      </div>
+    </Modal>
+
   </div>
 </template>
 
@@ -56,6 +70,8 @@ export default {
         ]
       },
       editModal: false,
+      destroyModal: false,
+      destroyData: null,
       totalCount: 0,
       pageSize: 10,
       currentPage: 1,
@@ -137,7 +153,7 @@ export default {
                 },
                 on: {
                   click: () => {
-                    this.remove(params.index);
+                    this.showDestroy(params.index);
                   }
                 }
               }, '删除')
@@ -171,6 +187,19 @@ export default {
       });
       this.dataModel.roles = allRoles;
       this.editModal = true;
+    },
+    showDestroy(index) {
+      this.destroyData = this.tableData[index];
+      this.destroyModal = true;
+    },
+    destroy(result) {
+      if (result && this.destroyData) {
+        this.$http.delete(`admin/users/${this.destroyData.id}`).then(() => {
+          this.$Message.success('删除成功!');
+          this.refresh();
+        });
+      }
+      this.destroyModal = false;
     },
     refresh() {
       if (this.currentPage) {
