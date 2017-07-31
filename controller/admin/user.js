@@ -88,9 +88,8 @@ class UserController extends RestController {
       return res.replyError(error);
     }
 
-    const AdminRole = this.models['AdminRole'];
     let updateRoles;
-
+    const AdminRole = this.models['AdminRole'];
     const result = Promise.resolve().then(() => {
       if (value.password) {
         return pw.hash(value.password).then((hash) => {
@@ -146,25 +145,18 @@ class UserController extends RestController {
   // 更新用户角色
   updateRoles(req, res) {
     const rules = {
-      roles: joi.array().items(joi.object().keys({
-        id: joi.number().min(1).integer(),
-        name: joi.string().min(1)
-      }))
+      roles: joi.array()
     };
     const { error, value } = joi.validate(req.body, rules);
     if (error) {
       return res.replyError(error);
     }
 
-    const roleIds = _.map(value.roles, role => {
-      return role.id;
-    });
-    const AdminUser = this.models['AdminUser'];
     const AdminRole = this.models['AdminRole'];
-    res.reply(AdminUser.findById(req.params.id).then(user => {
+    res.reply(this.model.findById(req.params.id).then(user => {
       return AdminRole.findAll({
         where: {
-          id: { $in: roleIds }
+          name: { $in: value.roles }
         }
       }).then(roles => {
         return user.setAdminRole(roles);

@@ -31,7 +31,7 @@ PUT http://localhost:3000/api/v1/admin/users/1/roles HTTP/1.1
 content-type: application/json
 
 {
-    "roles": [ {"id": 1, "name": "admin"} ]
+    "roles": [ "admin" ]
 }
 
 POST http://localhost:3000/api/v1/admin/users/update-password HTTP/1.1
@@ -70,7 +70,7 @@ PUT http://localhost:3000/api/v1/admin/roles/1/permissions HTTP/1.1
 content-type: application/json
 
 {
-    "permissions": [ {"id": 1, "name": "dashboard"}, {"id": 2, "name": "admin"} ]
+    "permissions": [ "dashboard" ]
 }
 
 # admin/permission

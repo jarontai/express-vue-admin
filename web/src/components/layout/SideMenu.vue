@@ -69,6 +69,6 @@ export default {
   margin-top: 15px;
   margin-bottom: 15px;
   text-align: center;
-  font-size: 16px;
+  font-size: 18px;
 }
 </style>

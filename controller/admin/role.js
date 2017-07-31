@@ -9,35 +9,120 @@ class RoleController extends RestController {
   constructor() {
     super('AdminRole');
 
-    this.restRules = {
-      create: {
-        name: joi.string().min(3).required(),
-        comment: joi.string().min(2).required()
-      },
-      update: {
-        name: joi.string().min(3),
-        comment: joi.string().min(2)
+    this.defaultPermission = 'dashboard';
+
+    const AdminPermission = this.models['AdminPermission'];
+    AdminPermission.findOne({ where: { name: this.defaultPermission } }).then((result) => {
+      if (!result) {
+        throw 'Failed to load the default permission!';
       }
+    });
+  }
+
+  /**
+   * 分页返回所有对象
+   */
+  index(req, res) {
+    const params = req.query || {};
+    const data = {
+      offset: +params.offset || 0,
+      limit: +params.limit || 10
     };
+    if (params.where && _.isObject(params.where)) {
+      data.where = params.where;
+    }
+    const AdminPermission = this.models['AdminPermission'];
+    data.include = [{ model: AdminPermission, as: 'permissions' }];
+    data.distinct = true;
+    res.reply(this.model.findAndCount(data));
+  }
+
+  /**
+   * 创建对象
+   */
+  create(req, res) {
+    const rules = {
+      name: joi.string().min(3).required(),
+      comment: joi.string().min(2).required(),
+      permissions: joi.array().default([]),
+    };
+    const { error, value } = joi.validate(req.body, rules);
+    if (error) {
+      return res.replyError(error);
+    }
+
+    const AdminPermission = this.models['AdminPermission'];
+    const permissions = value.permissions;
+    permissions.push(this.defaultPermission);
+
+    const result = AdminPermission.findAll({
+      where: { name: { $in: permissions } }
+    }).then((permissions) => {
+      delete value.permissions;
+      return this.model.create(value).then((role) => {
+        return role.setPermissions(permissions).then(() => { });
+      });
+    });
+    res.reply(result);
+  }
+
+  /**
+   * 更新对象
+   */
+  update(req, res) {
+    if (!req.params || !req.params.id) {
+      return res.replyError('missing id parameter');
+    }
+    const rules = {
+      name: joi.string().min(3),
+      comment: joi.string().min(2),
+      permissions: joi.array()
+    };
+    const { error, value } = joi.validate(req.body, rules);
+    if (error) {
+      return res.replyError(error);
+    }
+
+    let updatePermissions;
+    const AdminPermission = this.models['AdminPermission'];
+    const result = Promise.resolve().then(() => {
+      if (value.permissions) {
+        return AdminPermission.findAll({ where: { name: { $in: value.permissions } } }).then((permissions) => {
+          updatePermissions = permissions;
+        });
+      }
+    }).then(() => {
+      delete value.permissions;
+      return this.model.findById(req.params.id).then((role) => {
+        if (role && role.name === 'admin' && value.name) {
+          console.error('Found updates to admin role name');
+          delete value.name;
+          console.error('Stopped updates to admin role name');
+        }
+        return role.update(value);
+      });
+    }).then((role) => {
+      if (updatePermissions) {
+        return role.setPermissions(updatePermissions).then(() => { });
+      }
+    });
+    res.reply(result);
   }
 
   // 获取角色权限列表
   fetchPermissions(req, res) {
-    const AdminRole = this.models['AdminRole'];
     const AdminPermission = this.models['AdminPermission'];
-
-    const promise = AdminRole.findById(req.params.id).then(role => {
+    const promise = this.model.findById(req.params.id).then(role => {
       return AdminPermission.findAll({
         where: {
           '$AdminRole.id$': role.get('id')
         },
         include: [{
-          model: AdminRole,
+          model: this.model,
           as: 'AdminRole'
         }]
       });
     });
-
     res.reply(promise.then(results => {
       return this.filterModels(results, ['id', 'name']);
     }));
@@ -46,28 +131,21 @@ class RoleController extends RestController {
   // 更新角色权限
   updatePermissions(req, res) {
     const rules = {
-      permissions: joi.array().items(joi.object().keys({
-        id: joi.number().min(1).integer(),
-        name: joi.string().min(1)
-      }))
+      permissions: joi.array()
     };
     const {error, value} = joi.validate(req.body, rules);
     if (error) {
       return res.replyError(error);
     }
 
-    const permissionIds = _.map(value.permissions, role => {
-      return role.id;
-    });
     const AdminPermission = this.models['AdminPermission'];
-    const AdminRole = this.models['AdminRole'];
-    res.reply(AdminRole.findById(req.params.id).then(role => {
+    res.reply(this.model.findById(req.params.id).then(role => {
       return AdminPermission.findAll({
         where: {
-          id: {$in: permissionIds}
+          name: { $in: value.permissions}
         }
       }).then(permissions => {
-        return role.setAdminPermission(permissions);
+        return role.setPermissions(permissions);
       });
     }));
   }
