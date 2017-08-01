@@ -59,8 +59,10 @@ class RoleController extends RestController {
       where: { name: { $in: permissions } }
     }).then((permissions) => {
       delete value.permissions;
-      return this.model.create(value).then((role) => {
-        return role.setPermissions(permissions).then(() => { });
+      return this.sequelize.transaction((t) => {
+        return this.model.create(value, {transaction: t}).then((role) => {
+          return role.setPermissions(permissions, {transaction: t}).then(() => { });
+        });
       });
     });
     res.reply(result);
@@ -99,12 +101,12 @@ class RoleController extends RestController {
           delete value.name;
           console.error('Stopped updates to admin role name');
         }
-        return role.update(value);
+        return this.sequelize.transaction((t) => {
+          return role.update(value, {transaction: t}).then((role) => {
+            return role.setPermissions(updatePermissions, {transaction: t}).then(() => { });
+          });
+        });
       });
-    }).then((role) => {
-      if (updatePermissions) {
-        return role.setPermissions(updatePermissions).then(() => { });
-      }
     });
     res.reply(result);
   }

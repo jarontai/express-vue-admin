@@ -63,8 +63,10 @@ class UserController extends RestController {
       delete value.roles;
       return AdminRole.findAll({ where: { name: { $in: creationRoles } } });
     }).then((roles) => {
-      return this.model.create(value).then((user) => {
-        return user.setRoles(roles).then(() => {});
+      return this.sequelize.transaction((t) => {
+        return this.model.create(value, {transaction: t}).then((user) => {
+          return user.setRoles(roles, {transaction: t}).then(() => {});
+        });
       });
     });
     res.reply(result);
@@ -110,12 +112,12 @@ class UserController extends RestController {
           delete value.username;
           console.error('Stopped updates to admin username');
         }
-        return user.update(value);
+        return this.sequelize.transaction((t) => {
+          return user.update(value, {transaction: t}).then((user) => {
+            return user.setRoles(updateRoles, {transaction: t}).then(() => {});
+          });
+        });
       });
-    }).then((user) => {
-      if (updateRoles) {
-        return user.setRoles(updateRoles).then(() => { });
-      }
     });
     res.reply(result);
   }

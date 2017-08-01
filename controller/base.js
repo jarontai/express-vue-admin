@@ -11,6 +11,7 @@ class BaseController {
    * Creates an instance of BaseController.
    */
   constructor() {
+    this.sequelize = models.sequelize;
     this.models = models;
   }
 
