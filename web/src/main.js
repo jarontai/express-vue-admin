@@ -38,7 +38,7 @@ Vue.http.interceptors.push(function (request, next) {
           break;
       }
       this.$Message.warning({
-        content: message,
+        content: message || '后台未知错误',
         duration: 5
       });
     }

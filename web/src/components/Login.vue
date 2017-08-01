@@ -1,10 +1,15 @@
 <template>
   <div>
+    <Row justify="center" align="middle" class="spin-row">
+      <Col span="8" offset="8" class="spin-col"><Spin fix size="large" class="login-spin" v-show="loading"></Spin>&nbsp;</Col>
+    </Row>
+
+    <Row justify="center" align="middle" class="title-row">
+      <Col span="8" offset="8" class="title-col">express-vue-admin</Col>
+    </Row>
+
     <Row justify="center" align="middle" class="login-row">
-      <Col :xs="{ span: 6, offset: 9 }" :sm="{ span: 12, offset: 4 }" :md="{ span: 10, offset: 6 }" :lg="{ span: 6, offset: 9 }" class="login-col">
-      <div class="login-title">
-        <Spin size="large" class="login-spin" v-show="loading"></Spin>&nbsp;&nbsp;express-vue-admin
-      </div>
+      <Col span="24" class="login-col">
       <Card class="login-card">
         <p slot="title">
           请登录
@@ -21,10 +26,8 @@
           </Form-item>
         </Form>
       </Card>
-      </Col>
 
-      <Col offset="1" span="1" class="tip-col">
-      <Poptip trigger="hover" placement="right">
+      <Poptip trigger="hover" placement="bottom-start" class="tip-section">
         <Button type="ghost" shape="circle">登录信息</Button>
         <div class="tip-table" slot="content">
           <table>
@@ -98,6 +101,11 @@ export default {
             setTimeout(() => {
               this.loading = false;
             }, 2000);
+          }).catch((err) => {
+            console.error('session creation error', err);
+            setTimeout(() => {
+              this.loading = false;
+            }, 2000);
           });
         } else {
           this.$Message.error('信息验证失败，请检查!');
@@ -125,30 +133,31 @@ export default {
   height: 100px;
 }
 
-.login-card {
-  width: 100%;
-  margin-top: 10%;
-}
-
-.login-row {
-  height: 100%;
-}
-
-.login-title {
-  margin-top: 145px;
+.title-col {
+  padding-top: 100px;
+  padding-bottom: 60px;
+  height: 100px;
   text-align: center;
   font-size: 24px;
 }
 
-.login-tip {
-  background: #5cb85c;
+.login-col {
+  text-align: center;
+}
+
+.login-card {
+  margin: auto;
+  width: 350px;
+}
+
+.tip-section {
+  position: relative;
+  top: -255px;
+  left: 240px;
 }
 
 .login-spin {
-  width: 35px;
+  padding-top: 80px;
 }
 
-.tip-col {
-  padding-top: 210px;
-}
 </style>
