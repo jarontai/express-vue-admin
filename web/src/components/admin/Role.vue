@@ -31,6 +31,7 @@
       </Form>
     </Modal>
 
+    <!--// TODO - use tree component-->
     <Modal width="400" v-model="permissionModal" title="编辑角色权限" @on-ok="editPermission(true)" @on-cancel="editPermission(false)">
       <Form :label-width="80">
         <Form-item label="权限">
@@ -181,11 +182,6 @@ export default {
     },
     showCreate() {
       this.dataModel = {};
-      const allPermissions = this.allPermissions;
-      _.forEach(allPermissions, (permission) => {
-        permission.selected = false;
-      });
-      this.dataModel.permissions = allPermissions;
       this.editModal = true;
     },
     showEditPermissions(index) {
