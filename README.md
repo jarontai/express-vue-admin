@@ -2,7 +2,7 @@
 
 ### 使用Express, Vue2开发的管理后台脚手架项目
 
-#### 前后端分离，后端提供Rest Api，前端是一个Web应用；实现了后台项目最基本的用户、角色、权限管理功能；
+#### 前后端分离，后端提供Rest Api，前端是一个Web应用；实现了后台项目最基本的用户、角色、权限管理功能；
 
 ### 项目构成:
 
@@ -129,6 +129,6 @@
 
 ### TODO
 
-* 使用[node_acl](https://github.com/OptimalBits/node_acl)优化重构权限逻辑
+* 使用[node_acl](https://github.com/OptimalBits/node_acl)优化重构权限逻辑
 * 优化角色权限分配等页面UI
 * ...
