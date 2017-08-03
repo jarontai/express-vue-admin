@@ -2,15 +2,17 @@
 
 ### 使用Express, Vue2开发的管理后台脚手架项目
 
+#### 前后端分离，后端提供Rest Api，前端是一个Web应用；实现了后台项目最基本的用户、角色、权限管理功能；
+
 ### 项目构成:
 
-* vue2 - 前端JS框架
-* iview - 前端UI框架
+* [vue2](https://vuejs.org/) - 前端JS框架
+* [iview](https://www.iviewui.com/) - 前端UI框架
 * vue-resource/vue-router/vuex - 前端主要组件
-* express - 后端web框架
-* sequelize - ORM
-* joi - 参数校验
-* dotenv - 环境配置
+* [express](https://expressjs.com/) - 后端web框架
+* [sequelize](http://docs.sequelizejs.com/) - ORM
+* [joi](https://github.com/hapijs/joi) - 参数校验
+* [dotenv](https://github.com/motdotla/dotenv) - 环境配置
 * mysql - 数据库
 * redis - 缓存
 * ...
@@ -57,8 +59,76 @@
 </kbd>
 </p>
 
-#### TODO ...
+#### admin/user
 
-### 运行步骤:
+<p align="center">
+<kbd>
+  <img src="https://raw.github.com/jarontai/express-vue-admin/master/screenshots/admin_user.png">
+</kbd>
+</p>
 
-#### TODO ...
+#### admin/role
+
+<p align="center">
+<kbd>
+  <img src="https://raw.github.com/jarontai/express-vue-admin/master/screenshots/admin_role.png">
+</kbd>
+</p>
+
+#### admin/role delete
+
+<p align="center">
+<kbd>
+  <img src="https://raw.github.com/jarontai/express-vue-admin/master/screenshots/admin_role_delete.png">
+</kbd>
+</p>
+
+
+### 运行:
+
+ * 1.复制.env.example到.env，并对各个项目进行配置
+    ```
+    #server
+    NODE_ENV=development 环境配置
+    SERVER_PORT=3000 服务器端口
+    API_PATH=/api 接口基路径
+    API_VERSION=v1 接口版本
+
+    #db
+    DB_HOST=localhost 数据库host
+    DB_DATABASE=admin 数据库名称
+    DB_USER=root 数据库用户
+    DB_PASSWORD=root 数据库密码
+
+    #redis
+    REDIS_HOST=localhost redis缓存host
+    REDIS_PORT=6379 redis端口
+
+    #misc
+    ADMIN_SEED_PASSWORD=adminpwd admin帐号密码
+    TEST_SEED_PASSWORD=testpwd 测试帐号密码
+    SERVER_PORT_TEST=3001 单元测试服务器端口
+
+    ```
+ * 2.全局安装sequelize-cli
+    ```
+    $ npm install -g sequelize-cli
+    ```
+ * 3.安装依赖并初始化数据库:
+    ```
+    $ npm install
+    $ sequelize db:migrate
+    $ sequelize db:seed:all
+    ```
+ * 4.初始化并运行web应用
+    ```
+    $ cd ./web
+    $ npm install
+    $ npm run dev
+    ```
+
+### TODO
+
+* 使用[node_acl](https://github.com/OptimalBits/node_acl)优化重构权限逻辑
+* 优化角色权限分配等页面UI
+* ...
