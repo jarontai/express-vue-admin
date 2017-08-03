@@ -135,7 +135,7 @@ export default {
 
 .layout-copy {
   text-align: center;
-  padding: 10px 0 20px;
+  padding: 20px 0 20px;
   color: #9ea7b4;
 }
 
