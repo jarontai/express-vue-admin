@@ -1,19 +1,19 @@
 # express-vue-admin
 
-### 使用Express, Vue2开发的管理后台脚手架项目
+### 使用Node.js（Express）, Vue2开发的管理后台脚手架项目
 
-#### 前后端分离，后端提供Rest Api，前端是一个Web应用；实现了后台项目最基本的用户、角色、权限管理功能；
+#### 前后端分离，后端提供REST API，前端是组件化的Web App；实现了后台项目最基本的用户/角色/权限管理等功能；
 
 ### 项目构成:
 
 * [vue2](https://vuejs.org/) - 前端JS框架
 * [iview](https://www.iviewui.com/) - 前端UI框架
-* vue-resource/vue-router/vuex - 前端主要组件
+* [vue-resource](https://github.com/pagekit/vue-resource)/[vue-router](https://github.com/vuejs/vue-router)/[vuex](https://github.com/vuejs/vuex) - 前端主要组件
 * [express](https://expressjs.com/) - 后端web框架
 * [sequelize](http://docs.sequelizejs.com/) - ORM
 * [joi](https://github.com/hapijs/joi) - 参数校验
 * [dotenv](https://github.com/motdotla/dotenv) - 环境配置
-* [mocha](https://mochajs.org/)/[chai](http://chaijs.com/)/chai-http - 接口测试组件
+* [mocha](https://mochajs.org/)/[chai](http://chaijs.com/)/[chai-http](https://github.com/chaijs/chai-http) - 接口测试组件
 * mysql - 数据库
 * redis - 缓存
 * ...
