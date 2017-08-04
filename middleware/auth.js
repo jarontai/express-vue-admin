@@ -25,7 +25,7 @@ function login(req, res, next) {
 // 要求用户具有某种角色
 function buildRoleAuth(roleName) {
   if (!roleName) {
-    throw 'Invalid role name for role auth middleware!';
+    throw new Error('Missing or invalid role name for role auth middleware!');
   }
 
   const role = function (req, res, next) {

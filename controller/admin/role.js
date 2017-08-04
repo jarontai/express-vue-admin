@@ -14,7 +14,7 @@ class RoleController extends RestController {
     const AdminPermission = this.models['AdminPermission'];
     AdminPermission.findOne({ where: { name: this.defaultPermission } }).then((result) => {
       if (!result) {
-        throw 'Failed to load the default permission!';
+        throw new Error('Failed to load the default permission! Should run sequelize seeder first!');
       }
     });
   }

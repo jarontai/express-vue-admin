@@ -16,7 +16,7 @@ class UserController extends RestController {
     const AdminRole = this.models['AdminRole'];
     AdminRole.findOne({ where: { name: this.defaultUserRole}}).then((result) => {
       if (!result) {
-        throw 'Failed to load the default user role!';
+        throw new Error('Failed to load the default user role! Should run sequelize seeder first!');
       }
     });
   }

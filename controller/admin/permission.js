@@ -21,7 +21,7 @@ class PermissionController extends RestController {
 
     this.model.count().then((result) => {
       if (!result || result < 5) {
-        throw 'Default admin permissions count error! Should greater or equal to 5, but got ' + result;
+        throw new Error('Default admin permissions count error! Should run sequelize seeder first!');
       }
     });
   }
