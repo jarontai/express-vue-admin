@@ -117,11 +117,11 @@ class RoleController extends RestController {
     const promise = this.model.findById(req.params.id).then(role => {
       return AdminPermission.findAll({
         where: {
-          '$AdminRole.id$': role.get('id')
+          '$roles.id$': role.get('id')
         },
         include: [{
           model: this.model,
-          as: 'AdminRole'
+          as: 'roles'
         }]
       });
     });

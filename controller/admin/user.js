@@ -125,16 +125,14 @@ class UserController extends RestController {
   // 获取用户角色列表
   fetchRoles(req, res) {
     const AdminRole = this.models['AdminRole'];
-    const AdminUser = this.models['AdminUser'];
-
-    const promise = AdminUser.findById(req.params.id).then(user => {
+    const promise = this.model.findById(req.params.id).then(user => {
       return AdminRole.findAll({
         where: {
-          '$AdminUser.id$': user.get('id')
+          '$users.id$': user.get('id')
         },
         include: [{
-          model: AdminUser,
-          as: 'AdminUser'
+          model: this.model,
+          as: 'users'
         }]
       });
     });

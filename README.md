@@ -13,6 +13,7 @@
 * [sequelize](http://docs.sequelizejs.com/) - ORM
 * [joi](https://github.com/hapijs/joi) - 参数校验
 * [dotenv](https://github.com/motdotla/dotenv) - 环境配置
+* [mocha](https://mochajs.org/)/[chai](http://chaijs.com/)/chai-http - 接口测试组件
 * mysql - 数据库
 * redis - 缓存
 * ...
