@@ -131,4 +131,5 @@
 
 * 使用[node_acl](https://github.com/OptimalBits/node_acl)优化重构权限逻辑
 * 优化角色权限分配等页面UI
+* 更多的测试代码
 * ...

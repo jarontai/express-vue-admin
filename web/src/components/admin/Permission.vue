@@ -206,8 +206,8 @@ export default {
           }
         });
       } else {
-        this.$refs['dataModel'].resetFields();
         // TODO - 页面值不会被重置 - https://github.com/iview/iview/issues/970
+        this.$refs['dataModel'].resetFields();
       }
     }
   }
