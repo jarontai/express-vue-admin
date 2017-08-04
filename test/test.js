@@ -16,7 +16,7 @@ chai.use(chaiHttp);
 const agent = chai.request.agent(server);
 
 describe('index', () => {
-  it('should return index', (done) => {
+  it('should return index', function(done) {
     agent.get(apiPath)
       .end((err, res) => {
         expect(res).to.have.status(200);
@@ -26,7 +26,7 @@ describe('index', () => {
 });
 
 describe('sessions creation', () => {
-  it('should get empty sesseion', (done) => {
+  it('should get empty session', function(done) {
     agent.get(apiPath+'/sessions')
       .end((err, res) => {
         expect(res).to.have.status(200);
@@ -35,7 +35,9 @@ describe('sessions creation', () => {
       });
   });
 
-  it('should create sesseion', (done) => {
+  it('should create session', function(done) {
+    this.timeout(6000); // session创建费时较长
+
     agent.post(apiPath+'/sessions')
       .send({
         "username": "admin",
@@ -50,7 +52,7 @@ describe('sessions creation', () => {
 });
 
 describe('users', () => {
-  it('should return user list', (done) => {
+  it('should return user list', function(done) {
     agent.get(apiPath + '/admin/users')
       .end((err, res) => {
         expect(res).to.have.status(200);
@@ -62,7 +64,7 @@ describe('users', () => {
 });
 
 describe('sessions delete', () => {
-  it('should delete sesseion', (done) => {
+  it('should delete session', function(done) {
     agent.del(apiPath + '/sessions')
       .end((err, res) => {
         expect(res).to.have.status(200);

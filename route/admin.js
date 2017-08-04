@@ -18,8 +18,7 @@ util.restRoute('/permissions', router, permissionController);
 
 util.buildRoute([
   {path: '/users/:id/roles', method: 'get', target: 'fetchRoles'},
-  {path: '/users/:id/roles', method: 'put', target: 'updateRoles'},
-  {path: '/users/update-password', method: 'post', target: 'updatePassword'}
+  {path: '/users/:id/roles', method: 'put', target: 'updateRoles'}
 ], router, userController);
 
 util.buildRoute([

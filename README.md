@@ -114,7 +114,7 @@
     ```
     $ npm install -g sequelize-cli
     ```
- * 3.安装依赖并初始化数据库:
+ * 3.安装依赖、初始化数据库、填充seed数据:
     ```
     $ npm install
     $ sequelize db:migrate
@@ -127,9 +127,15 @@
     $ npm run dev
     ```
 
+### Test
+```
+$ npm run test
+```
+
 ### TODO
 
 * 使用[node_acl](https://github.com/OptimalBits/node_acl)优化重构权限逻辑
-* 优化角色权限分配等页面UI
+* 优化角色权限管理等表单的UI
+* 后台耗时操作（如修改密码）的loading提示
 * 更多的测试代码
 * ...

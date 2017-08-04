@@ -166,42 +166,6 @@ class UserController extends RestController {
     }));
   }
 
-  // 更新用户密码
-  updatePassword(req, res) {
-    const rules = {
-      oldPassword: joi.string().min(6).required(),
-      newPassword: joi.string().min(6).required(),
-      newPasswordRepeat: joi.string().min(6).required()
-    };
-    const { error, value } = joi.validate(req.body, rules);
-    if (error) {
-      return res.replyError(error);
-    }
-    if (value.newPassword !== value.newPasswordRepeat) {
-      return res.replyError('两个新密码不一致！');
-    }
-
-    const userId = req.user.id;
-    const result = this.model.findById(userId, { attributes: { include: ['password'] } }).then((user) => {
-      if (user) {
-        return pw.verify(user.password, value.oldPassword).then((result) => {
-          if (result) {
-            return pw.hash(value.newPassword).then((hash) => {
-              return user.update({
-                password: hash
-              }).then(() => {});
-            });
-          } else {
-            return Promise.reject('旧密码错误！');
-          }
-        });
-      } else {
-        return Promise.reject('用户不存在！');
-      }
-    });
-    res.reply(result);
-  }
-
   /**
   * 删除单个对象
   */
