@@ -4,14 +4,14 @@
 
 const _ = require('lodash');
 
-// 返回数据或异常
+// 请求返回中间件，定义接口返回数据或异常
 // 成功:
 // {
 //   code: 0,
 //   message: 'success',
 //   data: {}/[{}]
 // }
-// 错误:
+// 异常:
 // {
 //   code: 1,
 //   message: 'reason'

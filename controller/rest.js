@@ -6,7 +6,7 @@ const _ = require('lodash');
 const BaseController = require('./base');
 
 /**
- * REST控制器基类，提供默认的控制器方法，请勿修改
+ * REST控制器基类，提供默认的Rest请求方法，必须绑定模型
  */
 class RestController extends BaseController {
   /**
@@ -18,11 +18,29 @@ class RestController extends BaseController {
   constructor(modelName) {
     super();
 
-    this.restRules = {}; // rest操作参数校验规则
+    // rest操作参数校验规则
+    this.restRules = {};
+    // 示例
+    // this.restRules = {
+    //   create: {
+    //     name: joi.string().min(3).required(),
+    //     comment: joi.string().min(2).required()
+    //   },
+    //   update: {
+    //     name: joi.string().min(3),
+    //     comment: joi.string().min(2)
+    //   }
+    // };
 
+    // 绑定模型
     if (modelName) {
       this.modelName = modelName;
       this.model = this.models[modelName];
+      if (!this.model) {
+        throw new Error(`The model ${modelName} for rest controller is missing or invalid!`);
+      }
+    } else {
+      throw new Error('Rest controller should bind to a model!');
     }
   }
 

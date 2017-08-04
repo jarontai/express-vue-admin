@@ -2,9 +2,9 @@
 
 // auth中间件
 
-const AdminUser = require('../database/models')['AdminUser'];
 const apiPath = process.env.API_PATH + '/' + process.env.API_VERSION;
 const sessionPath = apiPath + '/admin/sessions';
+const AdminUser = require('../database/models')['AdminUser'];
 
 // 要求用户登录
 function login(req, res, next) {
