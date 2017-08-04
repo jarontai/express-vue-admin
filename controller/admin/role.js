@@ -60,8 +60,8 @@ class RoleController extends RestController {
     }).then((permissions) => {
       delete value.permissions;
       return this.sequelize.transaction((t) => {
-        return this.model.create(value, {transaction: t}).then((role) => {
-          return role.setPermissions(permissions, {transaction: t}).then(() => { });
+        return this.model.create(value, { transaction: t }).then((role) => {
+          return role.setPermissions(permissions, { transaction: t }).then(() => { });
         });
       });
     });
@@ -97,13 +97,14 @@ class RoleController extends RestController {
       delete value.permissions;
       return this.model.findById(req.params.id).then((role) => {
         if (role && role.name === 'admin' && value.name) {
+          // 禁止修改默认的admin权限名称
           console.error('Found updates to admin role name');
           delete value.name;
-          console.error('Stopped updates to admin role name');
+          console.error('Abandon updates to admin role name');
         }
         return this.sequelize.transaction((t) => {
-          return role.update(value, {transaction: t}).then((role) => {
-            return role.setPermissions(updatePermissions, {transaction: t}).then(() => { });
+          return role.update(value, { transaction: t }).then((role) => {
+            return role.setPermissions(updatePermissions, { transaction: t }).then(() => { });
           });
         });
       });
@@ -135,7 +136,7 @@ class RoleController extends RestController {
     const rules = {
       permissions: joi.array()
     };
-    const {error, value} = joi.validate(req.body, rules);
+    const { error, value } = joi.validate(req.body, rules);
     if (error) {
       return res.replyError(error);
     }
@@ -144,7 +145,7 @@ class RoleController extends RestController {
     res.reply(this.model.findById(req.params.id).then(role => {
       return AdminPermission.findAll({
         where: {
-          name: { $in: value.permissions}
+          name: { $in: value.permissions }
         }
       }).then(permissions => {
         return role.setPermissions(permissions);

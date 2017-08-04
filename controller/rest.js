@@ -90,7 +90,7 @@ class RestController extends BaseController {
       }
       data = validate.value;
     }
-    res.reply(this.model.update(data, {where: {id: req.params.id}}));
+    res.reply(this.model.update(data, { where: { id: req.params.id } }));
   }
 
   /**

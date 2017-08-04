@@ -18,7 +18,7 @@ function login(req, res, next) {
     req.user = req.session.user; // 将用户信息添加到request对象
     next();
   } else {
-    next({message: '请先登录！', status: 401});
+    next({ message: '请先登录！', status: 401 });
   }
 }
 
@@ -31,7 +31,7 @@ function buildRoleAuth(roleName) {
   const role = function (req, res, next) {
     if (!AdminUser) {
       console.error('AdminUser model is invalid!');
-      return next({message: 'Models initialization error', status: 500});
+      return next({ message: 'Model initialize error', status: 500 });
     }
 
     const userId = req.session.user.id;
@@ -41,11 +41,11 @@ function buildRoleAuth(roleName) {
           if (result) {
             next();
           } else {
-            next({message: '权限非法！', status: 403});
+            next({ message: '无权访问！', status: 403 });
           }
         });
       } else {
-        next({message: '用户未找到！', status: 400});
+        next({ message: '用户未找到！', status: 400 });
       }
     });
   };

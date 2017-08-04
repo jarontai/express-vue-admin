@@ -23,13 +23,13 @@ class SessionController extends BaseController {
       username: joi.string().min(3).required(),
       password: joi.string().min(3).required()
     };
-    const {error, value} = joi.validate(req.body, rules);
+    const { error, value } = joi.validate(req.body, rules);
     if (error) {
       return res.replyError(error);
     }
 
     const AdminUser = this.models['AdminUser'];
-    const result = AdminUser.findOne({where: {username: value.username}, attributes: {include: ['id', 'password']}}).then((user) => {
+    const result = AdminUser.findOne({ where: { username: value.username }, attributes: { include: ['id', 'password'] } }).then((user) => {
       if (user) {
         return pw.verify(user.password, value.password).then((result) => {
           if (result) {

@@ -14,7 +14,7 @@ class UserController extends RestController {
     this.defaultUserRole = 'member';
 
     const AdminRole = this.models['AdminRole'];
-    AdminRole.findOne({ where: { name: this.defaultUserRole}}).then((result) => {
+    AdminRole.findOne({ where: { name: this.defaultUserRole } }).then((result) => {
       if (!result) {
         throw new Error('Failed to load the default user role! Should run sequelize seeder first!');
       }
@@ -64,8 +64,8 @@ class UserController extends RestController {
       return AdminRole.findAll({ where: { name: { $in: creationRoles } } });
     }).then((roles) => {
       return this.sequelize.transaction((t) => {
-        return this.model.create(value, {transaction: t}).then((user) => {
-          return user.setRoles(roles, {transaction: t}).then(() => {});
+        return this.model.create(value, { transaction: t }).then((user) => {
+          return user.setRoles(roles, { transaction: t }).then(() => { });
         });
       });
     });
@@ -108,13 +108,14 @@ class UserController extends RestController {
       delete value.roles;
       return this.model.findById(req.params.id).then((user) => {
         if (user && user.name === 'admin' && value.username) {
+          // 禁止修改默认的admin用户名称
           console.error('Found updates to admin username');
           delete value.username;
-          console.error('Stopped updates to admin username');
+          console.error('Abandon updates to admin username');
         }
         return this.sequelize.transaction((t) => {
-          return user.update(value, {transaction: t}).then((user) => {
-            return user.setRoles(updateRoles, {transaction: t}).then(() => {});
+          return user.update(value, { transaction: t }).then((user) => {
+            return user.setRoles(updateRoles, { transaction: t }).then(() => { });
           });
         });
       });
