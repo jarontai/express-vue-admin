@@ -86,7 +86,7 @@
 
 ### 运行:
 
- * 1.复制.env.example到.env，并对各个项目进行配置
+ 1. 复制.env.example到.env，并对各个项目进行配置
     ```
     #server
     NODE_ENV=development 环境配置
@@ -110,17 +110,17 @@
     SERVER_PORT_TEST=3001 单元测试服务器端口
 
     ```
- * 2.全局安装sequelize-cli
+ 2. 全局安装sequelize-cli
     ```
     $ npm install -g sequelize-cli
     ```
- * 3.安装依赖、初始化数据库、填充seed数据:
+ 3. 安装依赖、初始化数据库、填充seed数据:
     ```
     $ npm install
     $ sequelize db:migrate
     $ sequelize db:seed:all
     ```
- * 4.初始化并运行web应用
+ 4. 初始化并运行web应用
     ```
     $ cd ./web
     $ npm install
@@ -135,7 +135,8 @@ $ npm run test
 ### TODO
 
 * 使用[node_acl](https://github.com/OptimalBits/node_acl)优化重构权限逻辑
-* 优化角色权限管理等表单的UI
+* 优化角色权限管理等表单的UI
 * 后台耗时操作（如修改密码）的loading提示
+* 国际化（i18n）
 * 更多的测试代码
 * ...
