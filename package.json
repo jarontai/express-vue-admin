@@ -1,12 +1,11 @@
 {
   "name": "express-vue-admin",
   "version": "0.1.0",
-  "description": "sexpress-vue-admin",
+  "description": "express-vue-admin",
   "main": "server.js",
   "files": [
     "server.js",
     "util.js",
-    "constant.js",
     "config",
     "controller",
     "database",
@@ -19,19 +18,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jarontai/api-gateway.git"
+    "url": "git+https://github.com/jarontai/express-vue-admin.git"
   },
   "keywords": [
     "express",
     "vue",
     "admin"
   ],
-  "author": "jarontai",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/jarontai/api-gateway/issues"
+  "author": {
+    "name": "Jaron Tai",
+    "email": "jaroncn@gmail.com"
   },
-  "homepage": "https://github.com/jarontai/api-gateway#readme",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jarontai/express-vue-admin/issues"
+  },
+  "homepage": "https://github.com/jarontai/express-vue-admin#readme",
   "dependencies": {
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
