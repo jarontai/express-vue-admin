@@ -1,56 +1,55 @@
 # express-vue-admin
 
-### 使用Node.js（Express）, Vue2开发的管理后台脚手架项目
+## [中文README](README_CN.md)
 
-#### 前后端分离，后端提供REST API，前端是组件化的Web App；实现了后台项目最基本的用户/角色/权限管理等功能；
+### Admin app scaffold build with express and vue2
 
-### 项目构成:
+### Components:
 
-* [vue2](https://vuejs.org/) - 前端JS框架
-* [iview](https://www.iviewui.com/) - 前端UI框架
-* [vue-resource](https://github.com/pagekit/vue-resource)/[vue-router](https://github.com/vuejs/vue-router)/[vuex](https://github.com/vuejs/vuex) - 前端主要组件
-* [express](https://expressjs.com/) - 后端web框架
+* [vue2](https://vuejs.org/) - js framework
+* [iview](https://www.iviewui.com/) - ui framework
+* [vue-resource](https://github.com/pagekit/vue-resource)/[vue-router](https://github.com/vuejs/vue-router)/[vuex](https://github.com/vuejs/vuex) - vue components
+* [express](https://expressjs.com/) - backend framework
 * [sequelize](http://docs.sequelizejs.com/) - ORM
-* [joi](https://github.com/hapijs/joi) - 参数校验
-* [dotenv](https://github.com/motdotla/dotenv) - 环境配置
-* [mocha](https://mochajs.org/)/[chai](http://chaijs.com/)/[chai-http](https://github.com/chaijs/chai-http) - 接口测试组件
-* mysql - 数据库
-* redis - 缓存
+* [joi](https://github.com/hapijs/joi) - validation
+* [dotenv](https://github.com/motdotla/dotenv) - env config
+* [mocha](https://mochajs.org/)/[chai](http://chaijs.com/)/[chai-http](https://github.com/chaijs/chai-http) - test
+* mysql - database
+* redis - cache
 * ...
 
-
-### 项目结构：
+### Structures：
 
       .
-      ├── .env.example  环境配置示例
-      ├── .sequelizerc  sequelize配置
-      ├── screenshots/  应用运行截图
-      ├── web/          vue web应用
-      ├── test/         接口测试文件
-      ├── server.js     服务器
-      ├── middleware/   中间件
-      | ├── base.js     基础中间件
-      | ├── auth.js     鉴权中间件
-      | └── ...         其他业务中间件
-      ├── route/        路由
-      | ├── base.js     基础路由
-      | ├── admin.js    admin模块路由
-      | └── ...         其他路由
-      ├── controller/   控制器
-      | ├── base.js     基础控制器
-      | ├── rest.js     rest基础控制器
-      | ├── session.js  session控制器
-      | ├── admin/      admin模块控制器
-      | └── ...         其他业务模块控制器
-      ├── database/     sequelize数据库文件
-      | ├── models/     模型
-      | └── migrations/ migration文件
-      | └── seeders/    seeder文件
-      ├── util.js       工具
-      └── config/       配置
-        └── database.js sequelize-cli数据库配置
+      ├── .env.example  env example
+      ├── .sequelizerc  sequelize rc file
+      ├── screenshots/  screenshots
+      ├── web/          vue web app
+      ├── test/         test files
+      ├── server.js     server
+      ├── middleware/   middlewares
+      | ├── base.js     base middleware
+      | ├── auth.js     auth middleware
+      | └── ...
+      ├── route/        routes
+      | ├── base.js     base route
+      | ├── admin.js    admin route
+      | └── ...
+      ├── controller/   controllers
+      | ├── base.js     base controller
+      | ├── rest.js     rest controller
+      | ├── session.js  session controller
+      | ├── admin/      admin controller
+      | └── ...
+      ├── database/     sequelize files
+      | ├── models/     models
+      | └── migrations/ migration files
+      | └── seeders/    seeder files
+      ├── util.js       util
+      └── config/       config
+        └── database.js sequelize-cli config
 
-### 运行截图:
+### Screenshots:
 
 #### login
 
@@ -85,51 +84,51 @@
 </p>
 
 
-### 运行:
+### Run:
 
- 0. 安装redis，用于存储session
+ 0. Install redis
 
- 1. 复制.env.example到.env，并对各个项目进行配置
+ 1. copy .env.example to .env
     ```
     #server
-    NODE_ENV=development 环境配置
-    SERVER_PORT=3000 服务器端口
-    API_PATH=/api 接口基路径
-    API_VERSION=v1 接口版本
+    NODE_ENV=development
+    SERVER_PORT=3000
+    API_PATH=/api
+    API_VERSION=v1
 
     #db
-    DB_HOST=localhost 数据库host
-    DB_DATABASE=admin 数据库名称
-    DB_USER=root 数据库用户
-    DB_PASSWORD=root 数据库密码
+    DB_HOST=localhost
+    DB_DATABASE=admin
+    DB_USER=root
+    DB_PASSWORD=root
 
     #redis
-    REDIS_HOST=localhost redis缓存host
-    REDIS_PORT=6379 redis端口
+    REDIS_HOST=localhost
+    REDIS_PORT=6379
 
     #misc
-    ADMIN_SEED_PASSWORD=adminpwd admin帐号密码
-    TEST_SEED_PASSWORD=testpwd 测试帐号密码
-    SERVER_PORT_TEST=3001 单元测试服务器端口
+    ADMIN_SEED_PASSWORD=adminpwd
+    TEST_SEED_PASSWORD=testpwd
+    SERVER_PORT_TEST=3001
 
     ```
- 2. 全局安装sequelize-cli
+ 2. install sequelize-cli
     ```
     $ npm install -g sequelize-cli
     ```
- 3. 安装依赖、初始化数据库、填充seed数据:
+ 3. install deps, do migration:
     ```
-    $ npm install // 安装依赖
-    $ sequelize db:migrate // 数据库结构构建
-    $ sequelize db:seed:all // 数据库数据填充
+    $ npm install
+    $ sequelize db:migrate
+    $ sequelize db:seed:all
     ```
- 4. 运行server和web应用
+ 4. run server and web app
     ```
-    $ npm start // 开启后端服务
+    $ npm start
 
-    $ cd ./web  // 进入web文件夹
-    $ npm install // 安装依赖
-    $ npm run dev // 运行web应用
+    $ cd ./web
+    $ npm install
+    $ npm run dev
     ```
 
 ### Test
@@ -139,9 +138,7 @@ $ npm run test
 
 ### TODO
 
-* 使用[node_acl](https://github.com/OptimalBits/node_acl)优化重构权限逻辑
-* 优化角色权限管理等表单的UI
-* 后台耗时操作（如修改密码）的loading提示
-* 国际化（i18n）
-* 更多的测试代码
+* use [node_acl](https://github.com/OptimalBits/node_acl)
+* i18n
+* more tests
 * ...
