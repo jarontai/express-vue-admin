@@ -87,6 +87,8 @@
 
 ### 运行:
 
+ 0. 安装redis，用于存储session
+
  1. 复制.env.example到.env，并对各个项目进行配置
     ```
     #server
@@ -117,15 +119,17 @@
     ```
  3. 安装依赖、初始化数据库、填充seed数据:
     ```
-    $ npm install
-    $ sequelize db:migrate
-    $ sequelize db:seed:all
+    $ npm install // 安装依赖
+    $ sequelize db:migrate // 数据库结构构建
+    $ sequelize db:seed:all // 数据库数据填充
     ```
- 4. 初始化并运行web应用
+ 4. 运行server和web应用
     ```
-    $ cd ./web
-    $ npm install
-    $ npm run dev
+    $ npm start // 开启后端服务
+
+    $ cd ./web  // 进入web文件夹
+    $ npm install // 安装依赖
+    $ npm run dev // 运行web应用
     ```
 
 ### Test
