@@ -8,12 +8,12 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const RedisStore = require('connect-redis')(session);
-const expressListRoutes = require('express-list-routes');
 
 const app = express();
 const port = process.env.NODE_ENV === 'test' ? process.env.SERVER_PORT_TEST || 3001 : process.env.SERVER_PORT || 3000;
 const apiPath = process.env.API_PATH + '/' + process.env.API_VERSION;
 const util = require('./util');
+const expressListRoutes = util.expressListRoutes;
 const baseRouter = require('./route/base');
 const adminRouter = require('./route/admin');
 const baseMiddleware = require('./middleware/base');
