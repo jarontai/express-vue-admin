@@ -1,6 +1,8 @@
+简体中文 | [English](./README_EN.md)
+
 # express-vue-admin
 
-### Admin app scaffold build with express and vue2 - [English README](README_EN.md)
+### Admin app scaffold build with express and vue2
 
 ### 使用 Node.js（Express）, Vue2 开发的管理后台脚手架项目
 
@@ -88,9 +90,9 @@
 
 ### 运行:
 
- 0. 安装redis，用于存储session （可选）
+ 1. 安装redis，用于存储session （可选）
 
- 1. 复制.env.example到.env，并对各个项目进行配置 （不配置redis，session将保存在内存中，生产环境不推荐）
+ 2. 复制.env.example到.env，并对各个项目进行配置 （不配置redis，session将保存在内存中，生产环境不推荐）
     ```
     #server
     NODE_ENV=development 环境配置
@@ -115,14 +117,14 @@
 
     ```
 
- 2. 安装依赖、初始化数据库、填充seed数据:
+ 3. 安装依赖、初始化数据库、填充seed数据:
     ```
     $ npm install // 安装依赖
     $ npx sequelize db:migrate // 数据库结构构建
     $ npx sequelize db:seed:all // 数据库数据填充
     ```
 
- 3. 运行server和web应用
+ 4. 运行server和web应用
     ```
     $ npm start // 开启后端服务
 

@@ -1,6 +1,6 @@
-# express-vue-admin
+English | [简体中文](./README.md)
 
-## [中文README](README_CN.md)
+# express-vue-admin
 
 ### Admin app scaffold build with express and vue2
 
@@ -86,9 +86,9 @@
 
 ### Run:
 
- 0. Install redis
+ 1. Install redis (optional)
 
- 1. copy .env.example to .env
+ 2. copy .env.example to .env (skip redis would make session store in memory!)
     ```
     #server
     NODE_ENV=development
@@ -112,16 +112,14 @@
     SERVER_PORT_TEST=3001
 
     ```
- 2. install sequelize-cli
-    ```
-    $ npm install -g sequelize-cli
-    ```
+
  3. install deps, do migration:
     ```
     $ npm install
-    $ sequelize db:migrate
-    $ sequelize db:seed:all
+    $ npx sequelize db:migrate
+    $ npx sequelize db:seed:all
     ```
+
  4. run server and web app
     ```
     $ npm start
