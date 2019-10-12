@@ -88,7 +88,7 @@ English | [简体中文](./README.md)
 
  1. Install redis (optional)
 
- 2. copy .env.example to .env (skip redis would make session store in memory!)
+ 2. copy .env.example to .env (skip redis config would make session store in memory!)
     ```
     #server
     NODE_ENV=development
@@ -103,8 +103,8 @@ English | [简体中文](./README.md)
     DB_PASSWORD=root
 
     #redis
-    REDIS_HOST=localhost
-    REDIS_PORT=6379
+    REDIS_HOST=localhost (optional)
+    REDIS_PORT=6379 (optional)
 
     #misc
     ADMIN_SEED_PASSWORD=adminpwd
