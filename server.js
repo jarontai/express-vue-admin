@@ -7,7 +7,15 @@ const Sequelize = require('sequelize');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const RedisStore = require('connect-redis')(session);
+
+let sessionStore;
+if (process.env.REDIS_HOST) {
+  const RedisStore = require('connect-redis')(session);
+  sessionStore = new RedisStore({
+    host: process.env.REDIS_HOST,
+    port: process.env.REDIS_PORT
+  });
+}
 
 const app = express();
 const port = process.env.NODE_ENV === 'test' ? process.env.SERVER_PORT_TEST || 3001 : process.env.SERVER_PORT || 3000;
@@ -57,10 +65,7 @@ if (util.isNotProdEnv()) {
   app.use(morgan('dev'));
 }
 app.use(session({
-  store: new RedisStore({
-    host: process.env.REDIS_HOST,
-    port: process.env.REDIS_PORT
-  }),
+  store: sessionStore,
   secret: 'express-vue-admin',
   resave: false,
   saveUninitialized: false

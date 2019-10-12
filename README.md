@@ -88,9 +88,9 @@
 
 ### 运行:
 
- 0. 安装redis，用于存储session
+ 0. 安装redis，用于存储session （可选）
 
- 1. 复制.env.example到.env，并对各个项目进行配置
+ 1. 复制.env.example到.env，并对各个项目进行配置 （不配置redis，session将保存在内存中，生产环境不推荐）
     ```
     #server
     NODE_ENV=development 环境配置
@@ -114,17 +114,15 @@
     SERVER_PORT_TEST=3001 单元测试服务器端口
 
     ```
- 2. 全局安装sequelize-cli
-    ```
-    $ npm install -g sequelize-cli
-    ```
- 3. 安装依赖、初始化数据库、填充seed数据:
+
+ 2. 安装依赖、初始化数据库、填充seed数据:
     ```
     $ npm install // 安装依赖
-    $ sequelize db:migrate // 数据库结构构建
-    $ sequelize db:seed:all // 数据库数据填充
+    $ npx sequelize db:migrate // 数据库结构构建
+    $ npx sequelize db:seed:all // 数据库数据填充
     ```
- 4. 运行server和web应用
+
+ 3. 运行server和web应用
     ```
     $ npm start // 开启后端服务
 
