@@ -130,6 +130,9 @@ English | [简体中文](./README.md)
     ```
 
 ### Test
+
+Run basic api test:
+
 ```
 $ npm run test
 ```

@@ -61,7 +61,7 @@ class UserController extends RestController {
     const result = pw.hash(value.password).then((hash) => {
       value.password = hash;
       delete value.roles;
-      return AdminRole.findAll({ where: { name: { $in: creationRoles } } });
+      return AdminRole.findAll({ where: { name: creationRoles } });
     }).then((roles) => {
       return this.sequelize.transaction((t) => {
         return this.model.create(value, { transaction: t }).then((user) => {
@@ -100,7 +100,7 @@ class UserController extends RestController {
       }
     }).then(() => {
       if (value.roles) {
-        return AdminRole.findAll({ where: { name: { $in: value.roles } } }).then((roles) => {
+        return AdminRole.findAll({ where: { name: value.roles } }).then((roles) => {
           updateRoles = roles;
         });
       }
@@ -157,7 +157,7 @@ class UserController extends RestController {
     res.reply(this.model.findByPk(req.params.id).then(user => {
       return AdminRole.findAll({
         where: {
-          name: { $in: value.roles }
+          name: value.roles
         }
       }).then(roles => {
         return user.setAdminRole(roles);

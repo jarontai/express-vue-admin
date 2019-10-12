@@ -56,7 +56,7 @@ class RoleController extends RestController {
     permissions.push(this.defaultPermission);
 
     const result = AdminPermission.findAll({
-      where: { name: { $in: permissions } }
+      where: { name: permissions }
     }).then((permissions) => {
       delete value.permissions;
       return this.sequelize.transaction((t) => {
@@ -89,7 +89,7 @@ class RoleController extends RestController {
     const AdminPermission = this.models['AdminPermission'];
     const result = Promise.resolve().then(() => {
       if (value.permissions) {
-        return AdminPermission.findAll({ where: { name: { $in: value.permissions } } }).then((permissions) => {
+        return AdminPermission.findAll({ where: { name: value.permissions } }).then((permissions) => {
           updatePermissions = permissions;
         });
       }
@@ -145,7 +145,7 @@ class RoleController extends RestController {
     res.reply(this.model.findByPk(req.params.id).then(role => {
       return AdminPermission.findAll({
         where: {
-          name: { $in: value.permissions }
+          name: value.permissions
         }
       }).then(permissions => {
         return role.setPermissions(permissions);

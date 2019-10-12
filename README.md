@@ -133,7 +133,10 @@
     $ npm run dev // 运行web应用
     ```
 
-### Test
+### 测试
+
+基本的接口测试：
+
 ```
 $ npm run test
 ```
