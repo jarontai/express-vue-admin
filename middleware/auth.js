@@ -35,7 +35,7 @@ function buildRoleAuth(roleName) {
     }
 
     const userId = req.session.user.id;
-    AdminUser.findById(userId).then(user => {
+    AdminUser.findByPk(userId).then(user => {
       if (user) {
         user.hasRole(roleName).then(result => {
           if (result) {

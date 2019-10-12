@@ -103,13 +103,13 @@ export default {
           title: '创建时间',
           key: 'createdAt',
           align: 'center',
-          render: (h, params) => moment(params.row.createdAt).format('YYYY-MM-DD HH:mm:ss')
+          render: (h, params) => h('span', {}, moment(params.row.createdAt).format('YYYY-MM-DD HH:mm:ss'))
         },
         {
           title: '更新时间',
           key: 'updatedAt',
           align: 'center',
-          render: (h, params) => moment(params.row.updatedAt).format('YYYY-MM-DD HH:mm:ss')
+          render: (h, params) => h('span', {}, moment(params.row.updatedAt).format('YYYY-MM-DD HH:mm:ss'))
         },
         {
           title: '操作',

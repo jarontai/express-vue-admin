@@ -36,7 +36,7 @@ class UserController extends RestController {
     const AdminRole = this.models['AdminRole'];
     data.include = [{ model: AdminRole, as: 'roles' }];
     data.distinct = true;
-    res.reply(this.model.findAndCount(data));
+    res.reply(this.model.findAndCountAll(data));
   }
 
   /**
@@ -106,7 +106,7 @@ class UserController extends RestController {
       }
     }).then(() => {
       delete value.roles;
-      return this.model.findById(req.params.id).then((user) => {
+      return this.model.findByPk(req.params.id).then((user) => {
         if (user && user.name === 'admin' && value.username) {
           // 禁止修改默认的admin用户名称
           console.error('Found updates to admin username');
@@ -126,7 +126,7 @@ class UserController extends RestController {
   // 获取用户角色列表
   fetchRoles(req, res) {
     const AdminRole = this.models['AdminRole'];
-    const promise = this.model.findById(req.params.id).then(user => {
+    const promise = this.model.findByPk(req.params.id).then(user => {
       return AdminRole.findAll({
         where: {
           '$users.id$': user.get('id')
@@ -154,7 +154,7 @@ class UserController extends RestController {
     }
 
     const AdminRole = this.models['AdminRole'];
-    res.reply(this.model.findById(req.params.id).then(user => {
+    res.reply(this.model.findByPk(req.params.id).then(user => {
       return AdminRole.findAll({
         where: {
           name: { $in: value.roles }
@@ -173,7 +173,7 @@ class UserController extends RestController {
       return res.replyError('missing id parameter');
     }
 
-    this.model.findById(req.params.id).then((obj) => {
+    this.model.findByPk(req.params.id).then((obj) => {
       if (obj) {
         if (obj.name === 'admin') {
           res.replyError('Admin can\'t be deleted!');

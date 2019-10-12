@@ -81,7 +81,7 @@ class SessionController extends BaseController {
 
     const AdminUser = this.models['AdminUser'];
     const userId = req.user.id;
-    const result = AdminUser.findById(userId, { attributes: { include: ['password'] } }).then((user) => {
+    const result = AdminUser.findByPk(userId, { attributes: { include: ['password'] } }).then((user) => {
       if (user) {
         return pw.verify(user.password, value.oldPassword).then((result) => {
           if (result) {

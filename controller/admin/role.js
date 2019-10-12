@@ -34,7 +34,7 @@ class RoleController extends RestController {
     const AdminPermission = this.models['AdminPermission'];
     data.include = [{ model: AdminPermission, as: 'permissions' }];
     data.distinct = true;
-    res.reply(this.model.findAndCount(data));
+    res.reply(this.model.findAndCountAll(data));
   }
 
   /**
@@ -95,7 +95,7 @@ class RoleController extends RestController {
       }
     }).then(() => {
       delete value.permissions;
-      return this.model.findById(req.params.id).then((role) => {
+      return this.model.findByPk(req.params.id).then((role) => {
         if (role && role.name === 'admin' && value.name) {
           // 禁止修改默认的admin权限名称
           console.error('Found updates to admin role name');
@@ -115,7 +115,7 @@ class RoleController extends RestController {
   // 获取角色权限列表
   fetchPermissions(req, res) {
     const AdminPermission = this.models['AdminPermission'];
-    const promise = this.model.findById(req.params.id).then(role => {
+    const promise = this.model.findByPk(req.params.id).then(role => {
       return AdminPermission.findAll({
         where: {
           '$roles.id$': role.get('id')
@@ -142,7 +142,7 @@ class RoleController extends RestController {
     }
 
     const AdminPermission = this.models['AdminPermission'];
-    res.reply(this.model.findById(req.params.id).then(role => {
+    res.reply(this.model.findByPk(req.params.id).then(role => {
       return AdminPermission.findAll({
         where: {
           name: { $in: value.permissions }

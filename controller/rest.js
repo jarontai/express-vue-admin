@@ -56,7 +56,7 @@ class RestController extends BaseController {
     if (params.where && _.isObject(params.where)) {
       data.where = params.where;
     }
-    res.reply(this.model.findAndCount(data));
+    res.reply(this.model.findAndCountAll(data));
   }
 
   /**
@@ -100,7 +100,7 @@ class RestController extends BaseController {
     if (!req.params || !req.params.id) {
       return res.replyError('missing id parameter');
     }
-    res.reply(this.model.findById(req.params.id));
+    res.reply(this.model.findByPk(req.params.id));
   }
 
   /**
@@ -111,7 +111,7 @@ class RestController extends BaseController {
       return res.replyError('missing id parameter');
     }
 
-    this.model.findById(req.params.id).then((obj) => {
+    this.model.findByPk(req.params.id).then((obj) => {
       if (obj) {
         res.reply(obj.destroy());
       } else {
