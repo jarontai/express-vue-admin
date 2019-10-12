@@ -138,5 +138,4 @@ $ npm run test
 
 * use [node_acl](https://github.com/OptimalBits/node_acl)
 * i18n
-* more tests
 * ...

@@ -144,7 +144,6 @@ $ npm run test
 * 优化角色权限管理等表单的UI
 * 后台耗时操作（如修改密码）的loading提示
 * 国际化（i18n）
-* 更多的测试代码
 * ...
 
 ### MIT License
