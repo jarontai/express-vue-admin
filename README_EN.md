@@ -2,7 +2,7 @@ English | [简体中文](./README.md)
 
 # express-vue-admin
 
-## Minimal admin app build with Node.js and Vue2
+Minimal admin app build with Node.js and Vue2.
 
 ## Features
   * Fullstack JavaScript
@@ -30,7 +30,7 @@ express-vue-admin use lots of components to build the api server and frontend ui
 * [vue-resource](https://github.com/pagekit/vue-resource)/[vue-router](https://github.com/vuejs/vue-router)/[vuex](https://github.com/vuejs/vuex) - vue friends
 * ...
 
-## Files：
+## Files
 
       .
       ├── .env.example  env example
@@ -61,7 +61,7 @@ express-vue-admin use lots of components to build the api server and frontend ui
       └── config/       config
         └── database.js sequelize-cli config
 
-## Screenshots:
+## Screenshots
 
 ### login
 
@@ -96,7 +96,7 @@ express-vue-admin use lots of components to build the api server and frontend ui
 </p>
 
 
-## How to run:
+## How to run
 
  1. Install redis (optional)
 
@@ -149,9 +149,6 @@ Run basic api test:
 $ npm run test
 ```
 
-## TODO
+## License
 
-* i18n
-* ...
-
-## MIT License
+MIT

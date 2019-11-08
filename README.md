@@ -2,7 +2,7 @@
 
 # express-vue-admin
 
-## 使用 Node.js（Express.js）, Vue2 开发的管理后台脚手架项目
+使用 Node.js（Express.js）, Vue2 开发的管理后台脚手架项目
 
 ## 特点
   * 全栈 Javascript 应用
@@ -28,8 +28,9 @@ express-vue-admin 使用了很多组件（库）来构建后端接口和前端UI
 * [vue2](https://vuejs.org/) - 前端JS框架
 * [iview](https://www.iviewui.com/) - 前端UI框架
 * [vue-resource](https://github.com/pagekit/vue-resource)/[vue-router](https://github.com/vuejs/vue-router)/[vuex](https://github.com/vuejs/vuex) - vue 相关的路由、状态管理等组件
+* ...
 
-## 项目文件及说明：
+## 文件说明
 
       .
       ├── .env.example  环境配置示例
@@ -60,7 +61,7 @@ express-vue-admin 使用了很多组件（库）来构建后端接口和前端UI
       └── config/       配置
         └── database.js sequelize-cli数据库配置
 
-## 运行截图:
+## 运行截图
 
 ### login
 
@@ -95,7 +96,7 @@ express-vue-admin 使用了很多组件（库）来构建后端接口和前端UI
 </p>
 
 
-## 运行:
+## 运行
 
  1. 安装redis，用于存储session （可选）
 
@@ -148,9 +149,6 @@ express-vue-admin 使用了很多组件（库）来构建后端接口和前端UI
 $ npm run test
 ```
 
-## TODO
+## License
 
-* 国际化（i18n）
-* ...
-
-## MIT License
+MIT
