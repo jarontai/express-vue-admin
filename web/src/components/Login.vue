@@ -1,48 +1,45 @@
 <template>
   <div>
-    <Row justify="center" align="middle" class="spin-row">
-      <Col span="8" offset="8" class="spin-col"><Spin fix size="large" class="login-spin" v-show="loading"></Spin>&nbsp;</Col>
-    </Row>
-
-    <Row justify="center" align="middle" class="title-row">
+    <Row justify="center" align="middle" class="top-row">
       <Col span="8" offset="8" class="title-col">express-vue-admin</Col>
     </Row>
 
     <Row justify="center" align="middle" class="login-row">
       <Col span="24" class="login-col">
-      <Card class="login-card">
-        <p slot="title">
-          请登录
-        </p>
-        <Form ref="formLogin" :model="formLogin" :rules="ruleCustom" :label-width="40">
-          <Form-item label="邮箱" prop="email">
-            <Input type="text" v-model="formLogin.email"></Input>
-          </Form-item>
-          <Form-item label="密码" prop="password">
-            <Input type="password" v-model="formLogin.password"></Input>
-          </Form-item>
-          <Form-item>
-            <Button long type="success" @click="handleSubmit('formLogin')">登录</Button>
-          </Form-item>
-        </Form>
-      </Card>
+        <Card class="login-card">
+          <p slot="title">
+            请登录
+          </p>
+          <div class="login-form">
+            <Form ref="formLogin" :model="formLogin" :rules="ruleCustom" :label-width="40">
+              <Form-item label="用户" prop="username">
+                <Input type="text" v-model="formLogin.username" />
+              </Form-item>
+              <Form-item label="密码" prop="password">
+                <Input type="password" v-model="formLogin.password" />
+              </Form-item>
+              <Form-item>
+                <Button long type="primary" @click="handleSubmit('formLogin')">登录</Button>
+              </Form-item>
+            </Form>
+          </div>
+        </Card>
 
-      <Poptip trigger="hover" placement="bottom-start" class="tip-section">
-        <Button type="ghost" shape="circle">登录信息</Button>
-        <div class="tip-table" slot="content">
-          <table>
-            </thead>
-            <tbody>
-              <tr>
-                <td>admin / adminpwd</td>
-              </tr>
-              <tr>
-                <td>test / testpwd</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </Poptip>
+        <Poptip trigger="hover" placement="bottom-start" class="tip-section">
+          <Button small type="dashed" shape="circle">登录信息</Button>
+          <div class="tip-table" slot="content">
+            <table>
+              <tbody>
+                <tr>
+                  <td>admin / adminpwd</td>
+                </tr>
+                <tr>
+                  <td>test / testpwd</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </Poptip>
       </Col>
     </Row>
   </div>
@@ -51,7 +48,7 @@
 <script>
 export default {
   data() {
-    function validateEmail(rule, value, callback) {
+    function validateUsername(rule, value, callback) {
       if (value === '') {
         callback(new Error('请输入邮箱或用户名'));
       } else {
@@ -68,15 +65,14 @@ export default {
     }
 
     return {
-      loading: false,
       tip: true,
       formLogin: {
-        email: '',
+        username: '',
         password: ''
       },
       ruleCustom: {
-        email: [
-          { validator: validateEmail, trigger: 'blur' }
+        username: [
+          { validator: validateUsername, trigger: 'blur' }
         ],
         password: [
           { validator: validatePassword, trigger: 'blur' }
@@ -86,11 +82,10 @@ export default {
   },
   methods: {
     handleSubmit(name) {
-      this.loading = true;
       this.$refs[name].validate((valid) => {
         if (valid) {
           this.$http.post('sessions', {
-            username: this.formLogin.email,
+            username: this.formLogin.username,
             password: this.formLogin.password
           }).then((res) => {
             const data = res.data.data;
@@ -98,14 +93,6 @@ export default {
               this.$store.commit('updateUser', data);
               this.$router.replace('/dashboard'); // 默认所有后台用户都拥有dashboard权限
             }
-            setTimeout(() => {
-              this.loading = false;
-            }, 2000);
-          }).catch((err) => {
-            console.error('session creation error', err);
-            setTimeout(() => {
-              this.loading = false;
-            }, 2000);
           });
         } else {
           this.$Message.error('信息验证失败，请检查!');
@@ -115,22 +102,14 @@ export default {
     handleReset(name) {
       this.$refs[name].resetFields();
     },
-    mouseover() {
-      if (!this.tip) {
-        this.tip = true;
-      }
-    },
-    mouseout() {
-      this.tip = false;
-    }
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.title-row {
-  height: 100px;
+.top-row {
+  height: 160px;
 }
 
 .title-col {
@@ -145,15 +124,20 @@ export default {
   text-align: center;
 }
 
+.login-form {
+  padding: 20px 30px 0 30px;
+}
+
 .login-card {
   margin: auto;
-  width: 350px;
+  width: 380px;
+  text-align: center;
 }
 
 .tip-section {
   position: relative;
-  top: -255px;
-  left: 240px;
+  top: -335px;
+  left: 270px;
 }
 
 .login-spin {

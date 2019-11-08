@@ -4,11 +4,11 @@
 
       <Row type="flex" justify="center" class="table-action-section">
         <Col span="22">
-        <b>权限列表</b>
-        </col>
-        <Col offset="1" span="1">
-        <Button type="text" size="small" icon="plus" @click="showCreate">新增</Button>
-        </col>
+          <b>权限列表</b>
+        </Col>
+        <Col span="2">
+          <Button type="primary" size="small" @click="showCreate">新增</Button>
+        </Col>
       </Row>
 
       <Table border :data="tableData" :columns="tableColumns" stripe>
@@ -49,6 +49,9 @@
 </template>
 
 <script>
+const _ = require('lodash');
+const moment = require('moment');
+
 const defaultPermissions = ['dashboard', 'admin', 'admin:user', 'admin:role', 'admin:permission'];
 export default {
   data() {
@@ -207,7 +210,7 @@ export default {
         });
       } else {
         // TODO - 页面值不会被重置 - https://github.com/iview/iview/issues/970
-        this.$refs['dataModel'].resetFields();
+        // this.$refs['dataModel'].resetFields();
       }
     }
   }
@@ -218,7 +221,7 @@ export default {
 <style scoped>
 .table-action-section {
   border-bottom: 1px solid #e9eaec;
-  height: 25px;
+  height: 32px;
   margin-bottom: 12px;
 }
 </style>

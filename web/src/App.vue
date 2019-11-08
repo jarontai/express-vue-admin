@@ -17,8 +17,8 @@
 
           <div class="layout-header">
             <Row>
-              <Col span="23">&nbsp;</Col>
-              <Col span="1" class="top-menu-section">
+              <Col span="22">&nbsp;</Col>
+              <Col span="2" class="top-menu-section">
                 <top-menu></top-menu>
               </Col>
             </Row>
@@ -29,8 +29,7 @@
           <router-view></router-view>
 
           <div class="layout-copy">
-            made by
-            <a src="https://github.com/jarontai">jarontai</a>
+            test
           </div>
         </i-col>
       </Row>
@@ -137,6 +136,9 @@ export default {
   text-align: center;
   padding: 20px 0 20px;
   color: #9ea7b4;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 
 .layout-menu-left {

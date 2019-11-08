@@ -5,13 +5,13 @@
     </Row>
 
     <Menu-item name="dashboard" v-if="permissions['dashboard']">
-      <Icon type="monitor"></Icon>
+      <Icon type="md-desktop" />
       {{permissions['dashboard'].menuName}}
     </Menu-item>
 
     <Submenu name="admin" v-if="permissions['admin']">
       <template slot="title">
-        <Icon type="settings"></Icon>
+        <Icon type="md-settings" />
         {{permissions['admin'].menuName}}
       </template>
       <Menu-item name="admin:user" v-if="permissions['admin:user']">{{permissions['admin:user'].menuName}}</Menu-item>
@@ -69,6 +69,6 @@ export default {
   margin-top: 15px;
   margin-bottom: 15px;
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
 }
 </style>

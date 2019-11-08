@@ -2,8 +2,8 @@
   <div class="top-menu">
     <Dropdown trigger="click" @on-click="action">
       <a href="javascript:void(0)">
-        <Icon type="person" size="15"></Icon>
-        <Icon type="arrow-down-b" size="15"></Icon>
+        <Icon type="ios-person" size="18"></Icon>
+        <Icon type="ios-arrow-down" size="18"></Icon>
       </a>
       <Dropdown-menu slot="list">
         <Dropdown-item name="password">修改密码</Dropdown-item>

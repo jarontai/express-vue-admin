@@ -1,7 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import 'iview/dist/styles/iview.css';
-import iView from 'iview';
+import 'view-design/dist/styles/iview.css';
+import iView from 'view-design';
 import Vue from 'vue';
 import Vuex from 'vuex';
 import VueResource from 'vue-resource';
@@ -12,10 +12,16 @@ import router from './router';
 Vue.use(Vuex);
 Vue.use(VueResource);
 Vue.use(iView);
+
 Vue.config.productionTip = false;
+
 Vue.http.options.root = 'http://localhost:3000/api/v1';
+
 Vue.http.interceptors.push(function (request, next) {
   request.credentials = true; // 允许发送cookie
+
+  this.$Loading.start();
+
   next(function (response) {
     // 处理http请求异常
     const data = response.data;
@@ -24,8 +30,8 @@ Vue.http.interceptors.push(function (request, next) {
         content: data.message || '后台未知错误',
         duration: 5
       });
+      this.$Loading.error();
     } else if (response && response.status !== 200) {
-      console.error('vue http error response', response);
       let message = response.statusText;
       switch (response.status) {
         case 404:
@@ -41,6 +47,9 @@ Vue.http.interceptors.push(function (request, next) {
         content: message || '后台未知错误',
         duration: 5
       });
+      this.$Loading.error();
+    } else {
+      this.$Loading.finish();
     }
   });
 });
@@ -54,7 +63,7 @@ const store = new Vuex.Store({
     }
   },
   mutations: {
-    /*eslint-disable */
+    /* eslint-disable */
     clearUser(state) {
       state.user.userInfo = null;
       state.user.roles = [];
@@ -99,4 +108,4 @@ new Vue({
   template: '<App/>',
   components: { App },
 });
-/*eslint-enable */
+/* eslint-enable */

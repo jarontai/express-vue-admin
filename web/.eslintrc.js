@@ -10,9 +10,6 @@ module.exports = {
     browser: true,
   },
   globals: {
-    moment: true,
-    lodah: true,
-    _: true
   },
   extends: 'airbnb-base',
   // required to lint *.vue files
@@ -39,7 +36,7 @@ module.exports = {
     'prefer-arrow-callback': ['off'],
     'object-shorthand': ['off'],
     'quote-props': ['off', 'as-needed'],
-    'comma-dangle': ['warn', 'ignore'],
+    'comma-dangle': ['off'],
     // don't require .vue extension when importing
     'import/extensions': ['error', 'always', {
       'js': 'never',
