@@ -2,27 +2,34 @@
 
 # express-vue-admin
 
-### Admin app scaffold build with express and vue2
+## 使用 Node.js（Express.js）, Vue2 开发的管理后台脚手架项目
 
-### 使用 Node.js（Express）, Vue2 开发的管理后台脚手架项目
+## 特点
+  * 全栈 Javascript 应用
+  * 使用 Express.js 构建，清晰且可测试的 rest api
+  * 最小化的用户/角色/权限管理功能
+  * 使用 iview 框架构建的简洁后台界面
 
-#### 前后端分离，后端提供 REST API，前端是组件化的 Web App；实现了后台项目最基本的用户/角色/权限管理等功能；
+## 组件
 
-### 项目构成:
+express-vue-admin 使用了很多组件（库）来构建后端接口和前端UI：
 
-* [vue2](https://vuejs.org/) - 前端JS框架
-* [iview](https://www.iviewui.com/) - 前端UI框架
-* [vue-resource](https://github.com/pagekit/vue-resource)/[vue-router](https://github.com/vuejs/vue-router)/[vuex](https://github.com/vuejs/vuex) - 前端主要组件
+### 后端
 * [express](https://expressjs.com/) - 后端web框架
-* [sequelize](http://docs.sequelizejs.com/) - ORM
+* [sequelize](http://docs.sequelizejs.com/) - 数据库ORM
 * [joi](https://github.com/hapijs/joi) - 参数校验
 * [dotenv](https://github.com/motdotla/dotenv) - 环境配置
-* [mocha](https://mochajs.org/)/[chai](http://chaijs.com/)/[chai-http](https://github.com/chaijs/chai-http) - 接口测试组件
+* [mocha](https://mochajs.org/)/[chai](http://chaijs.com/)/[chai-http](https://github.com/chaijs/chai-http) - 接口测试相关组件
 * mysql - 数据库
 * redis - 缓存
 * ...
 
-### 项目结构：
+### 前端
+* [vue2](https://vuejs.org/) - 前端JS框架
+* [iview](https://www.iviewui.com/) - 前端UI框架
+* [vue-resource](https://github.com/pagekit/vue-resource)/[vue-router](https://github.com/vuejs/vue-router)/[vuex](https://github.com/vuejs/vuex) - vue 相关的路由、状态管理等组件
+
+## 项目文件及说明：
 
       .
       ├── .env.example  环境配置示例
@@ -53,9 +60,9 @@
       └── config/       配置
         └── database.js sequelize-cli数据库配置
 
-### 运行截图:
+## 运行截图:
 
-#### login
+### login
 
 <p align="center">
 <kbd>
@@ -63,7 +70,7 @@
 </kbd>
 </p>
 
-#### admin/user
+### admin/user
 
 <p align="center">
 <kbd>
@@ -71,7 +78,7 @@
 </kbd>
 </p>
 
-#### admin/role
+### admin/role
 
 <p align="center">
 <kbd>
@@ -79,7 +86,7 @@
 </kbd>
 </p>
 
-#### admin/role delete
+### admin/role delete
 
 <p align="center">
 <kbd>
@@ -88,7 +95,7 @@
 </p>
 
 
-### 运行:
+## 运行:
 
  1. 安装redis，用于存储session （可选）
 
@@ -133,7 +140,7 @@
     $ npm run dev // 运行web应用
     ```
 
-### 测试
+## 测试
 
 基本的接口测试：
 
@@ -141,12 +148,9 @@
 $ npm run test
 ```
 
-### TODO
+## TODO
 
-* 使用[node_acl](https://github.com/OptimalBits/node_acl)优化重构权限逻辑
-* 优化角色权限管理等表单的UI
-* 后台耗时操作（如修改密码）的loading提示
 * 国际化（i18n）
 * ...
 
-### MIT License
+## MIT License
