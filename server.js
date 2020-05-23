@@ -8,6 +8,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 
+// redis session store, optional but highly recommend for production environment
 let sessionStore;
 if (process.env.REDIS_HOST) {
   const RedisStore = require('connect-redis')(session);
@@ -17,6 +18,7 @@ if (process.env.REDIS_HOST) {
   });
 }
 
+// vars
 const app = express();
 const port = process.env.NODE_ENV === 'test' ? process.env.SERVER_PORT_TEST || 3001 : process.env.SERVER_PORT || 3000;
 const apiPath = process.env.API_PATH + '/' + process.env.API_VERSION;
@@ -26,7 +28,7 @@ const baseRouter = require('./route/base');
 const adminRouter = require('./route/admin');
 const baseMiddleware = require('./middleware/base');
 
-// 数据库
+// sequelize config
 const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PASSWORD, {
   host: process.env.DB_HOST || 'localhost',
   dialect: 'mysql',
@@ -47,13 +49,13 @@ sequelize.authenticate()
     console.error('Database fail.', err);
   });
 
-// 中间件
+// middlewares
 app.all('*', function (req, res, next) {
-  // 设置cors
+  // cors
   res.header('Access-Control-Allow-Origin', req.headers.origin);
   res.header('Access-Control-Allow-Methods', "POST, GET, OPTIONS, DELETE, PUT");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.header('Access-Control-Allow-Credentials', 'true');  // 允许发送Cookie数据
+  res.header('Access-Control-Allow-Credentials', 'true');  // enable cookie
   // intercept OPTIONS method
   if ('OPTIONS' == req.method) {
     res.send(200);
@@ -73,21 +75,21 @@ app.use(session({
 app.use(bodyParser.json());
 app.use(baseMiddleware.reply);
 
-// 路由
+// routes
 app.use(apiPath + '/', baseRouter);
 app.use(apiPath + '/admin', adminRouter);
 
-// 打印路由
+// print routes
 if (util.isNotProdEnv()) {
   expressListRoutes({}, 'ROOT:', baseRouter);
   expressListRoutes({ prefix: '/admin' }, 'ADMIN:', adminRouter);
 }
 
-// 错误处理
+// error handling
 app.use(baseMiddleware.notFound);
 app.use(baseMiddleware.error);
 
-// 启动
+// run
 app.listen(port, () => {
   console.log(`Server listening at - ${apiPath} : ${port}`);
 });

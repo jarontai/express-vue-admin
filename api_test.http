@@ -1,4 +1,4 @@
-# api测试文件，适用于VSCODE的REST Client
+# Api testing file, can be used with VSCODE REST Client
 
 # admin/user
 GET http://localhost:3000/api/v1/admin/users HTTP/1.1

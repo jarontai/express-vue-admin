@@ -3,7 +3,7 @@
 const _ = require('lodash');
 
 module.exports = {
-  // 根据配置构建路由 - [{path, method, target, middlewares }]
+  // build route with config data: [{path, method, target, middlewares }]
   buildRoute: (routeArr, router, controller) => {
     if (router && routeArr &&  routeArr.length && controller) {
       _.each(routeArr, (route) => {
@@ -14,7 +14,7 @@ module.exports = {
     }
   },
 
-  // rest路由
+  // rest route build function
   restRoute: (path, router, controller) => {
     path = path || '';
     router.get(path+'/', (req, res) => {
@@ -30,17 +30,15 @@ module.exports = {
     });
   },
 
-  // 是生产环境
   isProdEnv() {
     return process.env.NODE_ENV === 'production';
   },
 
-  // 非生产环境
   isNotProdEnv() {
     return process.env.NODE_ENV !== 'production';
   },
 
-  // 设置模型通用option
+  // setting commom model options 
   addModelCommonOptions: (options) => {
     if (options) {
       options.freezeTableName = true;
