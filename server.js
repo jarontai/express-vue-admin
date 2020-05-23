@@ -8,7 +8,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 
-// redis session store, optional but highly recommend for production environment
+// Redis session store, optional but highly recommend for production environment
 let sessionStore;
 if (process.env.REDIS_HOST) {
   const RedisStore = require('connect-redis')(session);
@@ -18,7 +18,7 @@ if (process.env.REDIS_HOST) {
   });
 }
 
-// vars
+// Vars
 const app = express();
 const port = process.env.NODE_ENV === 'test' ? process.env.SERVER_PORT_TEST || 3001 : process.env.SERVER_PORT || 3000;
 const apiPath = process.env.API_PATH + '/' + process.env.API_VERSION;
@@ -28,7 +28,7 @@ const baseRouter = require('./route/base');
 const adminRouter = require('./route/admin');
 const baseMiddleware = require('./middleware/base');
 
-// sequelize config
+// Config sequelize
 const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PASSWORD, {
   host: process.env.DB_HOST || 'localhost',
   dialect: 'mysql',
@@ -49,13 +49,13 @@ sequelize.authenticate()
     console.error('Database fail.', err);
   });
 
-// middlewares
+// Middlewares
 app.all('*', function (req, res, next) {
-  // cors
+  // Config cors
   res.header('Access-Control-Allow-Origin', req.headers.origin);
   res.header('Access-Control-Allow-Methods', "POST, GET, OPTIONS, DELETE, PUT");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.header('Access-Control-Allow-Credentials', 'true');  // enable cookie
+  res.header('Access-Control-Allow-Credentials', 'true');  // Enable cookie
   // intercept OPTIONS method
   if ('OPTIONS' == req.method) {
     res.send(200);
@@ -75,21 +75,21 @@ app.use(session({
 app.use(bodyParser.json());
 app.use(baseMiddleware.reply);
 
-// routes
+// Routes
 app.use(apiPath + '/', baseRouter);
 app.use(apiPath + '/admin', adminRouter);
 
-// print routes
+// Print routes
 if (util.isNotProdEnv()) {
   expressListRoutes({}, 'ROOT:', baseRouter);
   expressListRoutes({ prefix: '/admin' }, 'ADMIN:', adminRouter);
 }
 
-// error handling
+// Error handling
 app.use(baseMiddleware.notFound);
 app.use(baseMiddleware.error);
 
-// run
+// Run
 app.listen(port, () => {
   console.log(`Server listening at - ${apiPath} : ${port}`);
 });

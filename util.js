@@ -3,7 +3,7 @@
 const _ = require('lodash');
 
 module.exports = {
-  // build route with config data: [{path, method, target, middlewares }]
+  // Build route with config data: [{path, method, target, middlewares }]
   buildRoute: (routeArr, router, controller) => {
     if (router && routeArr &&  routeArr.length && controller) {
       _.each(routeArr, (route) => {
@@ -14,7 +14,7 @@ module.exports = {
     }
   },
 
-  // rest route build function
+  // Rest route build function
   restRoute: (path, router, controller) => {
     path = path || '';
     router.get(path+'/', (req, res) => {
@@ -38,7 +38,7 @@ module.exports = {
     return process.env.NODE_ENV !== 'production';
   },
 
-  // setting commom model options 
+  // Setting common model options 
   addModelCommonOptions: (options) => {
     if (options) {
       options.freezeTableName = true;

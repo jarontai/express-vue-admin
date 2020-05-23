@@ -19,9 +19,6 @@ class RoleController extends RestController {
     });
   }
 
-  /**
-   * 分页返回所有对象
-   */
   index(req, res) {
     const params = req.query || {};
     const data = {
@@ -37,9 +34,6 @@ class RoleController extends RestController {
     res.reply(this.model.findAndCountAll(data));
   }
 
-  /**
-   * 创建对象
-   */
   create(req, res) {
     const rules = {
       name: joi.string().min(3).required(),
@@ -68,9 +62,6 @@ class RoleController extends RestController {
     res.reply(result);
   }
 
-  /**
-   * 更新对象
-   */
   update(req, res) {
     if (!req.params || !req.params.id) {
       return res.replyError('missing id parameter');
@@ -112,7 +103,6 @@ class RoleController extends RestController {
     res.reply(result);
   }
 
-  // 获取角色权限列表
   fetchPermissions(req, res) {
     const AdminPermission = this.models['AdminPermission'];
     const promise = this.model.findByPk(req.params.id).then(role => {
@@ -131,7 +121,6 @@ class RoleController extends RestController {
     }));
   }
 
-  // 更新角色权限
   updatePermissions(req, res) {
     const rules = {
       permissions: joi.array()

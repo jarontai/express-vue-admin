@@ -9,14 +9,14 @@ const BaseController = require('./base');
 
 class SessionController extends BaseController {
   /**
-   * check session
+   * Check session
    */
   index(req, res) {
     res.reply(req.session.user ? [req.session.user] : []);
   }
 
   /**
-   * create session(login)
+   * Create session(login)
    */
   create(req, res) {
     const rules = {
@@ -46,25 +46,25 @@ class SessionController extends BaseController {
             });
           } else {
             req.session.destroy();
-            return Promise.reject('用户名或密码错误，登录失败！');
+            return Promise.reject('Username or passwrod error!');
           }
         });
       } else {
-        return Promise.reject('用户不存在！');
+        return Promise.reject('User not found!');
       }
     });
     return res.reply(result);
   }
 
   /**
-   * delete session(logout)
+   * Delete session(logout)
    */
   destroy(req, res) {
     req.session.destroy();
     return res.reply();
   }
 
-  // 更新用户密码
+  // Update user password
   updatePassword(req, res) {
     const rules = {
       oldPassword: joi.string().min(6).required(),
@@ -76,7 +76,7 @@ class SessionController extends BaseController {
       return res.replyError(error);
     }
     if (value.newPassword !== value.newPasswordRepeat) {
-      return res.replyError('两个新密码不一致！');
+      return res.replyError('Invalid password repetition!');
     }
 
     const AdminUser = this.models['AdminUser'];
@@ -91,11 +91,11 @@ class SessionController extends BaseController {
               }).then(() => { });
             });
           } else {
-            return Promise.reject('旧密码错误！');
+            return Promise.reject('Invalid old passwrod!');
           }
         });
       } else {
-        return Promise.reject('用户不存在！');
+        return Promise.reject('User not found!');
       }
     });
     res.reply(result);

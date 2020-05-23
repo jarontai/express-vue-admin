@@ -21,9 +21,6 @@ class UserController extends RestController {
     });
   }
 
-  /**
-   * 分页返回所有对象
-   */
   index(req, res) {
     const params = req.query || {};
     const data = {
@@ -39,9 +36,6 @@ class UserController extends RestController {
     res.reply(this.model.findAndCountAll(data));
   }
 
-  /**
-   * 创建对象
-   */
   create(req, res) {
     const rules = {
       username: joi.string().min(3).required(),
@@ -72,9 +66,6 @@ class UserController extends RestController {
     res.reply(result);
   }
 
-  /**
-   * 更新对象
-   */
   update(req, res) {
     if (!req.params || !req.params.id) {
       return res.replyError('missing id parameter');
@@ -108,7 +99,7 @@ class UserController extends RestController {
       delete value.roles;
       return this.model.findByPk(req.params.id).then((user) => {
         if (user && user.name === 'admin' && value.username) {
-          // 禁止修改默认的admin用户名称
+          // No needs to update admin user's username
           console.error('Found updates to admin username');
           delete value.username;
           console.error('Abandon updates to admin username');
@@ -123,7 +114,6 @@ class UserController extends RestController {
     res.reply(result);
   }
 
-  // 获取用户角色列表
   fetchRoles(req, res) {
     const AdminRole = this.models['AdminRole'];
     const promise = this.model.findByPk(req.params.id).then(user => {
@@ -143,7 +133,6 @@ class UserController extends RestController {
     }));
   }
 
-  // 更新用户角色
   updateRoles(req, res) {
     const rules = {
       roles: joi.array()
@@ -165,9 +154,6 @@ class UserController extends RestController {
     }));
   }
 
-  /**
-  * 删除单个对象
-  */
   destroy(req, res) {
     if (!req.params || !req.params.id) {
       return res.replyError('missing id parameter');

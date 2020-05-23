@@ -11,7 +11,8 @@ router.get('/', (req, res) => {
   res.reply('Hola!');
 });
 
-// 查看/创建session无需登录，登出与更新密码需要
+// Login requried: logout/password update
+// Login not requried: get/create session
 util.buildRoute([
   { path: '/sessions', method: 'get', target: 'index' },
   { path: '/sessions', method: 'post', target: 'create' },

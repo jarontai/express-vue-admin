@@ -1,28 +1,28 @@
 'use strict';
 
-// auth中间件
+// Auth middlewares
 
 const apiPath = process.env.API_PATH + '/' + process.env.API_VERSION;
 const sessionPath = apiPath + '/admin/sessions';
 const AdminUser = require('../database/models')['AdminUser'];
 
-// 要求用户登录
+// Build login requried middleware
 function login(req, res, next) {
-  // 查询或创建session时无需检测登录
+  // No need to check when get or create session
   const reqPath = req.baseUrl + req.path;
   if ((req.method === 'GET' || req.method === 'POST') && reqPath === sessionPath) {
     return next();
   }
 
   if (req.session.user && req.session.user.id) {
-    req.user = req.session.user; // 将用户信息添加到request对象
+    req.user = req.session.user; // Add login user to request object
     next();
   } else {
-    next({ message: '请先登录！', status: 401 });
+    next({ message: 'Login please！', status: 401 });
   }
 }
 
-// 要求用户具有某种角色
+// Build role required middleware
 function buildRoleAuth(roleName) {
   if (!roleName) {
     throw new Error('Missing or invalid role name for role auth middleware!');
@@ -41,16 +41,16 @@ function buildRoleAuth(roleName) {
           if (result) {
             next();
           } else {
-            next({ message: '无权访问！', status: 403 });
+            next({ message: 'Invalid auth！', status: 403 });
           }
         });
       } else {
-        next({ message: '用户未找到！', status: 400 });
+        next({ message: 'User not found!', status: 400 });
       }
     });
   };
 
-  return [login, role]; // 先检测登录，再检查角色
+  return [login, role]; // Login check go first
 }
 
 module.exports = {

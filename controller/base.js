@@ -4,7 +4,7 @@ const _ = require('lodash');
 const models = require('../database/models');
 
 /**
- * 控制器基类，提供默认的控制器方法
+ * Base controller
  */
 class BaseController {
   /**
@@ -16,7 +16,7 @@ class BaseController {
   }
 
   /**
-   * 模型数组转换为JSON并过滤字段
+   * Convert model array to json with fields filtering
    *
    * @param {*} modelArr
    * @param {*} fields

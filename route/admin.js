@@ -9,7 +9,7 @@ const roleController = require('../controller/admin/role');
 const permissionController = require('../controller/admin/permission');
 const authMiddleware = require('../middleware/auth');
 
-// admin角色才能访问本模块接口
+// These routes can only accessed by user with admin role
 router.use(authMiddleware.role('admin'));
 
 util.restRoute('/users', router, userController);

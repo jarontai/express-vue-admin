@@ -6,7 +6,7 @@ const _ = require('lodash');
 const BaseController = require('./base');
 
 /**
- * REST控制器基类，提供默认的Rest请求方法，必须绑定模型
+ * Base rest controller, needs model binding
  */
 class RestController extends BaseController {
   /**
@@ -18,9 +18,8 @@ class RestController extends BaseController {
   constructor(modelName) {
     super();
 
-    // rest操作参数校验规则
-    this.restRules = {};
-    // 示例
+    // Parameters validate rules
+    // Example:
     // this.restRules = {
     //   create: {
     //     name: joi.string().min(3).required(),
@@ -30,14 +29,15 @@ class RestController extends BaseController {
     //     name: joi.string().min(3),
     //     comment: joi.string().min(2)
     //   }
-    // };
+    // };    
+    this.restRules = {};
 
-    // 绑定模型
+    // Model binding
     if (modelName) {
       this.modelName = modelName;
       this.model = this.models[modelName];
       if (!this.model) {
-        throw new Error(`The model ${modelName} for rest controller is missing or invalid!`);
+        throw new Error(`The rest controller binding model ${modelName} is missing or invalid!`);
       }
     } else {
       throw new Error('Rest controller should bind to a model!');
@@ -45,7 +45,7 @@ class RestController extends BaseController {
   }
 
   /**
-   * 分页返回所有对象
+   * List model with limit and offset
    */
   index(req, res) {
     const params = req.query || {};
@@ -60,7 +60,7 @@ class RestController extends BaseController {
   }
 
   /**
-   * 创建对象
+   * Create model
    */
   create(req, res) {
     let data = req.body;
@@ -75,7 +75,7 @@ class RestController extends BaseController {
   }
 
   /**
-   * 更新对象
+   * Update model
    */
   update(req, res) {
     if (!req.params || !req.params.id) {
@@ -94,7 +94,7 @@ class RestController extends BaseController {
   }
 
   /**
-   * 查找单个对象
+   * Show model
    */
   show(req, res) {
     if (!req.params || !req.params.id) {
@@ -104,7 +104,7 @@ class RestController extends BaseController {
   }
 
   /**
-   * 删除单个对象
+   * Delete model
    */
   destroy(req, res) {
     if (!req.params || !req.params.id) {

@@ -1,17 +1,17 @@
 'use strict';
 
-// 基础中间件
+// Base middlewares
 
 const _ = require('lodash');
 
-// 请求返回中间件，定义接口返回数据或异常
-// 成功:
+// Response reply middware
+// Success:
 // {
 //   code: 0,
 //   message: 'success',
 //   data: {}/[{}]
 // }
-// 异常:
+// Error:
 // {
 //   code: 1,
 //   message: 'reason'
@@ -50,7 +50,7 @@ function reply(req, res, next) {
     let message = err.message || err;
     let status = err.status || 400;
 
-    // process joi error
+    // Process joi error
     if (err.details && err.details.length) {
       message = _.reduce(err.details, (result, detail) => {
         if (result) {
@@ -79,7 +79,7 @@ function notFound(req, res) {
   res.status(404).end('Not found!');
 }
 
-// 通用错误处理
+// Global error handling
 function error(err, req, res, next) {
   console.error(err);
   if (process.env.NODE_ENV === 'production') {
