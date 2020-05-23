@@ -8,25 +8,25 @@
       <Col span="24" class="login-col">
         <Card class="login-card">
           <p slot="title">
-            请登录
+            Login
           </p>
           <div class="login-form">
-            <Form ref="formLogin" :model="formLogin" :rules="ruleCustom" :label-width="40">
-              <Form-item label="用户" prop="username">
+            <Form ref="formLogin" :model="formLogin" :rules="ruleCustom" :label-width="90">
+              <Form-item label="Username" prop="username">
                 <Input type="text" v-model="formLogin.username" />
               </Form-item>
-              <Form-item label="密码" prop="password">
+              <Form-item label="Password" prop="password">
                 <Input type="password" v-model="formLogin.password" />
               </Form-item>
               <Form-item>
-                <Button long type="primary" @click="handleSubmit('formLogin')">登录</Button>
+                <Button long type="primary" @click="handleSubmit('formLogin')">Submit</Button>
               </Form-item>
             </Form>
           </div>
         </Card>
 
         <Poptip trigger="hover" placement="bottom-start" class="tip-section">
-          <Button small type="dashed" shape="circle">登录信息</Button>
+          <Button small type="dashed" shape="circle">Credentials</Button>
           <div class="tip-table" slot="content">
             <table>
               <tbody>
@@ -50,7 +50,7 @@ export default {
   data() {
     function validateUsername(rule, value, callback) {
       if (value === '') {
-        callback(new Error('请输入邮箱或用户名'));
+        callback(new Error('Please input email or username'));
       } else {
         callback();
       }
@@ -58,7 +58,7 @@ export default {
 
     function validatePassword(rule, value, callback) {
       if (value === '') {
-        callback(new Error('请输入密码'));
+        callback(new Error('Please input password'));
       } else {
         callback();
       }
@@ -91,11 +91,11 @@ export default {
             const data = res.data.data;
             if (data && data.id && data.username) {
               this.$store.commit('updateUser', data);
-              this.$router.replace('/dashboard'); // 默认所有后台用户都拥有dashboard权限
+              this.$router.replace('/dashboard'); // All user should have dashboard permission
             }
           });
         } else {
-          this.$Message.error('信息验证失败，请检查!');
+          this.$Message.error('Invalid input');
         }
       });
     },
@@ -125,7 +125,7 @@ export default {
 }
 
 .login-form {
-  padding: 20px 30px 0 30px;
+  padding: 20px 30px 0 10px;
 }
 
 .login-card {

@@ -18,7 +18,7 @@ export default {
     };
   },
   created() {
-    // 路由改变更新导航
+    // Update navigator when route chagnes
     EventBus.$on('route-change', (data) => {
       const toRoute = data.to;
       const toPath = toRoute.path.substr(1);
@@ -30,7 +30,7 @@ export default {
           temp += ':';
         }
         temp += path;
-        itemNames.push(constant.permissionMenuMap[temp] || 'unknown menu');
+        itemNames.push(constant.permissionMenuMap[temp] || 'Unknown menu');
       });
       this.itemNames = itemNames;
     });

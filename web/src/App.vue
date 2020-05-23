@@ -19,7 +19,7 @@
             <Row>
               <Col span="22">&nbsp;</Col>
               <Col span="2" class="top-menu-section">
-                <top-menu></top-menu>
+                <top-menu /></top-menu>
               </Col>
             </Row>
           </div>
@@ -58,7 +58,7 @@ export default {
       permissionArr.forEach((permission) => {
         result[permission] = {
           name: permission,
-          menuName: constant.permissionMenuMap[permission] || 'unknown menu'
+          menuName: constant.permissionMenuMap[permission] || 'Unknown menu'
         };
       });
       return result;
@@ -72,14 +72,14 @@ export default {
     }
   },
   created() {
-    // 查询登录用户
+    // Get the login info or session
     this.$http.get('sessions').then((res) => {
       this.loginSettle = true;
 
       const data = res.data ? res.data.data[0] : null;
       if (data && data.id && data.username) {
         this.$store.commit('updateUser', data);
-        this.$router.replace('dashboard'); // 默认所有用户都有dashboard权限
+        this.$router.replace('dashboard'); // User should at least have the dashborad permission
       } else {
         this.$store.commit('clearUser');
       }

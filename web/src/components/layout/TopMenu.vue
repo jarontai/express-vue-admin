@@ -6,21 +6,21 @@
         <Icon type="ios-arrow-down" size="18"></Icon>
       </a>
       <Dropdown-menu slot="list">
-        <Dropdown-item name="password">修改密码</Dropdown-item>
-        <Dropdown-item name="logout">登出</Dropdown-item>
+        <Dropdown-item name="password">Password</Dropdown-item>
+        <Dropdown-item name="logout">Logout</Dropdown-item>
       </Dropdown-menu>
     </Dropdown>
 
-    <Modal width="400" v-model="passwordModal" title="修改密码" @on-ok="confirm(true)" @on-cancel="confirm(false)">
+    <Modal width="400" v-model="passwordModal" title="Change password" @on-ok="confirm(true)" @on-cancel="confirm(false)">
       <Form ref="dataModel" :model="dataModel" :rules="rules" :label-width="100">
-        <Form-item label="原密码" prop="oldPassword">
-          <Input type="password" v-model="dataModel.oldPassword" placeholder="请输入原密码"></Input>
+        <Form-item label="Old" prop="oldPassword">
+          <Input type="password" v-model="dataModel.oldPassword" placeholder="Input old password" />
         </Form-item>
-        <Form-item label="新密码" prop="newPassword">
-          <Input type="password" v-model="dataModel.newPassword" placeholder="请输入新密码"></Input>
+        <Form-item label="New" prop="newPassword">
+          <Input type="password" v-model="dataModel.newPassword" placeholder="Input new password" />
         </Form-item>
-        <Form-item label="重复新密码" prop="newPasswordRepeat">
-          <Input type="password" v-model="dataModel.newPasswordRepeat" placeholder="请重复新密码"></Input>
+        <Form-item label="Repeat" prop="newPasswordRepeat">
+          <Input type="password" v-model="dataModel.newPasswordRepeat" placeholder="Repeat new Password" />
         </Form-item>
       </Form>
     </Modal>
@@ -36,15 +36,15 @@ export default {
       dataModel: {},
       rules: {
         oldPassword: [
-          { required: true, message: '旧密码不能为空', trigger: 'blur' },
+          { required: true, message: 'Invalid old password', trigger: 'blur' },
         ],
         newPassword: [
-          { required: true, message: '新密码不能为空', trigger: 'blur' },
-          { type: 'string', min: 6, message: '密码不能少于6位', trigger: 'blur' }
+          { required: true, message: 'Invalid new password', trigger: 'blur' },
+          { type: 'string', min: 6, message: 'Length >= 6', trigger: 'blur' }
         ],
         newPasswordRepeat: [
-          { required: true, message: '新密码重复不能为空', trigger: 'blur' },
-          { type: 'string', min: 6, message: '密码不能少于6位', trigger: 'blur' }
+          { required: true, message: 'Invalid new password', trigger: 'blur' },
+          { type: 'string', min: 6, message: 'Length >= 6', trigger: 'blur' }
         ]
       }
     };
@@ -69,14 +69,15 @@ export default {
               newPassword: this.dataModel.newPassword,
               newPasswordRepeat: this.dataModel.newPasswordRepeat
             }).then(() => {
-              this.$Message.success('修改成功!');
+              this.$Message.success('Password updated!');
             });
           } else {
-            this.$Message.error('表单验证失败!');
+            this.$Message.error('Form invalid!');
           }
         });
       } else {
-        // TODO - 页面值不会被重置 - https://github.com/iview/iview/issues/970
+        // TODO: remove workround
+        // Workround for - https://github.com/iview/iview/issues/970
         this.$refs['dataModel'].resetFields();
       }
     }

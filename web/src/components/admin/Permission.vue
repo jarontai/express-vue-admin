@@ -4,10 +4,10 @@
 
       <Row type="flex" justify="center" class="table-action-section">
         <Col span="22">
-          <b>权限列表</b>
+          <b>Permissions</b>
         </Col>
         <Col span="2">
-          <Button type="primary" size="small" @click="showCreate">新增</Button>
+          <Button type="primary" size="small" @click="showCreate">Add</Button>
         </Col>
       </Row>
 
@@ -20,25 +20,25 @@
       </div>
     </Card>
 
-    <Modal width="400" v-model="editModal" title="编辑权限信息" @on-ok="edit(true)" @on-cancel="edit(false)">
-      <Form ref="dataModel" :model="dataModel" :rules="rules" :label-width="80">
-        <Form-item label="权限" prop="name">
-          <Input v-model="dataModel.name" placeholder="请输入权限名称"></Input>
+    <Modal width="400" v-model="editModal" title="Update permission" @on-ok="edit(true)" @on-cancel="edit(false)">
+      <Form ref="dataModel" :model="dataModel" :rules="rules" :label-width="90">
+        <Form-item label="name" prop="name">
+          <Input v-model="dataModel.name" placeholder="Input permission name"></Input>
         </Form-item>
-        <Form-item label="备注" prop="comment">
-          <Input v-model="dataModel.comment" placeholder="请输入权限备注"></Input>
+        <Form-item label="comment" prop="comment">
+          <Input v-model="dataModel.comment" placeholder="Input permission comment"></Input>
         </Form-item>
       </Form>
     </Modal>
 
-    <Modal width="300" v-model="destroyModal">
+    <Modal width="350" v-model="destroyModal">
       <p slot="header" style="color:#f60;text-align:center">
         <Icon type="information-circled"></Icon>
-        <span>角色删除确认</span>
+        <span>Confim</span>
       </p>
       <div style="text-align:center; font-size:14px">
-        <p>角色：{{ destroyData ? destroyData.name : '-'}}</p>
-        <p>将被删除且无法恢复，是否继续？</p>
+        <p>Delete the role：{{ destroyData ? destroyData.name : '-'}} ?</p>
+        <p>Delete data can not be restored!</p>
       </div>
       <div slot="footer">
         <Button type="error" size="large" long @click="destroy(true)">删除</Button>

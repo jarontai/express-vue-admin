@@ -49,7 +49,7 @@ export default {
     this.menuItemArr = [path.split('/')[0]];
     this.activeMenu = path.split('/').join(':');
 
-    // 路由改变更新menu
+    // Update menu when route chagnes
     EventBus.$on('route-change', (data) => {
       const toRoute = data.to;
       const toPath = toRoute.path.substr(1);
