@@ -18,16 +18,16 @@ Vue.config.productionTip = false;
 Vue.http.options.root = 'http://localhost:3000/api/v1';
 
 Vue.http.interceptors.push(function (request, next) {
-  request.credentials = true; // 允许发送cookie
+  request.credentials = true; // Enable cookie sending
 
   this.$Loading.start();
 
+  // Global http error processing
   next(function (response) {
-    // 处理http请求异常
     const data = response.data;
     if (data && data.code > 0) {
       this.$Message.warning({
-        content: data.message || '后台未知错误',
+        content: data.message || 'Unknown error',
         duration: 5
       });
       this.$Loading.error();
@@ -35,16 +35,16 @@ Vue.http.interceptors.push(function (request, next) {
       let message = response.statusText;
       switch (response.status) {
         case 404:
-          message = '页面或接口不存在!';
+          message = 'Page not found';
           break;
         case 500:
-          message = '服务器内部错误!';
+          message = 'Server internal error!';
           break;
         default:
           break;
       }
       this.$Message.warning({
-        content: message || '后台未知错误',
+        content: message || 'Unknown error',
         duration: 5
       });
       this.$Loading.error();
@@ -87,7 +87,6 @@ router.beforeEach((to, from, next) => {
   const pathPermission = path.split('/').join(':');
   const permissions = store.state.user.permissions || [];
   if (permissions.indexOf(pathPermission) < 0) {
-    // 禁止访问无权限页面
     next(false);
   } else {
     next();

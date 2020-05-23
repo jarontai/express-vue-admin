@@ -88,7 +88,7 @@ class RoleController extends RestController {
       delete value.permissions;
       return this.model.findByPk(req.params.id).then((role) => {
         if (role && role.name === 'admin' && value.name) {
-          // 禁止修改默认的admin权限名称
+          // No need to modify admin role name
           console.error('Found updates to admin role name');
           delete value.name;
           console.error('Abandon updates to admin role name');
